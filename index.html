@@ -1,0 +1,1980 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 AI 全赛道赛事与创新挑战赛动态全景看板 (小红书精选全量版)</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --primary-light: #eff6ff;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --border-focus: #94a3b8;
+            
+            --tag-film: #7c3aed;
+            --tag-film-bg: #f5f3ff;
+            --tag-app: #0284c7;
+            --tag-app-bg: #f0f9ff;
+            --tag-biz: #059669;
+            --tag-biz-bg: #ecfdf5;
+            
+            --ongoing: #16a34a;
+            --ongoing-bg: #dcfce7;
+            --upcoming: #d97706;
+            --upcoming-bg: #fef3c7;
+            
+            --deadline-red: #dc2626;
+            --deadline-red-bg: #fef2f2;
+            --deadline-amber: #d97706;
+            --deadline-amber-bg: #fffbeb;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; }
+        body { background-color: var(--bg); color: var(--text-main); line-height: 1.6; padding: 20px; }
+        .container { max-width: 1480px; margin: 0 auto; }
+        
+        /* Header */
+        header { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 20px 24px; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.03); }
+        h1 { font-size: 22px; font-weight: 700; color: var(--text-main); display: flex; align-items: center; gap: 8px; }
+        .subtitle { color: var(--text-muted); font-size: 13px; margin-top: 4px; }
+        .header-meta { font-size: 12px; color: var(--text-muted); text-align: right; }
+        
+        /* Filter Control Panel */
+        .filter-panel { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 18px 24px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.03); }
+        .filter-row { display: flex; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px; }
+        .filter-row:last-child { margin-bottom: 0; }
+        .filter-label { font-size: 12px; font-weight: 600; color: #475569; min-width: 76px; letter-spacing: 0.5px; }
+        .filter-buttons { display: flex; flex-wrap: wrap; gap: 6px; flex: 1; }
+        .filter-btn { padding: 5px 12px; border: 1px solid var(--border); background: #fff; border-radius: 6px; font-size: 12px; font-weight: 500; cursor: pointer; color: var(--text-main); transition: all 0.15s ease; display: inline-flex; align-items: center; gap: 4px; }
+        .filter-btn:hover { background: #f1f5f9; border-color: var(--border-focus); }
+        .filter-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); font-weight: 600; }
+        .filter-count { font-size: 10px; opacity: 0.85; padding: 1px 4px; border-radius: 10px; background: rgba(0,0,0,0.08); }
+        .filter-btn.active .filter-count { background: rgba(255,255,255,0.25); color: #fff; }
+        
+        /* Search & View Controls */
+        .toolbar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; }
+        .search-wrapper { position: relative; width: 380px; max-width: 100%; }
+        .search-input { width: 100%; padding: 8px 12px 8px 34px; border: 1px solid var(--border); border-radius: 8px; font-size: 13px; outline: none; background: #fff; transition: border-color 0.2s; }
+        .search-input:focus { border-color: var(--primary); box-shadow: 0 0 0 2px rgba(37,99,235,0.1); }
+        .search-icon { position: absolute; left: 10px; top: 9px; color: var(--text-muted); font-size: 14px; }
+        
+        .toolbar-actions { display: flex; align-items: center; gap: 10px; }
+        .sort-select { padding: 7px 12px; border: 1px solid var(--border); border-radius: 6px; font-size: 12px; font-weight: 500; background: #fff; color: var(--text-main); outline: none; cursor: pointer; }
+        .view-btn { padding: 6px 10px; border: 1px solid var(--border); background: #fff; border-radius: 6px; font-size: 12px; cursor: pointer; color: var(--text-muted); }
+        .view-btn.active { background: #e2e8f0; color: var(--text-main); font-weight: 600; }
+        .reset-btn { padding: 6px 12px; border: 1px dashed #cbd5e1; background: transparent; border-radius: 6px; font-size: 12px; color: #64748b; cursor: pointer; }
+        .reset-btn:hover { border-color: #94a3b8; color: var(--text-main); background: #f8fafc; }
+        
+        /* Stats Summary */
+        .results-summary { font-size: 13px; color: var(--text-muted); margin-bottom: 16px; font-weight: 500; }
+        .results-summary strong { color: var(--text-main); font-weight: 700; }
+
+        /* Card Grid Layout */
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(440px, 1fr)); gap: 20px; }
+        .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.15s, box-shadow 0.15s; }
+        .card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.07); border-color: #cbd5e1; }
+        
+        .card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; margin-bottom: 10px; }
+        .badges-wrap { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; }
+        .badge { font-size: 11px; font-weight: 600; padding: 2px 7px; border-radius: 4px; }
+        .badge-film { background: var(--tag-film-bg); color: var(--tag-film); }
+        .badge-app { background: var(--tag-app-bg); color: var(--tag-app); }
+        .badge-biz { background: var(--tag-biz-bg); color: var(--tag-biz); }
+        .badge-sub { font-size: 10px; background: #f1f5f9; color: #475569; padding: 2px 6px; border-radius: 4px; }
+        .badge-status { font-size: 11px; padding: 2px 8px; border-radius: 4px; font-weight: 600; white-space: nowrap; }
+        .status-ongoing { background: var(--ongoing-bg); color: var(--ongoing); }
+        .status-upcoming { background: var(--upcoming-bg); color: var(--upcoming); }
+        
+        .card-title { font-size: 16px; font-weight: 700; color: var(--text-main); line-height: 1.4; margin-bottom: 10px; }
+        
+        /* Explicit Deadline Highlight Box */
+        .deadline-box { border-radius: 8px; padding: 10px 14px; margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+        .deadline-box.urgent { background: var(--deadline-red-bg); border: 1px solid #fecaca; }
+        .deadline-box.normal { background: var(--deadline-amber-bg); border: 1px solid #fde68a; }
+        .deadline-main { font-size: 13px; font-weight: 700; }
+        .deadline-box.urgent .deadline-main { color: var(--deadline-red); }
+        .deadline-box.normal .deadline-main { color: var(--deadline-amber); }
+        .deadline-tag { font-size: 11px; font-weight: 600; padding: 2px 6px; border-radius: 4px; }
+        .deadline-box.urgent .deadline-tag { background: #fee2e2; color: #b91c1c; }
+        .deadline-box.normal .deadline-tag { background: #fef3c7; color: #b45309; }
+        .timeline-sub { font-size: 11.5px; color: #64748b; margin-top: 2px; width: 100%; }
+
+        /* Meta List Structure */
+        .meta-list { font-size: 12.5px; margin-bottom: 12px; background: #fafafa; border: 1px solid #f1f5f9; padding: 10px 12px; border-radius: 8px; }
+        .meta-item { display: flex; margin-bottom: 6px; line-height: 1.45; }
+        .meta-item:last-child { margin-bottom: 0; }
+        .meta-k { color: #64748b; min-width: 72px; flex-shrink: 0; font-weight: 600; }
+        .meta-v { color: #1e293b; }
+        .prize-text { color: #dc2626; font-weight: 700; font-size: 13px; }
+        
+        /* Enriched Detail Sections */
+        .detail-block { font-size: 12px; margin-bottom: 8px; line-height: 1.45; }
+        .detail-block strong { color: #0f172a; font-weight: 600; display: inline-flex; align-items: center; gap: 4px; }
+        .detail-text { color: #334155; margin-top: 2px; }
+        
+        /* Pro Tips Callout */
+        .protip-box { background: #f0fdf4; border-left: 3px solid #16a34a; padding: 8px 10px; border-radius: 0 6px 6px 0; margin-top: 10px; font-size: 11.5px; color: #166534; }
+        .protip-box strong { color: #14532d; font-weight: 700; }
+        
+        .card-footer { border-top: 1px solid var(--border); padding-top: 14px; margin-top: 14px; display: flex; justify-content: space-between; align-items: center; }
+        .link-btn { color: #fff; background: var(--primary); text-decoration: none; font-size: 12.5px; font-weight: 600; display: inline-flex; align-items: center; gap: 4px; padding: 6px 14px; border-radius: 6px; transition: background 0.15s; box-shadow: 0 1px 2px rgba(37,99,235,0.2); }
+        .link-btn:hover { background: var(--primary-hover); }
+        
+        /* Table View */
+        .table-wrap { background: #fff; border: 1px solid var(--border); border-radius: 10px; overflow-x: auto; display: none; }
+        table { width: 100%; border-collapse: collapse; font-size: 12.5px; text-align: left; }
+        th { background: #f8fafc; padding: 10px 14px; font-weight: 600; color: #475569; border-bottom: 1px solid var(--border); white-space: nowrap; }
+        td { padding: 12px 14px; border-bottom: 1px solid var(--border); color: #1e293b; vertical-align: top; }
+        tr:hover td { background: #f8fafc; }
+        
+        .empty-state { text-align: center; padding: 48px 20px; color: var(--text-muted); background: #fff; border: 1px dashed var(--border); border-radius: 12px; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <div>
+            <h1>⚡ 2026 AI 全赛道赛事与创新挑战赛动态全景看板</h1>
+            <p class="subtitle">全量精选版：已收录小红书高热赛事（金海豚/杭州百万赛/淘天AI导演/TapNow B站/Vibe Coding等）｜ 明确标注截止倒计时</p>
+        </div>
+        <div class="header-meta">
+            <div>状态监测：<span style="color: var(--ongoing); font-weight: 600;">● 每日 09:00 自动巡检运行中</span></div>
+            <div style="margin-top: 2px;">当前收录：正在报名中 <strong style="color: var(--ongoing);" id="h-ongoing">23</strong> 场 ｜ 即将开启/常态化 <strong style="color: var(--upcoming);" id="h-upcoming">20</strong> 场</div>
+        </div>
+    </header>
+
+    <!-- Multi-dimensional Filter Panel -->
+    <div class="filter-panel">
+        <!-- Filter 1: Status (Strictly Fixed) -->
+        <div class="filter-row" style="background: #f8fafc; padding: 8px 12px; border-radius: 8px; border: 1px solid #edf2f7; margin-bottom: 14px;">
+            <span class="filter-label" style="color: #0f172a;">⚡ 赛事状态：</span>
+            <div class="filter-buttons" id="filter-status">
+                <button class="filter-btn active" data-filter="status" data-val="all">全部赛事状态 <span class="filter-count" id="c-status-all">43</span></button>
+                <button class="filter-btn" data-filter="status" data-val="ongoing" style="border-color: #86efac;">🟢 正在报名中 / 开放征集中 <span class="filter-count" id="c-status-ongoing" style="background: #dcfce7; color: #16a34a; font-weight: 700;">23</span></button>
+                <button class="filter-btn" data-filter="status" data-val="upcoming" style="border-color: #fde68a;">🟡 即将开启 / 常态化年度赛 <span class="filter-count" id="c-status-upcoming" style="background: #fef3c7; color: #d97706; font-weight: 700;">20</span></button>
+            </div>
+        </div>
+
+        <!-- Filter 2: Main Track -->
+        <div class="filter-row">
+            <span class="filter-label">主赛道：</span>
+            <div class="filter-buttons" id="filter-category">
+                <button class="filter-btn active" data-filter="category" data-val="all">全部赛道</button>
+                <button class="filter-btn" data-filter="category" data-val="film">🎬 AI 影视与内容创作</button>
+                <button class="filter-btn" data-filter="category" data-val="app">🤖 AI 应用 & Agent 开发</button>
+                <button class="filter-btn" data-filter="category" data-val="biz">💼 商业创投 & Demo Day</button>
+            </div>
+        </div>
+
+        <!-- Filter 3: Region -->
+        <div class="filter-row">
+            <span class="filter-label">地域范围：</span>
+            <div class="filter-buttons" id="filter-region">
+                <button class="filter-btn active" data-filter="region" data-val="all">全部地域</button>
+                <button class="filter-btn" data-filter="region" data-val="china">🇨🇳 国内赛事 (含港澳台)</button>
+                <button class="filter-btn" data-filter="region" data-val="global">🌍 国际 / 全球海外赛事</button>
+            </div>
+        </div>
+
+        <!-- Filter 4: Incentive Type -->
+        <div class="filter-row">
+            <span class="filter-label">核心激励：</span>
+            <div class="filter-buttons" id="filter-incentive">
+                <button class="filter-btn active" data-filter="incentive" data-val="all">全部激励</button>
+                <button class="filter-btn" data-filter="incentive" data-val="cash">💰 高额现金奖 ($1万+ / 10万+)</button>
+                <button class="filter-btn" data-filter="incentive" data-val="venture">🚀 股权投资 / 创业加速 (至600万)</button>
+                <button class="filter-btn" data-filter="incentive" data-val="traffic">📈 平台流量 / 商业分账</button>
+                <button class="filter-btn" data-filter="incentive" data-val="festival">🏆 顶级电影节荣誉 / 展映</button>
+                <button class="filter-btn" data-filter="incentive" data-val="compute">⚡ 算力补贴 / 云资源</button>
+            </div>
+        </div>
+
+        <!-- Filter 5: Format / Target Deliverables -->
+        <div class="filter-row">
+            <span class="filter-label">作品形式：</span>
+            <div class="filter-buttons" id="filter-format">
+                <button class="filter-btn active" data-filter="format" data-val="all">全部形式</button>
+                <button class="filter-btn" data-filter="format" data-val="drama">📱 竖屏微短剧 (60–120s)</button>
+                <button class="filter-btn" data-filter="format" data-val="short">🎥 电影短片 (1–20min)</button>
+                <button class="filter-btn" data-filter="format" data-val="feature">📽️ 电影长片 / 剧本提案</button>
+                <button class="filter-btn" data-filter="format" data-val="agent">💻 智能体 Agent / MCP 插件</button>
+                <button class="filter-btn" data-filter="format" data-val="bp">📑 商业计划书 BP / MVP</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toolbar: Search, Sort & View Switcher -->
+    <div class="toolbar">
+        <div class="search-wrapper">
+            <span class="search-icon">🔍</span>
+            <input type="text" class="search-input" id="searchInput" placeholder="搜索赛事名称 / 主办方 / 淘天 / 金海豚 / Vibe Coding / 关键词..." oninput="handleSearch()">
+        </div>
+
+        <div class="toolbar-actions">
+            <select class="sort-select" id="sortSelect" onchange="handleSort()">
+                <option value="default">默认推荐排序 (高热在办置顶)</option>
+                <option value="prize-desc">按奖金/投资金额从高到低</option>
+                <option value="ongoing-first">优先显示正在报名中</option>
+            </select>
+
+            <button class="view-btn active" id="viewCardBtn" onclick="switchView('grid')">卡片视图</button>
+            <button class="view-btn" id="viewTableBtn" onclick="switchView('table')">表格视图</button>
+            <button class="reset-btn" onclick="resetAllFilters()">↺ 重置所有筛选</button>
+        </div>
+    </div>
+
+    <!-- Results count bar -->
+    <div class="results-summary" id="resultsSummary">
+        共匹配到 <strong>43</strong> 场符合条件的赛事
+    </div>
+
+    <!-- Grid View -->
+    <div class="grid" id="competitionsGrid"></div>
+
+    <!-- Table View -->
+    <div class="table-wrap" id="competitionsTableWrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>赛道 / 分类</th>
+                    <th>赛事名称</th>
+                    <th>截止日期 / 申报周期</th>
+                    <th>主办方 / 平台</th>
+                    <th>作品规格与 AI 比例</th>
+                    <th>奖金池与激励权益</th>
+                    <th>官方入口</th>
+                </tr>
+            </thead>
+            <tbody id="competitionsTableBody"></tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+const rawCompetitions = [
+  {
+    "id": "jinhaitun-ai-2026",
+    "name": "2026 厦门国际动漫节“金海豚奖” AI 影像大赛",
+    "category": "film",
+    "subCategory": "国家级动漫大奖",
+    "categoryLabel": "AI 影视与创作",
+    "organizer": "厦门市人民政府 / 金海豚奖组委会 / wuhu 动画人空间",
+    "region": "china",
+    "regionText": "国内 / 厦门",
+    "status": "🟢 正在报名中",
+    "statusType": "ongoing",
+    "deadline": "2026年09月15日 23:59 (截稿)",
+    "deadlineTag": "⏳ 截止倒计时：约 32 天",
+    "deadlineUrgent": true,
+    "timelineDetails": "2026.07.28 开启征稿 ｜ 09.15 截止 ｜ 10 月初专家初审 ｜ 11 月在厦门动漫节盛典颁奖",
+    "prizes": "总奖金池 40 万元现金 ｜ 金海豚官方荣誉认证与奖杯 ｜ wuhu 动画人空间全网宣发",
+    "prizeBreakdown": "AI 动画短片金奖 80,000 元、银奖 40,000 元；AI 漫剧最佳作品奖 60,000 元；数十个单项优胜奖金",
+    "prizeScore": 400000,
+    "incentives": [
+      "cash",
+      "festival",
+      "traffic"
+    ],
+    "formats": [
+      "short",
+      "drama"
+    ],
+    "specs": "AI 动画短片（2–15 分钟）；AI 漫剧（单集 1–3 分钟，整季 5–10 集）；1080P/4K MP4/MOV 格式",
+    "requirements": "AI 动画短片 2–15min / AI 漫剧 1–3min/集；仅要求生成式 AI 工具深度参与核心视听资产创制",
+    "aiRatio": "不限参赛者身份与技术门槛，仅要求生成式 AI 工具深度参与核心视听资产创制",
+    "deliverables": "视频成片 + 创作阐述 + AI 工具与关键提示词清单 + 角色分镜设计表",
+    "evalCriteria": "动画视听艺术感染力 (35%)、人机协作创新性 (30%)、故事叙事完整度 (25%)、角色动态美感 (10%)",
+    "proTips": "金海豚奖是国内动漫界最高国家级荣誉之一；AI 动画赛道注重‘风格化美学与动作表演规律’，AI 漫剧注重‘人设反差与连载悬念’；提供角色一致性设计表能大幅提分。",
+    "searchKeywords": "金海豚 金海豚奖 厦门国际动漫节 厦门 动漫节 动画 短剧 漫剧 wuhu wuhu动画人空间",
+    "link": "https://cybersousa.com.cn/index/web/zxxq.html?id=197"
+  },
+  {
+    "id": "hangzhou-aigc-wuhu-2026",
+    "name": "杭州全球 AI 影像/动画大赛 (TapTV Arena 36h 极限挑战赛)",
+    "category": "film",
+    "subCategory": "极限黑客松与影像节",
+    "categoryLabel": "AI 影视与创作",
+    "organizer": "杭州艺创小镇 / 中国动漫博物馆 / 观猹 / wuhu 动画人空间",
+    "region": "china",
+    "regionText": "国内 / 杭州",
+    "status": "🟢 正在报名中",
+    "statusType": "ongoing",
+    "deadline": "2026年09月10日 (阶段截稿 / 36h 线下极限赛)",
+    "deadlineTag": "⏳ 截止倒计时：约 27 天",
+    "deadlineUrgent": true,
+    "timelineDetails": "8 月中旬启动「前进四！冲向人工智能的深空」与都市异常主题赛 ｜ 9 月中旬展映颁奖",
+    "prizes": "100 万元现金总奖池 ｜ 6000 万免费算力积分直接领 ｜ 环之江生态圈创投直投",
+    "prizeBreakdown": "极限赛冠军战队 150,000 元现金；分赛道金奖 50,000 元；参赛即领高阶 GPU 算力积分包；艺创小镇免租孵化",
+    "prizeScore": 1000000,
+    "incentives": [
+      "cash",
+      "compute",
+      "venture"
+    ],
+    "formats": [
+      "short"
+    ],
+    "specs": "短片时长 60 秒至 8 分钟；支持 36 小时现场极限创制或线上提交；4K/1080P 高清标准",
+    "requirements": "短片 60 秒至 8 分钟；多模态 AI 全流程制作；支持 36 小时现场创制或线上提交",
+    "aiRatio": "多模态 AI 原生视频与动画创作，强调从剧本、画面到配乐的全流程 AI 编排",
+    "deliverables": "视频成片 + 观猹/wuhu 平台作品发布 + 提示词工程文件 + 团队分工说明",
+    "evalCriteria": "高概念脑洞与科幻美学 (40%)、36小时极限产出效率 (30%)、视听工业化完成度 (30%)",
+    "proTips": "杭州艺创小镇曾诞生《黑神话：悟空》生态企业，评委极其看重‘重工业科幻视效’与‘东方美学’；参赛团队务必领满 6000 万算力积分，高并发跑图渲染保证画质。",
+    "searchKeywords": "杭州 杭州AI大赛 100万 6000万 积分 wuhu wuhu动画人空间 观猹 艺创小镇 极限挑战赛 动画",
+    "link": "https://watcha.cn/"
+  },
+  {
+    "id": "taobao-ai-drama-2026",
+    "name": "淘天集团 · 淘宝短剧 2026 淘宝 AI 造剧场创作大赛 (AI导演招募)",
+    "category": "film",
+    "subCategory": "电商与商业短剧",
+    "categoryLabel": "AI 影视与创作",
+    "organizer": "淘天集团 / 淘天招聘 / 淘宝短剧团队 / 阿里妈妈",
+    "region": "china",
+    "regionText": "国内",
+    "status": "🟢 正在报名中",
+    "statusType": "ongoing",
+    "deadline": "2026年09月20日 23:59 (当期截稿)",
+    "deadlineTag": "⏳ 截止倒计时：约 37 天",
+    "deadlineUrgent": true,
+    "timelineDetails": "夏季启动 ｜ 9 月下旬初审入围 ｜ 10 月淘宝天猫双 11 前夕主推上线",
+    "prizes": "战队 PK 榜 TOP1 独享 50 万元现金 ｜ 平台亿级带货流量分发与品牌广告采买 ｜ 淘天 AI 导演认证",
+    "prizeBreakdown": "冠军战队 500,000 元现金；分赛道最佳剧场奖各 100,000 元；淘宝首页短剧专属流置顶曝光",
+    "prizeScore": 500000,
+    "incentives": [
+      "cash",
+      "traffic"
+    ],
+    "formats": [
+      "drama"
+    ],
+    "specs": "竖屏微短剧（单集 60–90 秒，整季 8–15 集）；涵盖品牌剧场、尖货带货及开放主题",
+    "requirements": "竖屏微短剧单集 60–90s，整季 8–15 集；深度结合 AI 工具链",
+    "aiRatio": "AI 剧本生成、场景生成、数字人分身与视频合成比例 ≥ 60%",
+    "deliverables": "成片样集 + 剧本大纲 + 关联商品植入方案 (选填) + AI 工作流说明",
+    "evalCriteria": "剧情网感与带货转化粘性 (40%)、AI 角色真实度与表情表现 (35%)、商业定制契合度 (25%)",
+    "proTips": "淘天生态偏好‘强剧情 + 软植入’的种草微短剧；前 3 秒悬疑冲突、中间无缝衔接好物亮点、结尾设反转，是冲榜 50 万大奖的核心技巧。",
+    "searchKeywords": "淘天 淘天招聘 淘宝 淘宝短剧 阿里 阿里妈妈 AI导演 导演 短剧 50万 造剧场",
+    "link": "https://www.aitop100.cn/infomation/details/34168.html"
+  },
+  {
+    "id": "bilibili-tapnow-2026",
+    "name": "TapNow x B 站 AI 创作大赛 · “一万个平行宇宙”短片赛",
+    "category": "film",
+    "subCategory": "社区高额奖金赛",
+    "categoryLabel": "AI 影视与创作",
+    "organizer": "TapNow AI 创作者平台 / 哔哩哔哩 (Bilibili / 哔斯卡金像奖)",
+    "region": "china",
+    "regionText": "国内",
+    "status": "🟢 正在报名中",
+    "statusType": "ongoing",
+    "deadline": "2026年10月20日 23:59 (当期截稿)",
+    "deadlineTag": "⏳ 截止倒计时：约 67 天",
+    "deadlineUrgent": true,
+    "timelineDetails": "开启“一键三连宇宙”赛道 ｜ 10 月下旬作品评审 ｜ 曾诞生百万大奖影片《牌子》",
+    "prizes": "总奖金池 360 万元人民币 ｜ 一等奖 100 万元现金 + 100 万 TapNow 算力积分",
+    "prizeBreakdown": "一等奖 100 万元现金 (1名)；二等奖 20 万元 (3名)；三等奖 5 万元 (10名)；TapNow 专属算力扶持",
+    "prizeScore": 450000,
+    "incentives": [
+      "cash",
+      "compute",
+      "traffic"
+    ],
+    "formats": [
+      "short"
+    ],
+    "specs": "时长 1–8 分钟；横屏 16:9 4K/1080P；围绕“平行宇宙”或开放主题叙事展开",
+    "requirements": "时长 1–8 分钟，横屏 16:9 4K/1080P；AI 全流程视听制作",
+    "aiRatio": "AI 全流程视听制作；需使用 TapNow 或主流多模态大模型完成核心镜头",
+    "deliverables": "视频成片（B 站带活动话题发布）+ 提交 TapNow 生成工程记录与提示词",
+    "evalCriteria": "叙事概念独创性与情感张力 (40%)、视听工业化质感 (35%)、B 站播放互动数据 (25%)",
+    "proTips": "上届百万大奖得主《牌子》导演证明：‘好故事与审美才是核心壁垒’；聚焦有哲理、有温情或硬核科幻的故事最易夺冠。",
+    "searchKeywords": "TapNow B站 B站AI创作大赛 平行宇宙 牌子 百万大奖 小破站 100万 360万 动画 短片",
+    "link": "https://www.tmtpost.com/7936097.html"
+  },
+  {
+    "id": "bilibili-vibe-coding-2026",
+    "name": "B 站 Vibe Coding 创造公开赛 (build in bilibili·AI创造赛)",
+    "category": "app",
+    "subCategory": "全民 AI 应用开发",
+    "categoryLabel": "AI 应用 & Agent",
+    "organizer": "哔哩哔哩 (Bilibili / 技术社区团队)",
+    "region": "china",
+    "regionText": "国内",
+    "status": "🟢 正在报名中",
+    "statusType": "ongoing",
+    "deadline": "2026年09月30日 (当期投稿与投币评选截止)",
+    "deadlineTag": "⏳ 当期评选倒计时：约 47 天",
+    "deadlineUrgent": true,
+    "timelineDetails": "夏季启动 ｜ Build in Public 边做边发视频收集弹幕 ｜ 观众投币决定 TOP 10 排名",
+    "prizes": "百万级现金激励与大额模型 Token 补贴 ｜ B 站全站首页置顶曝光 ｜ 顶级 VC 早期直投孵化",
+    "prizeBreakdown": "TOP10 破圈超级个体专属大奖；数十万 B 站流量推广券；直通投资机构 Demo Day",
+    "prizeScore": 500000,
+    "incentives": [
+      "cash",
+      "traffic",
+      "venture",
+      "compute"
+    ],
+    "formats": [
+      "agent",
+      "bp"
+    ],
+    "specs": "交付可运行、可交互的 AI Agent 插件、Web 工具或软件原型；在 B 站发布开发过程视频",
+    "requirements": "交付可运行、可交互的 AI Agent 或产品原型；在 B 站发布开发过程视频",
+    "aiRatio": "借助大模型 (Claude / GPT / 文心 / 通义) 或 Vibe Coding 工具完成全栈软件构建",
+    "deliverables": "B 站视频（展示产品痛点与运行演示）+ 产品体验链接/开源仓库 + 弹幕用户反馈",
+    "evalCriteria": "观众投币与弹幕真实口碑 (40%)、真实生活痛点解决度 (35%)、产品原型交互完成度 (25%)",
+    "proTips": "B 站这场比赛把‘技术特权掀翻了’，不拼算法拼脑洞！做针对游戏、自媒体工作流、二次元痛点的小插件或 Agent 极易引发弹幕共鸣；视频本身就是产品说明书。",
+    "searchKeywords": "vibe coding vibecoding B站 小破站 build in bilibili 黑客松 编程 大佬 智能体 Agent",
+    "link": "https://www.qbitai.com/2026/06/431287.html"
+  },
+  {
+    "id": "ai-explorer-100w-2026",
+    "name": "AI 探索者计划 · 全球 AI 影像商单大赛",
+    "category": "film",
+    "subCategory": "商业品牌定制商单",
+    "categoryLabel": "AI 影视与创作",
+    "organizer": "AI 探索者计划组委会 / 品牌商业化联盟",
+    "region": "china",
+    "regionText": "国内 / 全球",
+    "status": "🟢 正在报名中",
+    "statusType": "ongoing",
+    "deadline": "2026年09月25日 (当期商单截稿)",
+    "deadlineTag": "⏳ 截止倒计时：约 42 天",
+    "deadlineUrgent": true,
+    "timelineDetails": "聚焦商业变现与高额商单采买 ｜ 每月发布品牌定向命题",
+    "prizes": "100 万元商单采买与分成奖池 ｜ 品牌签约商业导演席位 ｜ 全网商业分发",
+    "prizeBreakdown": "入围即享保底商单制作费 10,000–50,000 元；冠军优胜项目独享 20 万元商业采买金",
+    "prizeScore": 100000,
+    "incentives": [
+      "cash",
+      "traffic"
+    ],
+    "formats": [
+      "short",
+      "drama"
+    ],
+    "specs": "15 秒至 3 分钟商业广告或概念预告片；高精细节与商业级调色",
+    "requirements": "15s–3min 商业广告或概念预告片；符合商用授权标准",
+    "aiRatio": "全流程 AI 生成或人机混合制作，需符合品牌商用授权要求",
+    "deliverables": "无水印高清成片 + 分镜脚本 + 品牌产品融入度说明",
+    "evalCriteria": "品牌商业转化力 (45%)、视觉高级感与光影 (35%)、交付时效与稳定性 (20%)",
+    "proTips": "商业商单赛最忌自嗨；紧扣品牌的核心卖点（痛点场景、产品特写、情绪共鸣），画面保持干净高级无伪影。",
+    "searchKeywords": "AI探索者计划 全球AI影像大赛 100万商单 商单 探索者 商业",
+    "link": "https://www.aitop100.cn/"
+  },
+  {
+    "id": "pixlight-2026",
+    "name": "PixLight 2026 全球 AI 电影创作大赛",
+    "category": "film",
+    "subCategory": "全球商业大奖赛",
+    "categoryLabel": "AI 影视与创作",
+    "organizer": "PixVerse AI (爱诗科技) / 国际影视制片联盟",
+    "region": "global",
+    "regionText": "全球",
+    "status": "🟢 正在报名中",
+    "statusType": "ongoing",
+    "deadline": "2026年10月09日 23:59 (UTC+8)",
+    "deadlineTag": "⏳ 截止倒计时：约 56 天",
+    "deadlineUrgent": true,
+    "timelineDetails": "征集期：2026.08.07 – 2026.10.09 ｜ 终审与颁奖：2026年10月下旬",
+    "prizes": "$300,000 美元总奖金池 (设 33 个奖项) ｜ 最佳长片提案获联合出品与商业孵化基金",
+    "prizeBreakdown": "短片金奖 $50,000 / 银奖 $20,000 / 铜奖 $10,000；长片提案孵化金最高 $100,000；海量 PixVerse 算力点数包",
+    "prizeScore": 300000,
+    "incentives": [
+      "cash",
+      "venture"
+    ],
+    "formats": [
+      "short",
+      "feature"
+    ],
+    "specs": "短片组 3–20 分钟；长片提案组需提交完整故事大纲+3-5分钟视频 Pitch 样片；1080P/4K H.264/ProRes 格式",
+    "requirements": "短片组 3–20min；长片提案组提交大纲+Pitch视频；核心视听须由 AI 生成",
+    "aiRatio": "核心视听资产（画面/角色动态/场景）须由生成式 AI 工具（推荐 PixVerse 核心模型）生成",
+    "deliverables": "成片视频 + 分镜脚本 + 完整 Prompt 提示词清单与工作流报告 + 角色一致性设计文档",
+    "evalCriteria": "故事叙事深度与情感共鸣 (35%)、多镜头角色与场景一致性 (30%)、视听美学与镜头调度 (20%)、Prompt 工作流可控性 (15%)",
+    "proTips": "建议重点打磨具备强设定、强反转的 3-8 分钟叙事短片；长片提案组需着重突出商业变现可行性与 IP 延展价值；角色正面/侧面三视图锁定是防变形的关键。",
+    "searchKeywords": "PixLight PixVerse 爱诗科技 AI电影 大赛 300000 30万",
+    "link": "https://pixverse.ai/en/blog/pixverse-kicks-off-pixlight-global-ai-film-competition"
+  },
+  {
+    "id": "kling-nextgen-2026",
+    "name": "快手可灵 AI NEXTGEN 新影像创投计划",
+    "category": "film",
+    "subCategory": "大厂高额创投",
+    "categoryLabel": "AI 影视与创作",
+    "organizer": "快手科技 / 可灵 AI (Kling AI) / 快手星芒短剧",
+    "region": "china",
+    "regionText": "国内 / 全球",
+    "status": "🟢 正在报名中",
+    "statusType": "ongoing",
+    "deadline": "2026年12月31日 23:59 (全年常态化开放)",
+    "deadlineTag": "🔄 2026 全年滚动申报与评审",
+    "deadlineUrgent": false,
+    "timelineDetails": "2026.01.01 – 2026.12.31 全年开放 ｜ 每双月进行一次集中立项路演与投资评审",
+    "prizes": "单项目最高 600 万元现金投资 ｜ 快手全平台百亿级流量扶持 ｜ 商业分账与海外流媒体联合发行",
+    "prizeBreakdown": "创投扶持金单部 50万–600 万元；全球新影像大赛奖池超 $42,000 美元；赠送百万级可灵灵感值算力",
+    "prizeScore": 850000,
+    "incentives": [
+      "venture",
+      "cash",
+      "compute",
+      "traffic"
+    ],
+    "formats": [
+      "short",
+      "drama"
+    ],
+    "specs": "AI 叙事短片 30秒–10分钟；AI 微短剧单集 1–3 分钟 (10–30 集整季规划)；1080P/4K 60fps",
+    "requirements": "短片 30s–10min / 微短剧单集 1–3min；可灵 AI 画面生成占比 ≥ 80%",
+    "aiRatio": "由可灵 AI (Kling AI) 平台生成的视频画面占比不得低于 80%",
+    "deliverables": "剧本大纲与人物小传 + 成片样集/全片 + 可灵 AI 生成工程文件/Prompt 日志 + 商业发行计划书",
+    "evalCriteria": "短剧爆款节奏与前 3 秒留存 (35%)、视效画面质感与物理拟真度 (30%)、工业化量产可行性 (20%)、IP 商业价值 (15%)",
+    "proTips": "快手星芒短剧体系偏好悬疑惊悚、东方玄幻、未来科幻及大女主穿越题材；单集结尾务必设置强钩子（Hook）；善用可灵 4K 超清与首尾帧控制保证连贯性。",
+    "searchKeywords": "可灵 快手 可灵AI NEXTGEN 创投 600万 短剧 微短剧 星芒",
+    "link": "https://klingai.com/app"
+  },
+  {
+    "id": "sxsw-ai-shorts-2026",
+    "name": "西南偏南 (SXSW) Film & TV Festival AI 创新短片赛",
+    "category": "film",
+    "subCategory": "全球创新盛会",
+    "categoryLabel": "AI 影视与创作",
+    "organizer": "SXSW, LLC 官方",
+    "region": "global",
+    "regionText": "国际 / 北美",
+    "status": "🟢 正在报名中",
+    "statusType": "ongoing",
+    "deadline": "2026年10月17日 (常规截止) / 11月14日 (最终截止)",
+    "deadlineTag": "⏳ 常规截止倒计时：约 64 天",
+    "deadlineUrgent": true,
+    "timelineDetails": "早鸟申报截止：9月中旬 ｜ 常规申报截止：10月中旬 ｜ 电影节盛典：次年3月中旬在奥斯汀举行",
+    "prizes": "奥斯卡最佳短片入围资格认证 (Academy Award Qualifying) ｜ SXSW 评审团大奖 ｜ 全球顶级科技与影视媒体曝光",
+    "prizeBreakdown": "官方奖杯与荣誉认证；全通通行证（Platinum Badge）；北美顶级制片厂买家闭门会",
+    "prizeScore": 90000,
+    "incentives": [
+      "festival"
+    ],
+    "formats": [
+      "short"
+    ],
+    "specs": "短片时长 ≤ 40 分钟（微短片建议 2–15 分钟）；格式须符合 DCI 影院放映标准或高清 ProRes 422 HQ",
+    "requirements": "短片时长 ≤ 40min；格式符合放映标准",
+    "aiRatio": "鼓励全流程生成式 AI 创制，亦接受人机协同创新管线；需在申报表格中明确标注 AI 使用工具与比例",
+    "deliverables": "加密流媒体在线审片链接 (Vimeo/FilmFreeway) + 导演阐述 (Director's Statement) + 技术实现方案",
+    "evalCriteria": "叙事视听开创性与艺术表达 (40%)、高概念创意构思 (30%)、人机协同技术成熟度 (20%)、文化社会反思 (10%)",
+    "proTips": "SXSW 评委偏好具备极客精神、暗黑讽刺、未来主义或人机伦理思辨的题材；避免单纯的风景空镜拼接，强化人物对白与戏剧张力。",
+    "searchKeywords": "SXSW 西南偏南 奥斯卡 电影节 短片 创新",
+    "link": "https://cart.sxsw.com/filmapps/new?product_code=filmapp-short"
+  },
+  {
+    "id": "malanshan-ai-2026",
+    "name": "2026 视听中国·马栏山杯 AI 微短剧创智大赛",
+    "category": "film",
+    "subCategory": "广电产业基地",
+    "categoryLabel": "AI 影视与创作",
+    "organizer": "国家广电总局指导 / 湖南省广播电视局 / 马栏山视频文创产业园",
+    "region": "china",
+    "regionText": "国内 / 湖南",
+    "status": "🟢 正在报名中",
+    "statusType": "ongoing",
+    "deadline": "2026年09月15日 (申报截止)",
+    "deadlineTag": "⏳ 截止倒计时：约 32 天",
+    "deadlineUrgent": true,
+    "timelineDetails": "6 月发布启动 ｜ 9 月中旬截止征稿 ｜ 10 月在马栏山创智基地举行总决赛与项目落地签约",
+    "prizes": "总奖金池 80 万元现金 ｜ 马栏山全链条产业孵化配套 ｜ 芒果 TV 核心资源位展播与分账",
+    "prizeBreakdown": "一等奖 200,000 元现金；二等奖 100,000 元；马栏山入驻免租与渲染算力专项补贴",
+    "prizeScore": 200000,
+    "incentives": [
+      "cash",
+      "venture",
+      "traffic"
+    ],
+    "formats": [
+      "drama",
+      "short"
+    ],
+    "specs": "单集 1–3 分钟；横屏或竖屏；符合网络视听播映规范；需提供成片或 3 集精编样片",
+    "requirements": "单集 1–3min；横屏或竖屏；提供成片或 3 集精编样片",
+    "aiRatio": "鼓励全流程 AIGC 工业化量产管线，需提交数智创制说明书",
+    "deliverables": "成片视频 + 剧本台本 + 团队介绍 + 产业落地转化意向书",
+    "evalCriteria": "艺术创新与叙事感染力 (35%)、AIGC 工业化协同效率 (35%)、产业化可复制性 (30%)",
+    "proTips": "马栏山文创园注重‘科技+文化’产学研落地；故事兼具湖湘文化底蕴与当代年轻态网感，并展示高效的 AIGC 生成流水线更易斩获大奖。",
+    "searchKeywords": "马栏山 视听中国 芒果TV 湖南广电 微短剧 80万",
+    "link": "https://gbdsj.hunan.gov.cn/gbdsj/xxgk/tzgg/202606/t20260611_33999282.html"
+  },
+  {
+    "id": "pingshan-aigc-2026",
+    "name": "首届深圳（坪山）“微短剧+” AIGC 创意大赛",
+    "category": "film",
+    "subCategory": "地方政府产业赛",
+    "categoryLabel": "AI 影视与创作",
+    "organizer": "深圳市人力资源与社会保障局 / 深圳市坪山区文化广电旅游体育局",
+    "region": "china",
+    "regionText": "国内 / 深圳",
+    "status": "🟢 正在报名中",
+    "statusType": "ongoing",
+    "deadline": "2026年09月30日 (报名截稿)",
+    "deadlineTag": "⏳ 截止倒计时：约 47 天",
+    "deadlineUrgent": true,
+    "timelineDetails": "6 月启动 ｜ 9 月底截稿 ｜ 10 月举行总决赛与大湾区微短剧创投对接会",
+    "prizes": "高额赛事现金奖励 ｜ 深圳大湾区全链条微短剧产业孵化 ｜ 创业扶持与人才津贴",
+    "prizeBreakdown": "青创组与校园组金银铜奖；坪山区微短剧基地免租入驻；大湾区投资基金定向对接",
+    "prizeScore": 150000,
+    "incentives": [
+      "cash",
+      "venture"
+    ],
+    "formats": [
+      "drama"
+    ],
+    "specs": "分设青创组与校园组；单集 1–2 分钟；竖屏微短剧，提交成片或分集样片",
+    "requirements": "分设青创组与校园组；单集 1–2min 竖屏微短剧",
+    "aiRatio": "作品须结合 AIGC 技术完成剧本、视效、声音或全流程生成",
+    "deliverables": "视频成片 + 创意说明文档 + 参赛报名表",
+    "evalCriteria": "创意脑洞与网感节奏 (40%)、AIGC 技术运用熟练度 (35%)、文旅/商业转化价值 (25%)",
+    "proTips": "结合深圳年轻科技之城、创新创业、文旅探索题材的作品具有天然优势；校园团队可着重突出品类玩梗与新奇脑洞。",
+    "searchKeywords": "深圳 坪山 微短剧+ AIGC 大湾区 创投",
+    "link": "https://www.aitop100.cn/infomation/details/34082.html"
+  },
+  {
+    "id": "zcool-battleverse-2026",
+    "name": "站酷 (ZCOOL) x BATTLEVERSE 世界 AI 视频大赛",
+    "category": "film",
+    "subCategory": "创意社区商单",
+    "categoryLabel": "AI 影视与创作",
+    "organizer": "站酷网 (ZCOOL) / 岚图汽车 / 中国移动",
+    "region": "china",
+    "regionText": "国内",
+    "status": "🟢 正在报名中",
+    "statusType": "ongoing",
+    "deadline": "2026年08月30日 (当期双周命题截止)",
+    "deadlineTag": "⏳ 当期命题倒计时：约 16 天",
+    "deadlineUrgent": true,
+    "timelineDetails": "双周/月度高频轮动 ｜ 当期主题「10086个Online时刻」与新能源未来出行专题征集中",
+    "prizes": "单期 40 万元现金总奖池 (单项一等奖高达 6 万元) ｜ 品牌商单长期签约 ｜ 站酷首页百万级设计师流量",
+    "prizeBreakdown": "一等奖 60,000 元现金 (2名) / 二等奖 20,000 元 (5名) / 优秀创意奖 5,000 元 (20名)；品牌商单采买收益",
+    "prizeScore": 60000,
+    "incentives": [
+      "cash",
+      "traffic"
+    ],
+    "formats": [
+      "short"
+    ],
+    "specs": "15 秒至 3 分钟；横屏 16:9 或竖屏 9:16，分辨率 1080P/4K，MP4 格式",
+    "requirements": "15s–3min；横竖屏均可；多模态 AI 全流程制作",
+    "aiRatio": "多模态 AI 全流程制作（Midjourney/Flux + 视频生成模型 + 声音模型）",
+    "deliverables": "视频成片 + 站酷平台公开作品发布 + 核心提示词（Prompt）与创作思路解析图文",
+    "evalCriteria": "品牌商业命题契合度 (35%)、视觉美学与光影质感 (30%)、创意概念新颖度 (20%)、社区点赞与专业评审互动 (15%)",
+    "proTips": "品牌命题赛需严格遵循品牌调性与产品视觉特征；建议在站酷文章中详细拆解 ComfyUI 节点或分镜 Prompt，有利于争取评委的技术分加成。",
+    "searchKeywords": "站酷 ZCOOL BATTLEVERSE 岚图 中国移动 40万 商单 视频",
+    "link": "https://www.zcool.com.cn/event/main.do?pagesize=10&p=2"
+  },
+  {
+    "id": "vcg-500px-2026",
+    "name": "视觉中国 500px AIGC 影像与数字创作大赛",
+    "category": "film",
+    "subCategory": "正版商用视觉",
+    "categoryLabel": "AI 影视与创作",
+    "organizer": "视觉中国 (VCG) / 500px 摄影社区 / 华为天生会画",
+    "region": "china",
+    "regionText": "国内",
+    "status": "🟢 正在报名中",
+    "statusType": "ongoing",
+    "deadline": "2026年10月15日 23:59 (截稿)",
+    "deadlineTag": "⏳ 截止倒计时：约 62 天",
+    "deadlineUrgent": true,
+    "timelineDetails": "征稿期：2026.07.01 – 2026.10.15 ｜ 专家评审：10月下旬 ｜ 获奖公示：11月上旬",
+    "prizes": "大赛创作激励金 ｜ 签约成为视觉中国正版商用 AI 供稿人 ｜ 享受全球版权销售持续分账",
+    "prizeBreakdown": "卓越创作者奖 20,000 元现金；单项优秀奖 5,000 元；全球正版图库商用分成权益",
+    "prizeScore": 30000,
+    "incentives": [
+      "traffic",
+      "cash"
+    ],
+    "formats": [
+      "short"
+    ],
+    "specs": "动态视频 10 秒至 2 分钟；高清静态插画 300dpi 以上；色彩模式 RGB",
+    "requirements": "动态视频 10s–2min 或高清静态插画；具备完整无争议自主知识产权",
+    "aiRatio": "AI 原生创作或人机协同创作；要求作品具备完整无争议的自主知识产权与原创性",
+    "deliverables": "作品文件 + 创作灵感说明 + 确认无侵权版权自律声明书",
+    "evalCriteria": "商业应用适配度与通用性 (40%)、画面构图与色彩艺术性 (30%)、技术精细度与边缘瑕疵控制 (20%)、创意独特性 (10%)",
+    "proTips": "商用赛事非常忌讳画面中的手指变形、伪影畸变以及未授权的名人面部特征；产出通用型概念视频（如未来城市、商务科技、生态自然）更容易获得高分与长期版权分账。",
+    "searchKeywords": "视觉中国 500px 摄影 影像 华为 版权 供稿人",
+    "link": "https://500px.com.cn/contest/2026sjyneml"
+  },
+  {
+    "id": "tencent-ishort-2026",
+    "name": "腾讯视频 AI 创作大赛 · i短剧 & 竖屏短剧开放平台",
+    "category": "film",
+    "subCategory": "长视频平台分账",
+    "categoryLabel": "AI 影视与创作",
+    "organizer": "腾讯在线视频 (腾讯视频 / 腾讯微视 / 腾讯影生大模型团队)",
+    "region": "china",
+    "regionText": "国内",
+    "status": "🟢 正在报名中",
+    "statusType": "ongoing",
+    "deadline": "常态化持续征集 (季度分批评奖)",
+    "deadlineTag": "🔄 常态化季赛评审中",
+    "deadlineUrgent": false,
+    "timelineDetails": "剧本大纲与成片样集全年滚动收件 ｜ 每季度末评选季度最佳短剧并下发保底分账",
+    "prizes": "120 万元总奖池 (单项最高 40 万元) ｜ 首次将 AI 短剧纳入腾讯视频长中短一体化分账体系 ｜ 腾讯平台专属推广位",
+    "prizeBreakdown": "最佳 AI 短剧 400,000 元现金；最佳剧本/视效单项奖各 100,000 元；平台保底分账与流量收益激励",
+    "prizeScore": 250000,
+    "incentives": [
+      "cash",
+      "traffic"
+    ],
+    "formats": [
+      "drama"
+    ],
+    "specs": "竖屏微短剧（单集 60–120 秒，整季 15–30 集）或横屏 AI 中剧（单集 5–10 分钟）；需提供前 3 集成片样片",
+    "requirements": "竖屏微短剧单集 60–120s 或横屏中剧；需提供前 3 集成片样片",
+    "aiRatio": "深度结合腾讯影生大模型或主流生成式工具链完成角色、场景与声音生成",
+    "deliverables": "完整剧本及分集大纲 + 前 3 集成片或概念 Pilot + AI 工作流管线说明",
+    "evalCriteria": "短剧人物人设与剧情爽点 (35%)、前 30 秒抓人节奏 (30%)、视听连贯度与口型同步 (20%)、商业变现潜力 (15%)",
+    "proTips": "腾讯视频重点招募悬疑推理、都市战神、东方修仙及科幻脑洞方向；务必重视对白口型与情绪拟音（Foley），避免单纯配乐盖过角色原声。",
+    "searchKeywords": "腾讯 腾讯视频 腾讯微视 i短剧 影生 短剧 分账 120万",
+    "link": "https://m.36kr.com/p/3532989603060615"
+  },
+  {
+    "id": "jimeng-douyin-2026",
+    "name": "即梦 AI 未来影像计划 & 抖音 AIGC 短剧招募计划",
+    "category": "film",
+    "subCategory": "短剧孵化与分账",
+    "categoryLabel": "AI 影视与创作",
+    "organizer": "字节跳动 / 即梦 AI (Dreamina) / 抖音微短剧团队",
+    "region": "china",
+    "regionText": "国内",
+    "status": "🟢 正在报名中",
+    "statusType": "ongoing",
+    "deadline": "常态化双月度推进",
+    "deadlineTag": "🔄 双月度挑战赛持续推进",
+    "deadlineUrgent": false,
+    "timelineDetails": "全年按双月度分设“悬疑季”、“奇幻季”、“国风季”等主题轮动征集",
+    "prizes": "抖音百亿级流量精准分发 ｜ 字节跳动微短剧联合出品与商业分账 ｜ 大额现金奖金与百万级即梦算力积分",
+    "prizeBreakdown": "单季优胜团队扶持金 50,000–200,000 元；抖音专属打顶推荐；即梦 AI 无限算力特权",
+    "prizeScore": 300000,
+    "incentives": [
+      "traffic",
+      "compute",
+      "cash"
+    ],
+    "formats": [
+      "drama",
+      "short"
+    ],
+    "specs": "竖屏短剧单集 60–120 秒；短片 1–5 分钟；9:16 竖屏或 16:9 横屏 4K/1080P",
+    "requirements": "竖屏短剧单集 60–120s；短片 1–5min；深度使用即梦 AI",
+    "aiRatio": "要求核心使用即梦 AI (Dreamina) 视频生成、图像生成及智能画布工具链",
+    "deliverables": "视频成片 + 抖音发布带指定活动话题 + 提交即梦 AI 平台作品生成 ID 与提示词",
+    "evalCriteria": "抖音平台完播率与互动率 (40%)、即梦工具链运用深度与技法创新 (30%)、剧本独创性 (20%)、视效精致度 (10%)",
+    "proTips": "抖音生态对前 2 秒的黄金视觉冲击力要求极高；推荐使用即梦的运镜控制（Camera Control）与画风锁定功能，保证角色面部不崩塌。",
+    "searchKeywords": "即梦 即梦AI 抖音 抖音短剧 字节跳动 剪映 短剧",
+    "link": "https://jimeng.jianying.com/visionary"
+  },
+  {
+    "id": "cmg-yangshipin-2026",
+    "name": "中央广播电视总台 (CMG) / 央视频全国 AI 微短剧大赛",
+    "category": "film",
+    "subCategory": "国家级权威央媒",
+    "categoryLabel": "AI 影视与创作",
+    "organizer": "中央广播电视总台视听新媒体中心 (央视频) / 中国网络视听节目服务协会",
+    "region": "china",
+    "regionText": "国内",
+    "status": "🟢 正在报名中",
+    "statusType": "ongoing",
+    "deadline": "常态化作品征集与季播展映",
+    "deadlineTag": "🔄 央媒展播通道常态化开放",
+    "deadlineUrgent": false,
+    "timelineDetails": "常年接受社会机构与独立创作者投稿，分批次在央视频客户端《中国 AI 微短剧盛典》专区展播",
+    "prizes": "央视总台核心资源位百亿级播放曝光 ｜ CMG 官方推优荣誉 ｜ 纳入央视微短剧首发扶持计划",
+    "prizeBreakdown": "总台官方证书与奖杯；央视频重点宣发支持；优秀主创直通国家级视听盛典红毯",
+    "prizeScore": 200000,
+    "incentives": [
+      "traffic",
+      "festival"
+    ],
+    "formats": [
+      "drama"
+    ],
+    "specs": "单集 1–3 分钟；横屏或竖屏高清；须严格符合国家广电总局关于微短剧分类分层备案规范",
+    "requirements": "单集 1–3min；横屏或竖屏；符合广电总局微短剧备案规范",
+    "aiRatio": "高比例生成式 AI 制作，强调技术与中国文化/社会温情的深度融合",
+    "deliverables": "高清成片 + 广电备案号或备案承诺书 + 创作阐述与技术工作流报告",
+    "evalCriteria": "价值导向与思想内涵 (35%)、传统文化与创新叙事结合 (30%)、AI 视听工业化完成度 (25%)、公众口碑 (10%)",
+    "proTips": "央视平台偏好非遗传承、历史英雄、乡村振兴、科幻强国与现实主义温情故事；绝对禁止三俗与血腥暴力内容；台词与配音需字正腔圆、情绪饱满。",
+    "searchKeywords": "央视频 CMG 央视 广播电视总台 微短剧 短剧 盛典",
+    "link": "https://www.cctv.com/2026/01/07/ARTIsBaXMEGd0EK0yetiUd8Q260107.shtml"
+  },
+  {
+    "id": "iqiyi-peterpau-2026",
+    "name": "爱奇艺 “与 AI 共生” 短片大赛 & 鲍德熹·爱奇艺 AI 剧场创投会",
+    "category": "film",
+    "subCategory": "影院级长短视频",
+    "categoryLabel": "AI 影视与创作",
+    "organizer": "爱奇艺 (iQIYI) / 纳逗 Pro 创意中心 / 鲍德熹电影工作室",
+    "region": "china",
+    "regionText": "国内",
+    "status": "🟢 正在报名中",
+    "statusType": "ongoing",
+    "deadline": "常态化创投申报 (每季度集中审片)",
+    "deadlineTag": "🔄 院线级创投全年常态化开放",
+    "deadlineUrgent": false,
+    "timelineDetails": "全年接受 3–20 分钟短片成片与 AI 电影长片项目书申报 ｜ 季度举行创投闭门路演",
+    "prizes": "直通“鲍德熹·爱奇艺 AI 剧场”全网独家首播 ｜ 爱奇艺平台百万级宣发资源与长视频分账 ｜ 顶尖电影人 1 对 1 监制指导",
+    "prizeBreakdown": "优秀项目获爱奇艺专项孵化投资金 10万–100 万元；奥斯卡得主鲍德熹大师班亲自指导后期调色与摄影构图",
+    "prizeScore": 220000,
+    "incentives": [
+      "traffic",
+      "venture",
+      "festival"
+    ],
+    "formats": [
+      "short",
+      "feature"
+    ],
+    "specs": "短片 3–20 分钟；长片提案需包含 40 分钟以上全片规划；须达到院线级色彩管理与 4K 超高清标准",
+    "requirements": "短片 3–20min / 长片 40min+；院线级色彩管理与 4K 标准",
+    "aiRatio": "AI 全流程视效生成与数字人表演；强调电影级摄影机运动（Camera Movements）与光影层次",
+    "deliverables": "4K ProRes 422 格式成片 + 调色色彩说明文档 + 剧本与人物小传 + 技术链路架构图",
+    "evalCriteria": "电影视听美学与光影构图 (40%)、导演叙事控制力与长镜头调度 (30%)、AI 模型泛化能力 (20%)、工业化交付标准 (10%)",
+    "proTips": "爱奇艺 AI 剧场定位高端影视精品（如全 AI 电影《天问》）；评委对胶片颗粒感、光影景深、角色微表情极为挑剔；建议利用 Topaz Video AI 和专业调色节点打磨质感。",
+    "searchKeywords": "爱奇艺 iQIYI 鲍德熹 纳逗 AI剧场 电影 天问 创投",
+    "link": "https://pages.iqiyi.com/p/scpr/63x0aw97.html"
+  },
+  {
+    "id": "aliyun-mcp-2026",
+    "name": "阿里云天池 · 通义灵码 MCP 插件开发大赛",
+    "category": "app",
+    "subCategory": "国内大模型生态",
+    "categoryLabel": "AI 应用 & Agent",
+    "organizer": "阿里云 / 蚂蚁集团 / 阿里云天池平台",
+    "region": "china",
+    "regionText": "国内",
+    "status": "🟢 正在报名中",
+    "statusType": "ongoing",
+    "deadline": "2026年09月30日 (当期赛段截止)",
+    "deadlineTag": "⏳ 当期提交倒计时：约 47 天",
+    "deadlineUrgent": true,
+    "timelineDetails": "初赛提交：即日起至 9 月底 ｜ 专家评审：10 月中旬 ｜ 决赛答辩与颁奖：10 月下旬",
+    "prizes": "10 万 - 50 万元人民币现金奖 ｜ 阿里云百炼大额算力额度补贴 ｜ 入驻阿里云生态市场认证",
+    "prizeBreakdown": "冠军 100,000 元现金；亚军 50,000 元；大额百炼算力券；通义灵码官方插件认证推荐",
+    "prizeScore": 70000,
+    "incentives": [
+      "cash",
+      "compute"
+    ],
+    "formats": [
+      "agent"
+    ],
+    "specs": "符合 Model Context Protocol (MCP) 规范的 Server 插件包或 Docker 镜像；可运行 Demo",
+    "requirements": "符合 MCP 规范的 Server 插件包或 Docker 镜像；可运行 Demo",
+    "aiRatio": "基于通义千问 Qwen 系列或开源大模型构建，深度调用百炼工具链",
+    "deliverables": "MCP Server 开源代码 + GitHub/天池 Notebook + 系统架构拓扑图 + 在线体验地址",
+    "evalCriteria": "MCP 协议规范性与工具调用准确率 (35%)、技术创新与推理效率 (30%)、产业落地实用价值 (25%)、文档完整性 (10%)",
+    "proTips": "重点构建能连接本地开发环境与企业级数据的实用 MCP Server（如 GitOps、数据库自动化诊断、多 Agent 协同插件）；架构务必遵循最新 MCP 标准。",
+    "searchKeywords": "阿里 阿里云 天池 通义千问 通义灵码 MCP 插件 Agent",
+    "link": "https://tianchi.aliyun.com/competition/entrance/532442"
+  },
+  {
+    "id": "aws-ai-agent-2026",
+    "name": "AWS AI Agent Global Hackathon & Amazon Nova AI Challenge",
+    "category": "app",
+    "subCategory": "企业级 Agent 巡回",
+    "categoryLabel": "AI 应用 & Agent",
+    "organizer": "Amazon Web Services (AWS) / Devpost",
+    "region": "global",
+    "regionText": "全球巡回",
+    "status": "🟢 正在报名中",
+    "statusType": "ongoing",
+    "deadline": "2026年10月06日 23:45 (EDT 截止)",
+    "deadlineTag": "⏳ 截止倒计时：约 53 天",
+    "deadlineUrgent": true,
+    "timelineDetails": "当前秋季巡回赛开放提交中 ｜ 优胜项目将于 12 月在拉斯维加斯 AWS re:Invent 大会展示",
+    "prizes": "$45,000+ 美元现金奖 ｜ 最高 $10,000 AWS 云算力额度 ｜ AWS Marketplace 快速上架与 GTM 扶持",
+    "prizeBreakdown": "Best Overall Agent $15,000；各单项企业应用奖 $5,000；AWS re:Invent 门票与展位扶持",
+    "prizeScore": 45000,
+    "incentives": [
+      "cash",
+      "compute",
+      "venture"
+    ],
+    "formats": [
+      "agent"
+    ],
+    "specs": "必须基于 AWS AI 生态构建（Amazon Bedrock AgentCore, Amazon Q, Nova 模型或 Strands SDK）",
+    "requirements": "基于 AWS AI 生态构建；提交 GitHub 代码、视频及在线 Demo",
+    "aiRatio": "端到端自治 Agent 工作流，支持 Multi-Agent 编排与外部 API 集成",
+    "deliverables": "GitHub 代码仓库 + 3–5 分钟产品演示视频 + 部署架构拓扑图 + 在线部署体验 Demo",
+    "evalCriteria": "AWS 技术栈集成深度 (30%)、解决企业痛点与生产就绪度 (30%)、Agent 架构健壮度 (25%)、交互体验 (15%)",
+    "proTips": "AWS 评审非常注重‘生产环境可用性 (Production Readiness)’；突出容错重试机制、数据安全隐私合规以及单位 Token 成本优化是制胜关键。",
+    "searchKeywords": "AWS 亚马逊 Devpost Agent Bedrock Nova 黑客松",
+    "link": "https://info.devpost.com/blog/aws-ai-agent-global-hackathon"
+  },
+  {
+    "id": "miracleplus-2026",
+    "name": "奇绩创坛 (MiraclePlus) 创业营与全球 Demo Day",
+    "category": "biz",
+    "subCategory": "早期顶级创业加速",
+    "categoryLabel": "商业创投 & Demo Day",
+    "organizer": "奇绩创坛 (陆奇博士团队) / 一线顶级 VC 联盟 (红杉/高瓴/源码等)",
+    "region": "china",
+    "regionText": "国内 / 全球",
+    "status": "🟢 正在报名中",
+    "statusType": "ongoing",
+    "deadline": "2026 秋季营开放申请中 (滚动录取)",
+    "deadlineTag": "⏳ 秋季营网申与面试进行中",
+    "deadlineUrgent": true,
+    "timelineDetails": "每年春秋两期 ｜ 线上申请常年开放，秋季营正处于密集审阅与合伙人多轮面试期",
+    "prizes": "$300,000–$500,000 早期股权投资 ｜ 陆奇博士及合伙人团队 3 个月全周期创业加速 ｜ Demo Day 直面千位顶级投资人",
+    "prizeBreakdown": "30万-50万美元标准早期投资；陆奇团队 1v1 辅导（产品定位/定价/冷启动）；毕业路演日直通顶级基金下一轮融资",
+    "prizeScore": 400000,
+    "incentives": [
+      "venture"
+    ],
+    "formats": [
+      "bp"
+    ],
+    "specs": "极早期友好（有 Idea、MVP 原型或早期营收均可申请）；涵盖大模型、Agent、具身智能、商业化 SaaS",
+    "requirements": "有 Idea 或 MVP 即可申请；在线问卷与 1 分钟创始人视频",
+    "aiRatio": "AI 原生架构或大模型深度驱动的颠覆性商业模式",
+    "deliverables": "奇绩在线标准化问卷 + 创始人 1 分钟介绍视频 + 核心业务数据与思考 + 远程/线下合伙人面试",
+    "evalCriteria": "创始团队认知深度 (Unique Insights) (40%)、团队演化与敏捷迭代速度 (35%)、所选赛道长期天花板 (25%)",
+    "proTips": "陆奇团队最看重‘创始人对行业痛点的非共识洞察’和‘极致的执行迭代速度’；文书中用精炼事实说话，清晰阐明单元经济模型与数据壁垒。",
+    "searchKeywords": "奇绩创坛 奇绩 陆奇 MiraclePlus DemoDay 创业 创投 投资",
+    "link": "https://www.miracleplus.com/cn/"
+  },
+  {
+    "id": "slush100-2026",
+    "name": "Slush 100 全球初创企业路演挑战赛 (Slush Helsinki)",
+    "category": "biz",
+    "subCategory": "全球非稀释大奖",
+    "categoryLabel": "商业创投 & Demo Day",
+    "organizer": "Slush 官方 / 全球顶级 Tier-1 VC 联合体 (Accel, Lightspeed, General Catalyst 等)",
+    "region": "global",
+    "regionText": "全球 / 欧洲",
+    "status": "🟢 正在报名中",
+    "statusType": "ongoing",
+    "deadline": "2026年10月01日 (全球早鸟截止) / 11月现场路演",
+    "deadlineTag": "⏳ 早鸟申报倒计时：约 48 天",
+    "deadlineUrgent": true,
+    "timelineDetails": "8 月开放全球申报 ｜ 10 月初早鸟截止 ｜ 11 月下旬在芬兰赫尔辛基主峰会面对 12,000+ 观众进行主舞台路演",
+    "prizes": "€500,000 欧元完全无股权稀释 (Equity-free) 现金大奖 ｜ 全球顶级一线风投机构现场对接 ｜ 全球顶级科技媒体头条",
+    "prizeBreakdown": "50 万欧元完全无稀释纯现金（创全球最高纪录）；全球 400+ 顶级投资机构 1 对 1 闭门会议对接",
+    "prizeScore": 540000,
+    "incentives": [
+      "cash",
+      "venture"
+    ],
+    "formats": [
+      "bp"
+    ],
+    "specs": "2023 年后成立的早期初创公司；累计已筹集股权融资 < 1,000 万欧元（<€10M）；具备可运行的商业产品",
+    "requirements": "2023年后成立初创公司；融资<€10M；具备商业产品与路演材料",
+    "aiRatio": "AI 原生基础设施、B2B 工作流自动化、DeepTech、机器人及垂直行业商业闭环",
+    "deliverables": "Pitch Deck + 商业计划书 + 3 分钟现场路演及英文问答 + 经过验证的客户数据与收入证明",
+    "evalCriteria": "商业模式颠覆性 (35%)、目标市场规模 (TAM) 与扩张性 (35%)、团队执行力与国际化潜力 (30%)",
+    "proTips": "Slush 100 是欧洲创投最高圣殿；申报材料需高度突出‘全球化扩张潜力’与‘高客单价留存率’；路演风格要极简、自信、直击痛点。",
+    "searchKeywords": "Slush Slush100 欧洲 赫尔辛基 50万欧 创业 路演",
+    "link": "https://slush.org/audience/startups/slush100"
+  },
+  {
+    "id": "cicas-caai-2026",
+    "name": "全国人工智能应用场景创新挑战赛 (CICAS 2026)",
+    "category": "biz",
+    "subCategory": "国家级场景创新",
+    "categoryLabel": "商业创投 & Demo Day",
+    "organizer": "中国科协指导 / 中国人工智能学会 (CAAI) / 科技部 / 各地科技局与国家级高新区",
+    "region": "china",
+    "regionText": "国内",
+    "status": "🟢 正在报名中",
+    "statusType": "ongoing",
+    "deadline": "2026年09月30日 (各分站专项赛推进申报)",
+    "deadlineTag": "⏳ 专题赛申报倒计时：约 47 天",
+    "deadlineUrgent": true,
+    "timelineDetails": "全年设 AI Agent 专项赛、具身智能与工业制造赛、智慧医疗与智慧交通等多赛道分批推进 ｜ 年底总决赛",
+    "prizes": "百万级大赛现金奖金池 ｜ 纳入国家人工智能示范案例库 ｜ 地方政府产业落地配套基金最高数百万至上千万元",
+    "prizeBreakdown": "国家级特等奖与一等奖；各地高新区免租办公空间与算力补贴；直通央国企大客户采购供应链",
+    "prizeScore": 200000,
+    "incentives": [
+      "venture",
+      "cash"
+    ],
+    "formats": [
+      "bp"
+    ],
+    "specs": "分设高校科研组、创新企业组及 OPC（一人公司）创客组；需提供真实落地合作案例 (POC / MVP)",
+    "requirements": "高校/企业/创客组；提交商业计划书与真实落地合作证明 (POC)",
+    "aiRatio": "深入行业实际生产场景的 Agent 编排、工业质检、智能诊断或数字化解决方案",
+    "deliverables": "商业计划书 + 技术先进性证明材料 + 实际落地合作协议/客户 POC 报告",
+    "evalCriteria": "场景真实痛点契合度 (35%)、技术指标先进性 (30%)、商业可复制性与推广 ROI (35%)",
+    "proTips": "CICAS 最看重‘能否在真实企业场景里帮客户算清账’；务必量化给出降本增效数据（如节省 60% 质检工时、ROI 达到 3.5 倍），这是拿特等奖的关键。",
+    "searchKeywords": "CICAS 人工智能学会 CAAI 场景创新 科技部 Agent 创投",
+    "link": "https://www.cicas.cn/"
+  },
+  {
+    "id": "cnmaker-ai-2026",
+    "name": "工信部“创客中国”中小企业创新创业大赛 (人工智能专题赛)",
+    "category": "biz",
+    "subCategory": "国家级政策直通",
+    "categoryLabel": "商业创投 & Demo Day",
+    "organizer": "工业和信息化部信息中心 / 各省市工信厅 / 产业园区",
+    "region": "china",
+    "regionText": "国内",
+    "status": "🟢 正在报名中",
+    "statusType": "ongoing",
+    "deadline": "2026年09月15日 (各省市区域赛分批推进)",
+    "deadlineTag": "⏳ 省级赛申报倒计时：约 32 天",
+    "deadlineUrgent": true,
+    "timelineDetails": "5–8 月各省市区域选拔赛推进 ｜ 9 月专题赛冲刺 ｜ 10–11 月举行全国总决赛并入库",
+    "prizes": "国家级与省市级政策奖金 ｜ 直通国家级专精特新“小巨人”企业培育绿色通道 ｜ 纳入全国 500 强产融对接库",
+    "prizeBreakdown": "国家级荣誉奖金；地方工信专项财政资金补贴；银行千万级无抵押信用贷款授信支持",
+    "prizeScore": 150000,
+    "incentives": [
+      "venture",
+      "cash"
+    ],
+    "formats": [
+      "bp"
+    ],
+    "specs": "企业组（已注册中小企业，具自主知识产权）与创客组（未注册初创团队/高校项目）",
+    "requirements": "企业组或创客组；提交申报书、商业计划书与专利软著证书",
+    "aiRatio": "大模型垂直赋能、工业机理与智能体融合、数字化转型 B2B 关键核心技术",
+    "deliverables": "大赛申报书 + 商业计划书 + 审计财务报表/营收证明 + 专利与软著证书",
+    "evalCriteria": "技术创新与专利壁垒 (35%)、商业盈利闭环与财务稳健度 (35%)、产业链带动作用 (30%)",
+    "proTips": "创客中国是通往专精特新‘小巨人’的最快通道；重点突出核心技术的自主可控、发明专利布局以及在关键产业链中的‘补短板’作用。",
+    "searchKeywords": "创客中国 工信部 专精特新 小巨人 创新创业 专题赛",
+    "link": "https://www.cnmaker.org.cn/"
+  },
+  {
+    "id": "tribeca-ai-2026",
+    "name": "翠贝卡电影节 (Tribeca Festival) AI Program & Showcase",
+    "category": "film",
+    "subCategory": "国际顶流电影节",
+    "categoryLabel": "AI 影视与创作",
+    "organizer": "Tribeca Enterprises (联合 OpenAI Sora 团队)",
+    "region": "global",
+    "regionText": "国际 / 纽约",
+    "status": "🟡 即将开启",
+    "statusType": "upcoming",
+    "deadline": "每年 9 月底开启全球征集 (至次年 1–3 月截止)",
+    "deadlineTag": "📌 2026.09月下旬正式开启申报",
+    "deadlineUrgent": false,
+    "timelineDetails": "2026 年 9 月下旬开启全球征片 ｜ 2027 年 1 月早鸟截止 / 2 月常规截止 ｜ 2027 年 6 月在纽约曼哈顿主会场展映",
+    "prizes": "国际顶级电影节官方入选与首映背书 ｜ 好莱坞主流制片厂与流媒体全球采购对接",
+    "prizeBreakdown": "Tribeca 官方入围桂冠（Laurels）；好莱坞经纪公司签约通道；全球流媒体高额版权采买直通",
+    "prizeScore": 100000,
+    "incentives": [
+      "festival",
+      "venture"
+    ],
+    "formats": [
+      "short",
+      "feature"
+    ],
+    "specs": "短片 5–40 分钟；长片 40 分钟以上（已展映首部全 AI 长片）；需提供密码保护的在线加密流媒体链接",
+    "requirements": "短片 5–40min / 长片 40min+；提供加密流媒体播放链接",
+    "aiRatio": "AI 原生视频生成与多模态人机协同；要求具备极高叙事连贯性与角色一致性",
+    "deliverables": "加密审片链接 + 导演阐述 + 剧本 + 完整人机协作技术声明书",
+    "evalCriteria": "叙事独创性与电影语言成熟度 (45%)、艺术前瞻性 (30%)、技术创新突破 (25%)",
+    "proTips": "翠贝卡是全球独立电影风向标；建议提前准备 9 月底开启的早鸟申报（Earlybird 费用最低）；作品题材聚焦人文冲突、哲学寓言或科幻现实主义更受青睐。",
+    "searchKeywords": "翠贝卡 Tribeca 电影节 Sora OpenAI 纽约 长片 短片",
+    "link": "https://tribecafilm.com/festival/submissions"
+  },
+  {
+    "id": "hiiff-lenovo-2026",
+    "name": "海南岛国际电影节·联想 AI 电影季 (HIIFF)",
+    "category": "film",
+    "subCategory": "电影节独立单元",
+    "categoryLabel": "AI 影视与创作",
+    "organizer": "海南岛国际电影节组委会 / 联想集团 / 今日美术馆 AI 艺术联盟",
+    "region": "china",
+    "regionText": "国内 / 海南",
+    "status": "🟡 即将开启",
+    "statusType": "upcoming",
+    "deadline": "每年 9–10 月开启全球征集 (至 11 月中旬)",
+    "deadlineTag": "📌 2026.09 月开启新一期征集",
+    "deadlineUrgent": false,
+    "timelineDetails": "2026 年 9 月启动全球短片征集 ｜ 11 月公布入围名单 ｜ 12 月在三亚主会场进行海岛大银幕展映与荣誉发布",
+    "prizes": "高额现金奖金池 ｜ 联想顶级 AI 高性能工作站硬件设备 ｜ 金椰奖主单元联动海岛展映",
+    "prizeBreakdown": "金椰 AI 最佳短片 50,000 元现金 + 联想顶级 ThinkStation AI 工作站；优秀奖若干；三亚红毯礼遇",
+    "prizeScore": 80000,
+    "incentives": [
+      "cash",
+      "festival"
+    ],
+    "formats": [
+      "short"
+    ],
+    "specs": "时长 1–15 分钟；1080P/4K 高清 MP4/MOV；强调“AI 技术赋能人文温度”",
+    "requirements": "时长 1–15min；4K 高清成片；AI 生成工具清单",
+    "aiRatio": "画面、音乐或概念生成中至少 50% 深度借助生成式 AI 完成，提交工具清单",
+    "deliverables": "4K 成片视频 + 创作阐述与提示词逻辑说明 + 团队介绍",
+    "evalCriteria": "艺术审美格调与人文精神 (40%)、端侧/云端 AI 技术融合度 (30%)、叙事结构完整性 (30%)",
+    "proTips": "海南岛电影节极为注重海岛自然风貌、生态保护或跨文化交流主题；提前构思具有诗意美学与人文关怀的故事能大幅提升入围概率。",
+    "searchKeywords": "海南岛 电影节 HIIFF 联想 三亚 金椰奖",
+    "link": "https://www.stdaily.com/web/gdxw/2025-09/11/content_399138.html"
+  },
+  {
+    "id": "luma-clio-2026",
+    "name": "Luma AI x Clio Awards 创意挑战赛",
+    "category": "film",
+    "subCategory": "国际顶尖广告创意",
+    "categoryLabel": "AI 影视与创作",
+    "organizer": "Luma AI / Clio Awards (国际广告大奖组委会)",
+    "region": "global",
+    "regionText": "国际 / 纽约",
+    "status": "🟡 即将开启",
+    "statusType": "upcoming",
+    "deadline": "秋季 9–10 月征集 (至 10 月中旬截止)",
+    "deadlineTag": "📌 秋季新一期挑战即将启动",
+    "deadlineUrgent": false,
+    "timelineDetails": "9 月初开放全球提交通道 ｜ 10 月中旬截止评审 ｜ 10 月底在纽约 Clio 创意峰会主舞台展映",
+    "prizes": "6 个月 Luma Dream Machine Unlimited 无限算力 ｜ 纽约 Clio 峰会现场展映 ｜ 与好莱坞一线制片人圆桌对话",
+    "prizeBreakdown": "各赛道冠军获免费无限算力会员 + 官方奖杯；直通 Clio 广告创意人才库",
+    "prizeScore": 50000,
+    "incentives": [
+      "compute",
+      "festival"
+    ],
+    "formats": [
+      "short"
+    ],
+    "specs": "10–60 秒竖屏品牌商业广告或微叙事短片；9:16 竖屏或 16:9 横屏",
+    "requirements": "10–60s 竖屏品牌广告或微叙事短片；使用 Dream Machine 生成",
+    "aiRatio": "核心动态镜头必须使用 Luma Dream Machine (Ray/Ray2 引擎) 生成",
+    "deliverables": "视频成片 + 在 X/Instagram 发布带标签 + 提交 Luma 生成 Prompt 与 Generation URL",
+    "evalCriteria": "广告概念创意突破性 (40%)、视觉冲击力与运动连贯性 (35%)、品牌调性把控 (25%)",
+    "proTips": "10-30 秒以内的超短视频更具传播优势；善用 Luma 的高保真摄影机动态模拟（如 FPV 穿梭、急速推拉镜头）展示震撼视效。",
+    "searchKeywords": "Luma LumaAI Clio ClioAwards 广告 创意 DreamMachine",
+    "link": "https://lumalabs.ai/"
+  },
+  {
+    "id": "hengdian-aishort-2026",
+    "name": "横店国际 AI 短剧短片产业生态大会暨展映征集",
+    "category": "film",
+    "subCategory": "影视产业基地",
+    "categoryLabel": "AI 影视与创作",
+    "organizer": "横店影视城 / AI TOP100 / 华荣短剧投流联盟",
+    "region": "china",
+    "regionText": "国内 / 横店",
+    "status": "🟡 即将开启",
+    "statusType": "upcoming",
+    "deadline": "秋季横店影视节期间展映征集 (10 月中旬)",
+    "deadlineTag": "📌 秋季横店影视节展映申报即将开启",
+    "deadlineUrgent": false,
+    "timelineDetails": "9 月开启展映片单申报 ｜ 10 月底在横店影视节主会场举行 4,000+ 规模产业路演与签约对接",
+    "prizes": "线下直面 4,000+ 影视制作方与投资人 ｜ 对接横店“短剧出海”专项基金 ｜ 头部投流买量渠道对接",
+    "prizeBreakdown": "评选年度十佳 AI 微短剧；对接保底投资与海外分销渠道（ReelShort / DramaBox 等）",
+    "prizeScore": 180000,
+    "incentives": [
+      "venture",
+      "traffic"
+    ],
+    "formats": [
+      "drama",
+      "short"
+    ],
+    "specs": "10–30 集微短剧完整成片或 3 集精编样片；7–14 天工业化量产工作流示范",
+    "requirements": "10–30集微短剧或 3 集样片；展示 7–14 天量产工作流",
+    "aiRatio": "AI 视频生成比例 ≥ 70%，强调低成本、高产能的工业化管线",
+    "deliverables": "成片样集 + 剧本大纲 + 单集成本与制作周期复盘报告 + 投流 ROI 测算表",
+    "evalCriteria": "商业变现 ROI 潜力 (40%)、短剧反转节奏与下沉市场吸引力 (30%)、工业化出片效率 (20%)、画质精细度 (10%)",
+    "proTips": "横店产业界极度务实，最看重‘单集成本是否低于 1000 元’以及‘制作周期能否压缩在 10 天内’；展示自动化工作流和出海英文配音能力是加分王牌。",
+    "searchKeywords": "横店 横店影视城 微短剧 短剧 短片 出海 投流",
+    "link": "https://www.aitop100.cn/infomation/details/33943.html"
+  },
+  {
+    "id": "annecy-mifa-2026",
+    "name": "昂西国际动画电影节 (Annecy Festival) Mifa AI 专项单元",
+    "category": "film",
+    "subCategory": "全球动画最高殿堂",
+    "categoryLabel": "AI 影视与创作",
+    "organizer": "CITIA / 法国国家电影中心 (CNC) / Netflix",
+    "region": "global",
+    "regionText": "国际 / 法国",
+    "status": "🟡 即将开启",
+    "statusType": "upcoming",
+    "deadline": "每年 11 月开启征集 (至次年 3–4 月截止)",
+    "deadlineTag": "📌 2026.11 月开启全球动画征集",
+    "deadlineUrgent": false,
+    "timelineDetails": "11 月开启全球作品提报 ｜ 次年 3 月短片截止 / 4 月长片截止 ｜ 6 月在法国昂西举行颁奖典礼与 Mifa 创投市场",
+    "prizes": "国际动画界最高荣誉“水晶奖 (Cristal Award)” ｜ Mifa 创投市场直面 Netflix、Disney、Sony 采购路演",
+    "prizeBreakdown": "昂西官方获奖证书与奖杯；全球顶级动画制片厂版权合作与导演约签署机会",
+    "prizeScore": 85000,
+    "incentives": [
+      "festival",
+      "venture"
+    ],
+    "formats": [
+      "short"
+    ],
+    "specs": "动画短片 ≤ 30 分钟；商业/MV 动画 ≤ 10 分钟；需提供符合作业标准的 DCP 或 ProRes",
+    "requirements": "动画短片 ≤ 30min；必须提交 Generative AI Policy Disclosure",
+    "aiRatio": "必须提交 Generative AI Policy Disclosure，详述人机协作与算法模型使用规范",
+    "deliverables": "动画成片 + 分镜台本 (Storyboard) + AI 使用透明度声明 + 艺术设计手稿",
+    "evalCriteria": "动画角色动态设计与艺术原创性 (45%)、世界观构建 (30%)、技术管线探索 (25%)",
+    "proTips": "昂西评委极其看重手绘/三维与扩散模型融合的复合管线美学；避免纯文字生成的廉价拼贴感，强调独特的个人艺术风格与动画表演规律。",
+    "searchKeywords": "昂西 昂西动画节 Annecy 动画 动画短片 法国",
+    "link": "https://www.annecyfestival.com/en/the-mifa/themes/mifa-ai"
+  },
+  {
+    "id": "waiff-cannes-2026",
+    "name": "戛纳 WAIFF 世界 AI 电影节 & Cannes Next (AI for Talent)",
+    "category": "film",
+    "subCategory": "国际 A 类电影节",
+    "categoryLabel": "AI 影视与创作",
+    "organizer": "WAIFF 组委会 / 戛纳电影市场 (Marché du Film - Cannes Next)",
+    "region": "global",
+    "regionText": "国际 / 戛纳",
+    "status": "🔄 常态化巡回选拔",
+    "statusType": "upcoming",
+    "deadline": "秋冬季各赛区选拔 (每年 1–3 月主节截止)",
+    "deadlineTag": "📌 区域巡回中 / 主节明春 3 月截止",
+    "deadlineUrgent": false,
+    "timelineDetails": "全球各城市巡回选拔赛（英国、美国、中国等）持续推进 ｜ 每年 5 月在法国戛纳电影节期间展映与颁奖",
+    "prizes": "戛纳海滩 JW Marriott 影厅实体大银幕展映 ｜ 入选 Cannes Next 创投推介会对接全球买家",
+    "prizeBreakdown": "WAIFF 金奖、最佳叙事、最佳视效官方荣誉；直通欧洲头部影视基金与国际版权采购",
+    "prizeScore": 80000,
+    "incentives": [
+      "festival",
+      "venture"
+    ],
+    "formats": [
+      "short",
+      "drama"
+    ],
+    "specs": "1–15 分钟短片、动画、竖屏短剧或音乐 MV；1080P/4K H.264/ProRes",
+    "requirements": "1–15min 短片/动画/短剧/MV；提交 Production Journal 制作日志",
+    "aiRatio": "核心视听资产（画面/音频/特效）须由生成式 AI 工作流深度构建",
+    "deliverables": "成片视频 + Production Journal（制作日志，列明所有工具与 Prompt）+ 预告片",
+    "evalCriteria": "国际化视听叙事语言 (35%)、多模态技术创新度 (35%)、艺术审美境界 (30%)",
+    "proTips": "WAIFF 评审团由传统电影节策展人与科技领袖联合组成；提供规范、详尽的 Production Journal 会在技术规范分上大幅领先对手。",
+    "searchKeywords": "戛纳 戛纳电影节 WAIFF Cannes CannesNext 法国",
+    "link": "https://worldaifilmfestival.com/"
+  },
+  {
+    "id": "venice-immersive-2026",
+    "name": "威尼斯国际电影节 Venice Immersive & AI Film Awards",
+    "category": "film",
+    "subCategory": "国际 A 类电影节",
+    "categoryLabel": "AI 影视与创作",
+    "organizer": "威尼斯双年展 (La Biennale di Venezia) 组委会",
+    "region": "global",
+    "regionText": "国际 / 威尼斯",
+    "status": "🔄 年度常规盛典",
+    "statusType": "upcoming",
+    "deadline": "当届展映评审中 (下一届明春 5 月截止)",
+    "deadlineTag": "📌 当届进入展映期 / 下一届明春开启",
+    "deadlineUrgent": false,
+    "timelineDetails": "当届盛典于 8-9 月在威尼斯 Lido 岛举行 ｜ 下一届全球征片通道将于次年 2 月开放，5 月底截止",
+    "prizes": "威尼斯双年展官方狮奖荣誉认证 ｜ Venice Production Bridge 国际制片融资对接",
+    "prizeBreakdown": "沉浸式与 AI 官方单元奖杯；全球艺术影院与沉浸式展馆国际巡展签约",
+    "prizeScore": 80000,
+    "incentives": [
+      "festival",
+      "venture"
+    ],
+    "formats": [
+      "short",
+      "feature",
+      "drama"
+    ],
+    "specs": "0–5 分钟全 AI 短片、5–30 分钟长片、AI 商业短剧；须提交 AI-Use Disclosure 声明",
+    "requirements": "0–5min 全 AI 短片、5–30min 长片；须提交 AI-Use Disclosure",
+    "aiRatio": "明确界定 AI 在剧本、概念、视频生成与声音合成中的参与度；严禁侵犯第三方版权",
+    "deliverables": "加密审片源 + 完整创制白皮书 + 著作权合规保证书",
+    "evalCriteria": "前沿影像叙事探索 (40%)、视听哲学深度 (30%)、人机协同纯熟度 (30%)",
+    "proTips": "威尼斯最重视作品的先锋性与前瞻性；如果作品结合了 XR 互动或多模态时空叙事，将更容易在 Immersive 单元脱颖而出。",
+    "searchKeywords": "威尼斯 威尼斯电影节 Venice Immersive 狮奖 电影节",
+    "link": "https://www.labiennale.org/en/cinema/2026/venice-immersive-0"
+  },
+  {
+    "id": "siggraph-caf-2026",
+    "name": "ACM SIGGRAPH 计算机动画节 (CAF) & Art Gallery",
+    "category": "film",
+    "subCategory": "图形技术顶会正赛",
+    "categoryLabel": "AI 影视与创作",
+    "organizer": "ACM SIGGRAPH 官方",
+    "region": "global",
+    "regionText": "国际 / 北美",
+    "status": "🔄 年度常规赛",
+    "statusType": "upcoming",
+    "deadline": "每年春季 3–4 月截止 (7 月北美盛典)",
+    "deadlineTag": "📌 下一届申报将于明春 2 月启动",
+    "deadlineUrgent": false,
+    "timelineDetails": "每年 2 月启动全球作品提报 ｜ 4 月初截止 ｜ 7 月在北美主会场 Electronic Theater 展映",
+    "prizes": "奥斯卡最佳动画短片直通评审资格 (Academy Award Qualifying) ｜ ACM 官方权威技术收录",
+    "prizeBreakdown": "Best in Show / Jury's Choice 官方奖项；全球图形学与影视视效顶级大厂现场观摩",
+    "prizeScore": 95000,
+    "incentives": [
+      "festival"
+    ],
+    "formats": [
+      "short"
+    ],
+    "specs": "30 秒至 15 分钟；需提交技术实现论文/说明摘要 (Technical Abstract)",
+    "requirements": "30s–15min；需提交技术论文/方案说明摘要",
+    "aiRatio": "阐明模型架构、实时渲染管线、神经辐射场 (NeRF/3DGS) 或生成式算法细节",
+    "deliverables": "高清成片 + 技术论文/方案摘要 (2-4页 ACM 格式) + 核心算法源码或工作流说明",
+    "evalCriteria": "技术突破性与算法原创性 (50%)、动画视效完成度 (30%)、叙事艺术性 (20%)",
+    "proTips": "SIGGRAPH 是技术与艺术的绝对交汇点；不仅要片子好看，更要在摘要中讲清楚算法管线的突破（如自研神经着色器、端到端一致性控制）。",
+    "searchKeywords": "SIGGRAPH ACM 动画节 CAF 计算机图形 动画",
+    "link": "https://s2026.siggraph.org/"
+  },
+  {
+    "id": "runway-aiff-2026",
+    "name": "Runway AI Film Festival (AIFF) & Gen:48",
+    "category": "film",
+    "subCategory": "行业先锋标杆",
+    "categoryLabel": "AI 影视与创作",
+    "organizer": "Runway AI / 纽约林肯中心 / IMAX",
+    "region": "global",
+    "regionText": "国际 / 全球",
+    "status": "🔄 季度常态化轮动",
+    "statusType": "upcoming",
+    "deadline": "Gen:48 季度轮动 / AIFF 年度赛明春 3 月截止",
+    "deadlineTag": "📌 季度 48h 挑战赛轮动推进中",
+    "deadlineUrgent": false,
+    "timelineDetails": "Gen:48 限时 48 小时挑战赛每季度轮动 ｜ AIFF 年度旗舰赛每年 2–3 月征片，6 月在纽约林肯中心举行红毯盛典",
+    "prizes": "$60,000+ 美金现金奖金池 ｜ 1,000,000+ Runway 算力点数 ｜ 纽约林肯中心红毯大银幕放映",
+    "prizeBreakdown": "Grand Prix 大奖 $15,000 现金 + 百万算力；各单项奖 $5,000；Runway Studios 签约合作导演席位",
+    "prizeScore": 60000,
+    "incentives": [
+      "cash",
+      "compute",
+      "festival"
+    ],
+    "formats": [
+      "short"
+    ],
+    "specs": "AIFF 时长 1–10 分钟；Gen:48 时长 1–4 分钟；1080P/4K H.264/ProRes",
+    "requirements": "AIFF 1–10min / Gen:48 1–4min；AI 生成画面占比 ≥ 75%",
+    "aiRatio": "画面至少 75% 由 AI 生成，核心镜头主要使用 Runway (Gen-2/Gen-3 Alpha) 工具链",
+    "deliverables": "成片视频 + 提交 Runway 账号与生成 Prompt 日志 + 简要故事阐述",
+    "evalCriteria": "视听先锋实验性 (35%)、镜头语言张力 (30%)、AI 工具掌握精纯度 (25%)、原创音乐匹配度 (10%)",
+    "proTips": "Runway 极为看重电影感运镜与超现实主义氛围构图；Gen:48 限时赛需提前搭建好剧本模块与声音素材库，48 小时内全力冲刺生成与剪辑。",
+    "searchKeywords": "Runway AIFF Gen48 电影节 林肯中心",
+    "link": "https://runway.com/studios"
+  },
+  {
+    "id": "bjiff-aigc-2026",
+    "name": "北京国际电影节 (BJIFF) AIGC 电影单元 & 游戏 IP 漫剧短片赛",
+    "category": "film",
+    "subCategory": "国内顶级电影节",
+    "categoryLabel": "AI 影视与创作",
+    "organizer": "北京国际电影节组委会 / 灵芽社区 / 百度 / 京东",
+    "region": "china",
+    "regionText": "国内 / 北京",
+    "status": "🔄 常态化创投吸纳中",
+    "statusType": "upcoming",
+    "deadline": "主节每年 2–4 月 / 创投全年开放申报",
+    "deadlineTag": "📌 AIGC 创投项目全年持续吸纳",
+    "deadlineUrgent": false,
+    "timelineDetails": "主节正赛每年 2–3 月征集，4 月北京国际电影节期间展映与创投 ｜ AIGC 漫剧与长片创投全年开放申报",
+    "prizes": "北影节金爵级官方荣誉认证 ｜ 京东/百度商业化流量扶持与长片创投资金对接",
+    "prizeBreakdown": "荣誉奖杯；百度/京东百亿流量曝光与商业分成；直通北影节创投会面向一线影视基金路演",
+    "prizeScore": 150000,
+    "incentives": [
+      "festival",
+      "traffic",
+      "venture"
+    ],
+    "formats": [
+      "short",
+      "drama"
+    ],
+    "specs": "短片 1–20 分钟；游戏 IP 漫剧单集 1–5 分钟；1080P/4K 高清格式",
+    "requirements": "短片 1–20min / 游戏 IP 漫剧单集 1–5min；提交技术工作流说明",
+    "aiRatio": "核心视听资产须由 AI 工具生成；需提交完整技术工作流说明与提示词逻辑",
+    "deliverables": "成片视频 + 分镜脚本 + 完整技术工作流说明文档 + 项目商业策划书",
+    "evalCriteria": "电影故事架构与人物塑造 (40%)、AI 工具链融合创新 (30%)、商业 IP 转化潜能 (30%)",
+    "proTips": "北影节格外看重具备长片开发潜力的世界观构建；若结合国内知名游戏 IP 或经典传统文学 IP 进行衍生创作，更容易获得创投评委青睐。",
+    "searchKeywords": "北影节 北京国际电影节 BJIFF 灵芽 漫剧 创投",
+    "link": "https://www.bjiff.com/xghd/jjdlllt_18698/"
+  },
+  {
+    "id": "siff-aigc-2026",
+    "name": "上海国际电影节 (SIFF) AIGC 单元 & “AI 片场” (48h 挑战)",
+    "category": "film",
+    "subCategory": "国际 A 类电影节",
+    "categoryLabel": "AI 影视与创作",
+    "organizer": "上海国际电影节组委会 (SIFF) / 即梦 AI / MiniMax",
+    "region": "china",
+    "regionText": "国内 / 上海",
+    "status": "🔄 年度常规正赛",
+    "statusType": "upcoming",
+    "deadline": "每年 3–4 月征集 (6 月电影节期间颁奖)",
+    "deadlineTag": "📌 下一届 AIGC 单元将于明春 3 月开启",
+    "deadlineUrgent": false,
+    "timelineDetails": "每年 3–4 月启动全球征片 ｜ 5 月入围开机 ｜ 6 月在上海国际电影节主会场举行 48 小时现场创制并大银幕公开展映",
+    "prizes": "国际 A 类电影节官方金爵荣誉认证 ｜ 主会场大银幕公开展映 ｜ 院线创投对接",
+    "prizeBreakdown": "官方奖杯与入选证明；上海国际电影节主会场展映；直通 SIFF 创投训练营",
+    "prizeScore": 100000,
+    "incentives": [
+      "festival",
+      "venture"
+    ],
+    "formats": [
+      "short"
+    ],
+    "specs": "1–20 分钟原创 AI 影片；影院放映级标准 4K DCI / ProRes 422 HQ",
+    "requirements": "1–20min 原创影片；影院放映级 4K 标准；提交人机协作报告",
+    "aiRatio": "深度应用生成式 AI 工具链；需提交详尽的人机协作技术工作流报告",
+    "deliverables": "成片视频 + 详细技术工作流报告（阐述人机协作细节）+ 预告片与海报",
+    "evalCriteria": "视听美学独创性 (35%)、叙事完整度 (35%)、人机协同技术规范 (30%)",
+    "proTips": "上影节‘AI 片场’注重人机实时共创能力；团队内必须有兼具导演思维与 Prompt 调优能力的跨界人才，现场命题往往对即兴叙事要求极高。",
+    "searchKeywords": "上影节 上海国际电影节 SIFF AI片场 即梦 MiniMax",
+    "link": "https://www.siff.com/aibacklot/?lang=zh"
+  },
+  {
+    "id": "goldenrooster-aigc-2026",
+    "name": "中国金鸡百花电影节 “全年金鸡丨AIGC 创新训练营”",
+    "category": "film",
+    "subCategory": "国家级电影节",
+    "categoryLabel": "AI 影视与创作",
+    "organizer": "中国电影家协会 / 厦门市人民政府 / 阿里云通义大模型团队",
+    "region": "china",
+    "regionText": "国内",
+    "status": "🔄 常态化巡回推进",
+    "statusType": "upcoming",
+    "deadline": "各城市巡回训练营分批次开展",
+    "deadlineTag": "📌 常态化巡回与年度百花推优中",
+    "deadlineUrgent": false,
+    "timelineDetails": "常年在厦门及主要城市巡回开展训练营 ｜ 每年金鸡百花电影节期间举行青年 AIGC 成果汇报展映",
+    "prizes": "金鸡短片季官方推优背书 ｜ 阿里云通义万相/通义千问大额算力包 ｜ 纳入中国影协青年人才库",
+    "prizeBreakdown": "官方荣誉证书；阿里云百炼大额算力额度；进入中国电影家协会青年导演扶持名录",
+    "prizeScore": 50000,
+    "incentives": [
+      "festival",
+      "compute"
+    ],
+    "formats": [
+      "short",
+      "drama"
+    ],
+    "specs": "成片 3–15 分钟；微短剧单集 1–3 分钟；1080P/4K 高清",
+    "requirements": "成片 3–15min / 微短剧单集 1–3min；提交技术复盘报告",
+    "aiRatio": "强调传统视听语言与 AIGC 深度结合；需提交成片与技术复盘报告",
+    "deliverables": "成片视频 + 技术复盘报告 + 导演阐述",
+    "evalCriteria": "传统电影语言与 AI 技术融合度 (40%)、视听创新性 (30%)、青年人才潜力 (30%)",
+    "proTips": "金鸡百花评审团多为传统电影学界权威；视听语言必须规范（景别衔接、轴线原则、声画对位），严禁低级画质崩塌或无意义的炫技抽帧。",
+    "searchKeywords": "金鸡 金鸡百花 百花奖 中国影协 通义 阿里云",
+    "link": "https://www.news.cn/ci/20260530/7d949119632648a8a94b1267ab5df4c6/c.html"
+  },
+  {
+    "id": "hkaff-goldframe-2026",
+    "name": "香港国际 AI 电影节 (HKIAIFF / 金帧奖)",
+    "category": "film",
+    "subCategory": "大湾区国际盛会",
+    "categoryLabel": "AI 影视与创作",
+    "organizer": "香港国际文化创意博览会组委会 / 紫荆文化集团",
+    "region": "china",
+    "regionText": "国内 / 香港",
+    "status": "🔄 年度常规盛典",
+    "statusType": "upcoming",
+    "deadline": "每年 4–5 月开启征集 (7 月香港盛典)",
+    "deadlineTag": "📌 当届已闭幕 / 下一届明春 4 月开启",
+    "deadlineUrgent": false,
+    "timelineDetails": "每年 4–5 月开启全球征片 ｜ 7 月在香港文博会主会场举办“金帧奖”颁奖盛典",
+    "prizes": "“金帧奖”行业荣誉 ｜ 大湾区影视投资基金直通对接 ｜ 面向全球海外流媒体渠道发行",
+    "prizeBreakdown": "金帧奖最佳影片/导演/视效官方奖杯；大湾区青年创业基金对接；东南亚与欧美发行渠道推介",
+    "prizeScore": 70000,
+    "incentives": [
+      "festival",
+      "venture"
+    ],
+    "formats": [
+      "short",
+      "feature",
+      "drama"
+    ],
+    "specs": "故事短片 3–20 分钟；动漫微剧单集 1–5 分钟；长片提案需含完整剧本大纲",
+    "requirements": "故事短片 3–20min / 漫剧 1–5min；长片提案需含完整大纲",
+    "aiRatio": "核心镜头须借助生成式模型产出；具备完整的故事线与原创剧本架构",
+    "deliverables": "成片视频或长片项目书 + 剧本 + AI 技术使用清单",
+    "evalCriteria": "跨文化叙事张力 (35%)、商业落地与出海潜力 (35%)、视效制作水准 (30%)",
+    "proTips": "香港平台极为看重‘文化出海’与跨文化传播属性；具备中国传统文化符号并能被全球观众理解的剧情短片更容易斩获金帧奖。",
+    "searchKeywords": "香港 金帧奖 HKIAIFF 紫荆 电影节 出海",
+    "link": "https://www.arthkexpo.com/cn/ex2/hkaff/"
+  },
+  {
+    "id": "cnsa-zhuiguang-2026",
+    "name": "中国网络视听大会 “追光计划” 微短剧大赛 (AIGC 赛道)",
+    "category": "film",
+    "subCategory": "视听行业国家级大赛",
+    "categoryLabel": "AI 影视与创作",
+    "organizer": "国家广电总局网络视听司指导 / 中国网络视听节目服务协会",
+    "region": "china",
+    "regionText": "国内",
+    "status": "🔄 年度常规赛",
+    "statusType": "upcoming",
+    "deadline": "每年春季启动征集 (3–5 月)",
+    "deadlineTag": "📌 新一届征集将于明春视听大会发布",
+    "deadlineUrgent": false,
+    "timelineDetails": "每年春季在成都中国网络视听大会主会场发布 ｜ 5 月截止申报 ｜ 6 月公布重点推优片单",
+    "prizes": "纳入北京大视听“追光计划”重点片单 ｜ 爱腾优芒、快手抖音开屏与首屏联合推荐",
+    "prizeBreakdown": "国家级微短剧重点推优荣誉；全网各大长短视频平台宣发资源包；广电专项政策扶持",
+    "prizeScore": 120000,
+    "incentives": [
+      "traffic",
+      "festival"
+    ],
+    "formats": [
+      "drama"
+    ],
+    "specs": "单集 60–180 秒；竖屏或横屏高清；符合国家网络视听播映规范",
+    "requirements": "单集 60–180s；符合网络视听播映标准",
+    "aiRatio": "AIGC 辅助创作或全流程生成，提供人机协同工作流报告",
+    "deliverables": "成片样集 + 剧本说明 + 制作工作流报告 + 播出平台上线证明（如有）",
+    "evalCriteria": "思想性与时代精神 (35%)、网络视听传播力 (35%)、技术应用创新 (30%)",
+    "proTips": "广电系统赛事对导向把控第一；故事需兼顾社会正能量与网感，结合乡村振兴、国潮国风、科技强国主题的短剧最受推荐。",
+    "searchKeywords": "网络视听大会 追光计划 广电总局 微短剧 短剧",
+    "link": "https://www.chinanews.com.cn/cul/2026/04-16/10605226.shtml"
+  },
+  {
+    "id": "bilibili-aigc-2026",
+    "name": "哔哩哔哩 (B 站) AI 创作大赛 (含三体/三国 IP 定制赛)",
+    "category": "film",
+    "subCategory": "头部视频社区赛",
+    "categoryLabel": "AI 影视与创作",
+    "organizer": "哔哩哔哩 (Bilibili / 哔斯卡金像奖)",
+    "region": "china",
+    "regionText": "国内",
+    "status": "🔄 常态化季赛轮动",
+    "statusType": "upcoming",
+    "deadline": "年度大型赛与专项季赛轮动推进",
+    "deadlineTag": "📌 季度 IP 赛持续轮动中",
+    "deadlineUrgent": false,
+    "timelineDetails": "首届总播放超 7 亿，后续常态化开展《三体》世界观改编季、三国国风季等主题创作",
+    "prizes": "总奖金超 300 万元人民币 (单项一等奖高达 100 万元现金) ｜ B 站全站百亿级流量扶持",
+    "prizeBreakdown": "一等奖 1,000,000 元现金 (1名) / 二等奖 200,000 元 (3名) / 三等奖 50,000 元 (10名)；小电视奖杯与官方签约",
+    "prizeScore": 420000,
+    "incentives": [
+      "cash",
+      "traffic"
+    ],
+    "formats": [
+      "short",
+      "drama"
+    ],
+    "specs": "时长 ≥ 1 分钟；横屏 16:9 为主，4K/1080P 60fps；必须在 B 站原创首发",
+    "requirements": "时长 ≥ 1min；原创首发；支持《三体》/三国官方 IP",
+    "aiRatio": "深度应用 AIGC 工作流；须在视频简介中注明使用的 AI 工具与制作流程",
+    "deliverables": "视频成片（投稿至对应活动标签）+ 创作过程花絮图文/视频 + 提示词分享",
+    "evalCriteria": "B 站社区弹幕播放与好评率 (40%)、高概念脑洞与二创深度 (30%)、视听工业化完成度 (30%)",
+    "proTips": "B 站年轻受众对‘硬核科幻’、‘玩梗幽默’、‘神级画质’极其买账；善用《三体》授权赛道，制作 3-5 分钟具有叙事深度的科幻短片，是冲刺百万现金的最佳通道。",
+    "searchKeywords": "B站 哔哩哔哩 Bilibili AI创作大赛 三体 三国 100万 300万",
+    "link": "https://www.bilibili.com/opus/1191141387814305792"
+  },
+  {
+    "id": "cuc-ciic-2026",
+    "name": "中国传媒大学 · 中国创新影像大赛 (CIIC AIGC 赛道)",
+    "category": "film",
+    "subCategory": "国家级学会高校赛",
+    "categoryLabel": "AI 影视与创作",
+    "organizer": "中国电影电视技术学会 / 中国传媒大学 / 北京电影学院",
+    "region": "china",
+    "regionText": "国内",
+    "status": "🔄 年度常规赛",
+    "statusType": "upcoming",
+    "deadline": "每年 3–8 月初征集 (当届评审期)",
+    "deadlineTag": "📌 8月截稿进入终审 / 下届明春开启",
+    "deadlineUrgent": false,
+    "timelineDetails": "每年 3 月启动全国征集 ｜ 8 月初截稿 ｜ 秋季举行学术研讨会与颁奖典礼",
+    "prizes": "国家级学会荣誉证书 ｜ 高校师生国家级学术成果认证 ｜ 头部视听机构产学研转化",
+    "prizeBreakdown": "一等奖/二等奖/三等奖学会认证证书；入选高校优秀科研成果汇编；优先推荐至央视与各大视听平台",
+    "prizeScore": 50000,
+    "incentives": [
+      "festival"
+    ],
+    "formats": [
+      "short",
+      "drama"
+    ],
+    "specs": "AIGC 影片、数字人短剧、AI 漫剧；成片 1–15 分钟；1080P/4K 标准",
+    "requirements": "AIGC 影片/数字人/短剧；附数智联创工作流报告",
+    "aiRatio": "至少使用一种生成式 AI 工具创作，附带数智联创工作流探析报告",
+    "deliverables": "成片视频 + 数智联创工作流探析报告 (阐明技术链路与学术价值) + 报名表",
+    "evalCriteria": "学术探索价值与技术创新度 (40%)、视听审美与艺术性 (35%)、产学研转化潜力 (25%)",
+    "proTips": "高校与学会赛道看重理论支撑与技术复盘；不仅要有成片，提交一份结构完整、数据详实的技术报告能让评分等级大幅提升。",
+    "searchKeywords": "中传 中国传媒大学 创新影像大赛 CIIC 影视技术学会",
+    "link": "https://www.csmpte.com/zt/ciic2025/index.shtml"
+  },
+  {
+    "id": "civitai-odyssey-2026",
+    "name": "Civitai Project Odyssey 全球 AI 电影大赛",
+    "category": "film",
+    "subCategory": "全球开源社区",
+    "categoryLabel": "AI 影视与创作",
+    "organizer": "Civitai / ElevenLabs / Topaz Labs / ThinkDiffusion",
+    "region": "global",
+    "regionText": "全球",
+    "status": "🔄 季度常态化滚动推进",
+    "statusType": "upcoming",
+    "deadline": "新一赛季规则与赛题筹备中",
+    "deadlineTag": "📌 季度新赛季即将公布",
+    "deadlineUrgent": false,
+    "timelineDetails": "已成功举办多季，累计超 4,500 部作品 ｜ 季度间歇期筹备新赛题中",
+    "prizes": "超 $100,000 美元总奖金池与算力赞助 ｜ 专业 GPU 硬件与模型 API 赞助 ｜ 社区全球顶流传播",
+    "prizeBreakdown": "单赛季现金奖 $30,000+；ElevenLabs / Topaz 永久商业授权；ThinkDiffusion 高阶云算力包",
+    "prizeScore": 100000,
+    "incentives": [
+      "cash",
+      "compute"
+    ],
+    "formats": [
+      "short"
+    ],
+    "specs": "时长 1–5 分钟；强调开源模型生态（SDXL, Flux, ComfyUI 工作流）",
+    "requirements": "时长 1–5min；强调开源模型生态与 ComfyUI 工作流",
+    "aiRatio": "全流程多模态生成；要求在 Civitai 平台公开所使用的模型 LoRA 与工作流元数据",
+    "deliverables": "视频成片 + Civitai 平台发布链接 + 完整 ComfyUI 工作流 json 文件",
+    "evalCriteria": "开源技术可复现性与创新 (40%)、画面细节与风格一致性 (30%)、视听综合叙事 (30%)",
+    "proTips": "Civitai 是开源技术大本营；参赛作品必须展示深度掌控开源生态（如 Flux + ControlNet + AnimateDiff）的硬核技术实力。",
+    "searchKeywords": "Civitai Odyssey ProjectOdyssey 开源 ComfyUI Flux",
+    "link": "https://civitai.com/events"
+  },
+  {
+    "id": "capcut-create-2026",
+    "name": "CapCut CRE[AI]TE 全球 AI 短片创作节",
+    "category": "film",
+    "subCategory": "全球短视频创作",
+    "categoryLabel": "AI 影视与创作",
+    "organizer": "CapCut (剪映国际版) 官方",
+    "region": "global",
+    "regionText": "全球",
+    "status": "🔄 年度社群赛",
+    "statusType": "upcoming",
+    "deadline": "年度夏秋季活动 (新一期筹备中)",
+    "deadlineTag": "📌 新一期社群招募令筹备中",
+    "deadlineUrgent": false,
+    "timelineDetails": "年度全球社群创作节 ｜ 联动 TikTok 全球创作者社区广泛传播",
+    "prizes": "$200,000 美元总奖金池 ｜ TikTok 与 CapCut 全球百亿级流量推广扶持",
+    "prizeBreakdown": "金奖 $20,000 现金；多项最佳视觉与最佳叙事奖；CapCut Pro 终身会员",
+    "prizeScore": 200000,
+    "incentives": [
+      "cash",
+      "traffic"
+    ],
+    "formats": [
+      "short",
+      "drama"
+    ],
+    "specs": "30 秒至 3 分钟；9:16 竖屏为主；支持多语言配音与字幕",
+    "requirements": "30s–3min；须深度使用 CapCut 生成与剪辑工具链",
+    "aiRatio": "须深度使用 CapCut Video Studio 内置的生成式 AI 视频与智能剪辑工具链",
+    "deliverables": "视频成片 + CapCut 模板导出链接 + TikTok/Instagram 发布链接",
+    "evalCriteria": "短视频社交病毒传播力 (40%)、CapCut AI 功能创新组合 (35%)、视觉美感 (25%)",
+    "proTips": "剪映国际版注重轻量化、高爆款率与快速裂变；突出节奏感卡点与神反转剧情更容易登顶。",
+    "searchKeywords": "CapCut 剪映 TikTok 创作节 200000",
+    "link": "https://scouts.yutori.com/42b03485-f3e8-4c9e-826a-303831c60402"
+  },
+  {
+    "id": "google-gemini-2026",
+    "name": "Google Gemini API Developer Competition",
+    "category": "app",
+    "subCategory": "全球大模型旗舰",
+    "categoryLabel": "AI 应用 & Agent",
+    "organizer": "Google AI / Devpost",
+    "region": "global",
+    "regionText": "全球",
+    "status": "🔄 年度旗舰 / 专题季赛",
+    "statusType": "upcoming",
+    "deadline": "年度旗舰赛与专题季赛轮动开展",
+    "deadlineTag": "📌 新一期专题季赛与黑客松筹备中",
+    "deadlineUrgent": false,
+    "timelineDetails": "首届总奖金 $1,000,000，目前定期开展 Multimodal 与 Android/Web 专题开发者挑战",
+    "prizes": "$1,000,000 美元总奖金池 (含定制 1981 电动 DeLorean 豪车大奖) ｜ Google Cloud 算力额度",
+    "prizeBreakdown": "Most Impactful App $300,000；各专项奖 $10,000–$50,000；Google I/O 大会主舞台展示机会",
+    "prizeScore": 1000000,
+    "incentives": [
+      "cash",
+      "compute"
+    ],
+    "formats": [
+      "agent"
+    ],
+    "specs": "核心业务逻辑必须深度集成 Google Gemini API (Gemini 1.5 Pro / Flash / 2.0)；Web 或移动端 App",
+    "requirements": "深度集成 Gemini API；提交可交互 Demo 与公开 GitHub 仓库",
+    "aiRatio": "充分发挥 Gemini 超长上下文（200万+ Token）与多模态原生理解能力",
+    "deliverables": "可运行的公开 Demo URL + 3 分钟演示视频 + 系统架构说明 + GitHub 公开源码",
+    "evalCriteria": "产品创新性 (30%)、实际社会与商业影响力 (30%)、Gemini API 技术挖掘深度 (25%)、UX 设计与完成度 (15%)",
+    "proTips": "Google 评委极度青睐能体现‘超长上下文检索’或‘原生音视频多模态实时交互’的应用场景；避免套壳聊天框，打造具备端到端工作流的行业工具。",
+    "searchKeywords": "Google 谷歌 Gemini Devpost 黑客松 开发者 1000000",
+    "link": "https://ai.google.dev/competition"
+  },
+  {
+    "id": "hf-mcp-2026",
+    "name": "Hugging Face Agents & MCP Hackathon",
+    "category": "app",
+    "subCategory": "开源标准协议",
+    "categoryLabel": "AI 应用 & Agent",
+    "organizer": "Hugging Face / Anthropic / Mistral AI / SambaNova",
+    "region": "global",
+    "regionText": "全球线上",
+    "status": "🔄 季节性滚动推进",
+    "statusType": "upcoming",
+    "deadline": "季节性全球线上赛 (秋冬季新赛季筹备中)",
+    "deadlineTag": "📌 开源新赛季规则即将发布",
+    "deadlineUrgent": false,
+    "timelineDetails": "每年夏季与冬季开展全球线上黑客松 ｜ 汇聚全球数万开源开发者",
+    "prizes": "$11,000+ 现金奖池 ｜ 赞助商模型 API 算力卡包 ｜ Hugging Face 首页全球置顶推荐",
+    "prizeBreakdown": "优胜项目获现金奖励；Anthropic/Mistral/SambaNova 免费 API 额度包；Spaces 精选专区曝光",
+    "prizeScore": 11000,
+    "incentives": [
+      "cash",
+      "compute"
+    ],
+    "formats": [
+      "agent"
+    ],
+    "specs": "基于开源模型或 MCP (Model Context Protocol) 标准协议；必须在 HF Spaces (Gradio) 上线",
+    "requirements": "基于开源模型或 MCP 协议；必须在 HF Spaces (Gradio) 上线",
+    "aiRatio": "使用 smolagents、LangGraph 或标准化 MCP 协议构建的多 Agent 协同系统",
+    "deliverables": "Hugging Face Spaces 部署链接 + GitHub 开源代码仓库 + 详细使用与架构说明文档",
+    "evalCriteria": "开源生态复用价值 (35%)、MCP 协议规范性 (35%)、Spaces 交互体验与代码可复现性 (30%)",
+    "proTips": "HF 社区极其看重开源共享与可复现性；提供一键运行的 Spaces Demo 和详尽的 README.md 是获取高赞与评委高分的核心套路。",
+    "searchKeywords": "HuggingFace Hugging Face 抱抱脸 MCP Agent 开源 黑客松",
+    "link": "https://huggingface.co/Agents-MCP-Hackathon"
+  }
+];
+
+// Active Filter State
+const state = {
+    category: 'all',
+    region: 'all',
+    status: 'all',
+    incentive: 'all',
+    format: 'all',
+    search: '',
+    sortBy: 'default',
+    viewMode: 'grid'
+};
+
+function initFilters() {
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const filterType = this.getAttribute('data-filter');
+            const filterVal = this.getAttribute('data-val');
+            
+            // Toggle active state in this row
+            const parentRow = this.closest('.filter-buttons');
+            parentRow.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            
+            state[filterType] = filterVal;
+            applyFilters();
+        });
+    });
+}
+
+function handleSearch() {
+    state.search = (document.getElementById('searchInput').value || '').trim().toLowerCase();
+    applyFilters();
+}
+
+function handleSort() {
+    state.sortBy = document.getElementById('sortSelect').value;
+    applyFilters();
+}
+
+function switchView(mode) {
+    state.viewMode = mode;
+    document.getElementById('viewCardBtn').classList.toggle('active', mode === 'grid');
+    document.getElementById('viewTableBtn').classList.toggle('active', mode === 'table');
+    document.getElementById('competitionsGrid').style.display = mode === 'grid' ? 'grid' : 'none';
+    document.getElementById('competitionsTableWrap').style.display = mode === 'table' ? 'block' : 'none';
+}
+
+function resetAllFilters() {
+    state.category = 'all';
+    state.region = 'all';
+    state.status = 'all';
+    state.incentive = 'all';
+    state.format = 'all';
+    state.search = '';
+    state.sortBy = 'default';
+    
+    document.getElementById('searchInput').value = '';
+    document.getElementById('sortSelect').value = 'default';
+    
+    document.querySelectorAll('.filter-buttons').forEach(row => {
+        row.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.getAttribute('data-val') === 'all');
+        });
+    });
+    
+    applyFilters();
+}
+
+function applyFilters() {
+    let filtered = rawCompetitions.filter(c => {
+        // Status Strict Match
+        if (state.status !== 'all' && c.statusType !== state.status) return false;
+        // Category Match
+        if (state.category !== 'all' && c.category !== state.category) return false;
+        // Region Match
+        if (state.region !== 'all' && c.region !== state.region) return false;
+        // Incentive Match
+        if (state.incentive !== 'all' && (!c.incentives || !c.incentives.includes(state.incentive))) return false;
+        // Format Match
+        if (state.format !== 'all' && (!c.formats || !c.formats.includes(state.format))) return false;
+        // Search safe match
+        if (state.search) {
+            const name = (c.name || '');
+            const organizer = (c.organizer || '');
+            const requirements = (c.requirements || c.specs || '');
+            const prizes = (c.prizes || '');
+            const subCategory = (c.subCategory || '');
+            const deadline = (c.deadline || '');
+            const proTips = (c.proTips || '');
+            const specs = (c.specs || '');
+            const searchKeywords = (c.searchKeywords || '');
+            
+            const fullStr = (name + ' ' + organizer + ' ' + requirements + ' ' + prizes + ' ' + subCategory + ' ' + deadline + ' ' + proTips + ' ' + specs + ' ' + searchKeywords).toLowerCase();
+            if (!fullStr.includes(state.search)) return false;
+        }
+        return true;
+    });
+
+    // Sort
+    if (state.sortBy === 'prize-desc') {
+        filtered.sort((a, b) => (b.prizeScore || 0) - (a.prizeScore || 0));
+    } else if (state.sortBy === 'ongoing-first') {
+        filtered.sort((a, b) => (a.statusType === 'ongoing' ? -1 : 1));
+    }
+
+    render(filtered);
+}
+
+function render(items) {
+    let statusText = '';
+    if (state.status === 'ongoing') statusText = ' [已筛选：正在报名中]';
+    else if (state.status === 'upcoming') statusText = ' [已筛选：即将开启/常态化]';
+    
+    document.getElementById('resultsSummary').innerHTML = `共匹配到 <strong>${items.length}</strong> 场符合条件的赛事${statusText}`;
+
+    // Render Cards
+    const grid = document.getElementById('competitionsGrid');
+    if (items.length === 0) {
+        grid.innerHTML = `<div class="empty-state" style="grid-column: 1 / -1;">未找到符合当前多维筛选条件的赛事，请点击右上角「↺ 重置所有筛选」后重试。</div>`;
+    } else {
+        grid.innerHTML = items.map(c => `
+            <div class="card">
+                <div>
+                    <!-- Top Badges -->
+                    <div class="card-top">
+                        <div class="badges-wrap">
+                            <span class="badge badge-${c.category}">${c.categoryLabel}</span>
+                            <span class="badge-sub">${c.subCategory}</span>
+                            <span class="badge-sub">${c.regionText}</span>
+                        </div>
+                        <span class="badge-status status-${c.statusType}">${c.status}</span>
+                    </div>
+
+                    <!-- Title -->
+                    <div class="card-title">${c.name}</div>
+
+                    <!-- Explicit Deadline Highlight Box -->
+                    <div class="deadline-box ${c.deadlineUrgent ? 'urgent' : 'normal'}">
+                        <div>
+                            <div class="deadline-main">⏰ 截止时间：${c.deadline}</div>
+                            <div class="timeline-sub">📅 周期节点：${c.timelineDetails}</div>
+                        </div>
+                        <span class="deadline-tag">${c.deadlineTag}</span>
+                    </div>
+
+                    <!-- Core Meta List -->
+                    <div class="meta-list">
+                        <div class="meta-item">
+                            <span class="meta-k">主办平台：</span>
+                            <span class="meta-v">${c.organizer}</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-k">奖金权益：</span>
+                            <span class="meta-v prize-text">${c.prizes}</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-k">奖池细分：</span>
+                            <span class="meta-v" style="font-size: 12px; color: #475569;">${c.prizeBreakdown || '详见官方章程'}</span>
+                        </div>
+                    </div>
+
+                    <!-- Enriched Details -->
+                    <div class="detail-block">
+                        <strong>📐 作品规格与格式：</strong>
+                        <div class="detail-text">${c.specs || c.requirements || '见官方细则'}</div>
+                    </div>
+                    <div class="detail-block">
+                        <strong>🤖 AI 使用比例要求：</strong>
+                        <div class="detail-text">${c.aiRatio || '深度应用 AIGC 工具'}</div>
+                    </div>
+                    <div class="detail-block">
+                        <strong>📦 必须提交材料：</strong>
+                        <div class="detail-text">${c.deliverables || '成片视频 + 创作说明'}</div>
+                    </div>
+                    <div class="detail-block">
+                        <strong>⚖️ 核心评审侧重：</strong>
+                        <div class="detail-text">${c.evalCriteria || '综合视听艺术与创意'}</div>
+                    </div>
+
+                    <!-- Pro Tips -->
+                    <div class="protip-box">
+                        <strong>💡 备赛点拨：</strong>${c.proTips || '紧扣官方命题，打磨故事与画质。'}
+                    </div>
+                </div>
+
+                <!-- Footer Action -->
+                <div class="card-footer">
+                    <span style="font-size: 11.5px; color: var(--text-muted);">已完成官方信息溯源</span>
+                    <a href="${c.link}" target="_blank" class="link-btn">直达官方报名入口 ↗</a>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    // Render Table
+    const tbody = document.getElementById('competitionsTableBody');
+    tbody.innerHTML = items.map(c => `
+        <tr>
+            <td>
+                <span class="badge badge-${c.category}">${c.categoryLabel}</span><br>
+                <small style="color: #64748b;">${c.subCategory}</small>
+            </td>
+            <td>
+                <strong>${c.name}</strong><br>
+                <small style="color: #16a34a;">${c.status}</small>
+            </td>
+            <td>
+                <strong style="color: #dc2626;">${c.deadline}</strong><br>
+                <small style="color: #64748b;">${c.deadlineTag}</small>
+            </td>
+            <td>${c.organizer}<br><small style="color: #64748b;">${c.regionText}</small></td>
+            <td>
+                <small><strong>规格：</strong>${c.specs || c.requirements}</small><br>
+                <small><strong>AI比例：</strong>${c.aiRatio}</small>
+            </td>
+            <td>
+                <strong class="prize-text">${c.prizes}</strong><br>
+                <small style="color: #475569;">${c.prizeBreakdown}</small>
+            </td>
+            <td><a href="${c.link}" target="_blank" class="link-btn" style="padding: 4px 8px; font-size: 11.5px;">直达 ↗</a></td>
+        </tr>
+    `).join('');
+}
+
+initFilters();
+applyFilters();
+</script>
+</body>
+</html>
