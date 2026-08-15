@@ -14,7 +14,7 @@
             --text-main: #0f172a;
             --text-muted: #64748b;
             --border: #e2e8f0;
-            --border-focus: #94a3b8;
+            --border-hover: #cbd5e1;
             
             --tag-film: #7c3aed;
             --tag-film-bg: #f5f3ff;
@@ -32,59 +32,80 @@
             --deadline-red-bg: #fef2f2;
             --deadline-amber: #d97706;
             --deadline-amber-bg: #fffbeb;
-            
-            --tier-t1: #7c3aed;
-            --tier-t1-bg: #f3e8ff;
-            --tier-t2: #dc2626;
-            --tier-t2-bg: #fee2e2;
-            --tier-t3: #d97706;
-            --tier-t3-bg: #fef3c7;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; }
-        body { background-color: var(--bg); color: var(--text-main); line-height: 1.6; padding: 20px; }
-        .container { max-width: 1520px; margin: 0 auto; }
+        body { background-color: var(--bg); color: var(--text-main); line-height: 1.6; padding: 24px; }
+        .container { max-width: 1540px; margin: 0 auto; }
         
-        /* Header */
-        header { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 20px 24px; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.03); }
-        h1 { font-size: 24px; font-weight: 800; color: var(--text-main); display: flex; align-items: center; gap: 8px; letter-spacing: -0.5px; }
-        .subtitle { color: var(--text-muted); font-size: 13px; margin-top: 4px; }
-        .header-meta { font-size: 12px; color: var(--text-muted); text-align: right; }
-        .sync-badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 12px; background: #dcfce7; color: #16a34a; font-weight: 600; font-size: 11.5px; }
-        
-        /* Filter Control Panel */
-        .filter-panel { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 18px 24px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.03); }
-        .filter-row { display: flex; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 8px; }
-        .filter-row:last-child { margin-bottom: 0; }
-        .filter-label { font-size: 12px; font-weight: 700; color: #334155; min-width: 82px; letter-spacing: 0.3px; }
-        .filter-buttons { display: flex; flex-wrap: wrap; gap: 6px; flex: 1; }
-        .filter-btn { padding: 4.5px 11px; border: 1px solid var(--border); background: #fff; border-radius: 6px; font-size: 12px; font-weight: 500; cursor: pointer; color: var(--text-main); transition: all 0.15s ease; display: inline-flex; align-items: center; gap: 4px; }
-        .filter-btn:hover { background: #f1f5f9; border-color: var(--border-focus); }
-        .filter-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); font-weight: 600; }
-        .filter-count { font-size: 10px; opacity: 0.85; padding: 1px 4px; border-radius: 10px; background: rgba(0,0,0,0.08); }
-        .filter-btn.active .filter-count { background: rgba(255,255,255,0.25); color: #fff; }
-        
-        /* Search & View Controls */
-        .toolbar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; }
-        .search-wrapper { position: relative; width: 400px; max-width: 100%; }
-        .search-input { width: 100%; padding: 8px 12px 8px 34px; border: 1px solid var(--border); border-radius: 8px; font-size: 13px; outline: none; background: #fff; transition: border-color 0.2s; }
-        .search-input:focus { border-color: var(--primary); box-shadow: 0 0 0 2px rgba(37,99,235,0.1); }
-        .search-icon { position: absolute; left: 10px; top: 9px; color: var(--text-muted); font-size: 14px; }
-        
-        .toolbar-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-        .sort-select { padding: 7px 12px; border: 1px solid var(--border); border-radius: 6px; font-size: 12.5px; font-weight: 600; background: #fff; color: var(--text-main); outline: none; cursor: pointer; }
-        .view-btn { padding: 6px 10px; border: 1px solid var(--border); background: #fff; border-radius: 6px; font-size: 12px; cursor: pointer; color: var(--text-muted); }
-        .view-btn.active { background: #e2e8f0; color: var(--text-main); font-weight: 600; }
-        .reset-btn { padding: 6px 12px; border: 1px dashed #cbd5e1; background: transparent; border-radius: 6px; font-size: 12px; color: #64748b; cursor: pointer; }
-        .reset-btn:hover { border-color: #94a3b8; color: var(--text-main); background: #f8fafc; }
-        
-        /* Stats Summary */
-        .results-summary { font-size: 13px; color: var(--text-muted); margin-bottom: 16px; font-weight: 500; }
-        .results-summary strong { color: var(--text-main); font-weight: 700; }
+        /* Clean Header */
+        header { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 18px 24px; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; box-shadow: 0 1px 3px rgba(0,0,0,0.02); }
+        .brand-title { font-size: 22px; font-weight: 800; color: var(--text-main); display: flex; align-items: center; gap: 8px; letter-spacing: -0.4px; }
+        .brand-sub { color: var(--text-muted); font-size: 13px; margin-top: 2px; }
+        .header-meta { font-size: 12px; color: var(--text-muted); display: flex; align-items: center; gap: 12px; }
+        .sync-badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 20px; background: #dcfce7; color: #16a34a; font-weight: 600; font-size: 11.5px; }
 
-        /* Card Grid Layout */
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(460px, 1fr)); gap: 20px; }
+        /* Unified Filter Box (Top Box) */
+        .filter-panel { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 18px 22px; margin-bottom: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.02); display: flex; flex-direction: column; gap: 14px; }
+        
+        /* Row 1: Category Navigation Tabs & Status Pill Toggle */
+        .filter-row-top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; padding-bottom: 14px; border-bottom: 1px solid #f1f5f9; }
+        
+        .nav-tabs { display: inline-flex; background: #f1f5f9; padding: 3px; border-radius: 8px; gap: 3px; }
+        .nav-tab { padding: 6px 16px; border: none; background: transparent; border-radius: 6px; font-size: 13px; font-weight: 600; color: #64748b; cursor: pointer; transition: all 0.15s ease; display: inline-flex; align-items: center; gap: 6px; }
+        .nav-tab:hover { color: var(--text-main); }
+        .nav-tab.active { background: #fff; color: var(--primary); box-shadow: 0 1px 3px rgba(0,0,0,0.08); font-weight: 700; }
+        .tab-badge { font-size: 11px; padding: 1px 6px; border-radius: 10px; background: #e2e8f0; color: #475569; }
+        .nav-tab.active .tab-badge { background: var(--primary-light); color: var(--primary); }
+
+        .status-toggle-group { display: flex; align-items: center; gap: 6px; }
+        .status-pill { padding: 6px 14px; border: 1px solid var(--border); background: #fff; border-radius: 20px; font-size: 12px; font-weight: 600; cursor: pointer; color: #475569; transition: all 0.15s; display: inline-flex; align-items: center; gap: 4px; }
+        .status-pill:hover { border-color: var(--border-hover); background: #f8fafc; }
+        .status-pill.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+        .status-pill.active-ongoing { background: #16a34a; color: #fff; border-color: #16a34a; }
+        .status-pill.active-upcoming { background: #d97706; color: #fff; border-color: #d97706; }
+
+        /* Row 2: 6 Dropdown Filters */
+        .filter-row-bottom { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; }
+        .filter-select { width: 100%; height: 36px; padding: 6px 10px; border: 1px solid var(--border); border-radius: 6px; font-size: 12.5px; font-weight: 500; background: #f8fafc; color: #334155; outline: none; cursor: pointer; transition: all 0.15s; }
+        .filter-select:hover { border-color: var(--border-hover); background: #fff; }
+        .filter-select.has-value { border-color: var(--primary); background: var(--primary-light); color: var(--primary); font-weight: 600; }
+
+        /* Active Filter Chips */
+        .active-chips-bar { display: none; align-items: center; flex-wrap: wrap; gap: 6px; padding-top: 10px; border-top: 1px dashed #f1f5f9; }
+        .chip-label { font-size: 12px; color: #64748b; font-weight: 600; }
+        .chip { display: inline-flex; align-items: center; gap: 5px; padding: 3px 10px; border-radius: 4px; background: #eff6ff; border: 1px solid #bfdbfe; font-size: 12px; color: #1d4ed8; font-weight: 500; }
+        .chip-remove { cursor: pointer; color: #3b82f6; font-weight: 700; font-size: 13px; }
+        .chip-remove:hover { color: #dc2626; }
+
+        /* Results & Action Toolbar (Transparent & Seamless) */
+        .results-toolbar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; background: transparent; border: none; padding: 4px 2px; }
+        
+        .toolbar-left { display: flex; align-items: center; gap: 14px; flex: 1; min-width: 340px; }
+        .match-count-badge { font-size: 13.5px; color: #475569; white-space: nowrap; font-weight: 500; }
+        .match-count-badge strong { color: var(--text-main); font-weight: 800; font-size: 15px; }
+
+        .search-wrap { position: relative; flex: 1; max-width: 440px; }
+        .search-input { width: 100%; height: 38px; padding: 6px 12px 6px 36px; border: 1px solid var(--border); border-radius: 8px; font-size: 13px; outline: none; background: #ffffff; box-shadow: 0 1px 2px rgba(0,0,0,0.02); transition: all 0.2s; }
+        .search-input:focus { border-color: var(--primary); box-shadow: 0 0 0 2px rgba(37,99,235,0.1); }
+        .search-icon { position: absolute; left: 11px; top: 10px; color: var(--text-muted); font-size: 14px; }
+
+        .toolbar-right { display: flex; align-items: center; gap: 8px; }
+        .sort-select { height: 38px; padding: 6px 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 12.5px; font-weight: 600; background: #ffffff; color: var(--text-main); outline: none; cursor: pointer; box-shadow: 0 1px 2px rgba(0,0,0,0.02); }
+        
+        /* 4-in-1 View Mode Switcher */
+        .view-btn-group { display: inline-flex; background: #e2e8f0; padding: 3px; border-radius: 8px; gap: 2px; }
+        .view-btn { height: 32px; padding: 0 12px; border: none; background: transparent; border-radius: 6px; font-size: 12.5px; font-weight: 600; cursor: pointer; color: #64748b; transition: all 0.15s; display: inline-flex; align-items: center; gap: 4px; }
+        .view-btn.active { background: #fff; color: var(--primary); box-shadow: 0 1px 3px rgba(0,0,0,0.08); font-weight: 700; }
+        
+        .reset-btn { height: 38px; padding: 0 12px; border: 1px solid var(--border); background: #ffffff; border-radius: 8px; font-size: 12px; font-weight: 600; color: #64748b; cursor: pointer; transition: all 0.15s; box-shadow: 0 1px 2px rgba(0,0,0,0.02); }
+        .reset-btn:hover { border-color: #94a3b8; color: var(--text-main); background: #f8fafc; }
+
+        /* ============================================================ */
+        /* VIEW 1: DETAILED CARDS (深度卡片视图)                         */
+        /* ============================================================ */
+        .grid-detail { display: grid; grid-template-columns: repeat(auto-fill, minmax(460px, 1fr)); gap: 20px; }
         .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.15s, box-shadow 0.15s; }
-        .card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.07); border-color: #cbd5e1; }
+        .card:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.06); border-color: #cbd5e1; }
         
         .card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; margin-bottom: 8px; }
         .badges-wrap { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; }
@@ -100,8 +121,7 @@
         
         .card-title { font-size: 16px; font-weight: 700; color: var(--text-main); line-height: 1.4; margin-bottom: 10px; }
         
-        /* Explicit Deadline Highlight Box */
-        .deadline-box { border-radius: 8px; padding: 10px 14px; margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+        .deadline-box { border-radius: 8px; padding: 10px 14px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
         .deadline-box.urgent { background: var(--deadline-red-bg); border: 1px solid #fecaca; }
         .deadline-box.normal { background: var(--deadline-amber-bg); border: 1px solid #fde68a; }
         .deadline-main { font-size: 13px; font-weight: 700; }
@@ -112,28 +132,66 @@
         .deadline-box.normal .deadline-tag { background: #fef3c7; color: #b45309; }
         .timeline-sub { font-size: 11.5px; color: #64748b; margin-top: 2px; width: 100%; }
 
-        /* Meta List Structure */
         .meta-list { font-size: 12.5px; margin-bottom: 12px; background: #fafafa; border: 1px solid #f1f5f9; padding: 10px 12px; border-radius: 8px; }
-        .meta-item { display: flex; margin-bottom: 6px; line-height: 1.45; }
+        .meta-item { display: flex; margin-bottom: 5px; line-height: 1.45; }
         .meta-item:last-child { margin-bottom: 0; }
         .meta-k { color: #64748b; min-width: 72px; flex-shrink: 0; font-weight: 600; }
         .meta-v { color: #1e293b; }
         .prize-text { color: #dc2626; font-weight: 700; font-size: 13px; }
         
-        /* Enriched Detail Sections */
         .detail-block { font-size: 12px; margin-bottom: 8px; line-height: 1.45; }
         .detail-block strong { color: #0f172a; font-weight: 600; display: inline-flex; align-items: center; gap: 4px; }
         .detail-text { color: #334155; margin-top: 2px; }
         
-        /* Pro Tips Callout */
         .protip-box { background: #f0fdf4; border-left: 3px solid #16a34a; padding: 8px 10px; border-radius: 0 6px 6px 0; margin-top: 10px; font-size: 11.5px; color: #166534; }
         .protip-box strong { color: #14532d; font-weight: 700; }
         
         .card-footer { border-top: 1px solid var(--border); padding-top: 14px; margin-top: 14px; display: flex; justify-content: space-between; align-items: center; }
         .link-btn { color: #fff; background: var(--primary); text-decoration: none; font-size: 12.5px; font-weight: 600; display: inline-flex; align-items: center; gap: 4px; padding: 6px 14px; border-radius: 6px; transition: background 0.15s; box-shadow: 0 1px 2px rgba(37,99,235,0.2); }
         .link-btn:hover { background: var(--primary-hover); }
+
+        /* ============================================================ */
+        /* VIEW 2: COMPACT OVERVIEW CARDS (简洁概览卡片视图 - AIBetas 风格) */
+        /* ============================================================ */
+        .grid-overview { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 16px; display: none; }
+        .overview-card { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 16px; display: flex; flex-direction: column; justify-content: space-between; transition: all 0.15s; }
+        .overview-card:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.05); border-color: #cbd5e1; }
+        .overview-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+        .overview-title { font-size: 15px; font-weight: 700; color: #0f172a; line-height: 1.4; margin-bottom: 10px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 42px; }
+        .overview-meta-row { font-size: 12px; color: #475569; display: flex; margin-bottom: 6px; }
+        .overview-meta-label { color: #94a3b8; min-width: 58px; font-weight: 500; }
+        .overview-prize { color: #dc2626; font-weight: 700; }
+        .overview-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 12px; padding-top: 10px; border-top: 1px dashed #f1f5f9; font-size: 12px; }
+        .overview-deadline { color: #64748b; font-weight: 500; }
+
+        /* ============================================================ */
+        /* VIEW 3: DEADLINE CALENDAR (截止时间日历界面)                   */
+        /* ============================================================ */
+        .calendar-wrap { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 20px; display: none; box-shadow: 0 1px 3px rgba(0,0,0,0.02); }
+        .calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid #f1f5f9; }
+        .cal-month-title { font-size: 18px; font-weight: 800; color: #0f172a; display: flex; align-items: center; gap: 8px; }
+        .cal-nav-btn { padding: 5px 12px; border: 1px solid var(--border); background: #fff; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; color: #475569; }
+        .cal-nav-btn:hover { background: #f8fafc; border-color: #cbd5e1; }
         
-        /* Table View */
+        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; }
+        .cal-day-header { text-align: center; font-size: 12px; font-weight: 700; color: #64748b; padding: 6px 0; background: #f8fafc; border-radius: 4px; }
+        .cal-cell { min-height: 105px; border: 1px solid #f1f5f9; border-radius: 6px; padding: 6px; background: #fafafa; display: flex; flex-direction: column; transition: all 0.15s; }
+        .cal-cell.has-events { background: #fff; border-color: #e2e8f0; }
+        .cal-cell.is-today { border: 2px solid var(--primary); background: #eff6ff; }
+        .cal-date-num { font-size: 12px; font-weight: 700; color: #475569; margin-bottom: 4px; }
+        .cal-event-pill { font-size: 10.5px; padding: 3px 6px; border-radius: 4px; background: #fee2e2; color: #991b1b; font-weight: 600; margin-bottom: 3px; text-decoration: none; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; border-left: 3px solid #dc2626; }
+        .cal-event-pill:hover { background: #fecaca; }
+        .cal-event-pill.app { background: #e0f2fe; color: #075985; border-left-color: #0284c7; }
+        .cal-event-pill.biz { background: #dcfce7; color: #166534; border-left-color: #059669; }
+
+        .timeline-agenda { margin-top: 24px; padding-top: 16px; border-top: 1px solid #f1f5f9; }
+        .timeline-agenda-title { font-size: 15px; font-weight: 700; color: #0f172a; margin-bottom: 12px; }
+        .timeline-item { display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; background: #f8fafc; border-radius: 6px; margin-bottom: 6px; border-left: 4px solid var(--primary); }
+        .timeline-item:hover { background: #f1f5f9; }
+
+        /* ============================================================ */
+        /* VIEW 4: COMPACT TABLE (表格视图)                             */
+        /* ============================================================ */
         .table-wrap { background: #fff; border: 1px solid var(--border); border-radius: 10px; overflow-x: auto; display: none; }
         table { width: 100%; border-collapse: collapse; font-size: 12.5px; text-align: left; }
         th { background: #f8fafc; padding: 10px 14px; font-weight: 600; color: #475569; border-bottom: 1px solid var(--border); white-space: nowrap; }
@@ -141,150 +199,171 @@
         tr:hover td { background: #f8fafc; }
         
         .empty-state { text-align: center; padding: 48px 20px; color: var(--text-muted); background: #fff; border: 1px dashed var(--border); border-radius: 12px; }
+
+        @media (max-width: 1180px) {
+            .filter-row-bottom { grid-template-columns: repeat(3, 1fr); }
+            .calendar-grid { grid-template-columns: repeat(7, 1fr); }
+            .cal-cell { min-height: 80px; }
+        }
+        @media (max-width: 768px) {
+            .filter-row-bottom { grid-template-columns: repeat(2, 1fr); }
+            .grid-detail { grid-template-columns: 1fr; }
+            .grid-overview { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
 <div class="container">
+    <!-- Header -->
     <header>
         <div>
-            <h1>⚡ AI赛事全景看版</h1>
-            <p class="subtitle">全赛道动态监测 ｜ 权威含金量排序 ｜ 截止倒计时追踪 ｜ 实时云端自动同步</p>
+            <div class="brand-title">⚡ AI赛事全景看版</div>
+            <div class="brand-sub">全赛道动态监测 ｜ 权威含金量排序 ｜ 截止倒计时追踪 ｜ 实时云端自动同步</div>
         </div>
         <div class="header-meta">
-            <div>
-                <span class="sync-badge" id="syncStatus">● 实时云端数据已连接</span>
-            </div>
-            <div style="margin-top: 4px;">当前收录：正在报名中 <strong style="color: var(--ongoing);" id="h-ongoing">27</strong> 场 ｜ 即将开启/常态化 <strong style="color: var(--upcoming);" id="h-upcoming">20</strong> 场</div>
+            <span class="sync-badge" id="syncStatus">● 实时云端数据已连接</span>
+            <div>收录总量：<strong style="color: var(--primary);" id="h-total">57</strong> 场</div>
         </div>
     </header>
 
-    <!-- Multi-dimensional Filter Panel (8 Dimensions) -->
+    <!-- Filter Control Box (The ONLY White Card for Filters) -->
     <div class="filter-panel">
-        <!-- Filter 1: Status -->
-        <div class="filter-row" style="background: #f8fafc; padding: 7px 12px; border-radius: 8px; border: 1px solid #edf2f7; margin-bottom: 12px;">
-            <span class="filter-label" style="color: #0f172a;">⚡ 赛事状态：</span>
-            <div class="filter-buttons" id="filter-status">
-                <button class="filter-btn active" data-filter="status" data-val="all">全部状态 <span class="filter-count" id="c-status-all">47</span></button>
-                <button class="filter-btn" data-filter="status" data-val="ongoing" style="border-color: #86efac;">🟢 正在报名中 / 开放征集 <span class="filter-count" id="c-status-ongoing" style="background: #dcfce7; color: #16a34a; font-weight: 700;">27</span></button>
-                <button class="filter-btn" data-filter="status" data-val="upcoming" style="border-color: #fde68a;">🟡 即将开启 / 常态化年度赛 <span class="filter-count" id="c-status-upcoming" style="background: #fef3c7; color: #d97706; font-weight: 700;">20</span></button>
+        <!-- Row 1: Category Nav Tabs & Status Pills -->
+        <div class="filter-row-top">
+            <div class="nav-tabs" id="categoryTabs">
+                <button class="nav-tab active" data-cat="all">全部赛道 <span class="tab-badge" id="b-all">57</span></button>
+                <button class="nav-tab" data-cat="film">🎬 AI 影视短剧 <span class="tab-badge" id="b-film">45</span></button>
+                <button class="nav-tab" data-cat="app">🤖 AI 应用 & Agent <span class="tab-badge" id="b-app">7</span></button>
+                <button class="nav-tab" data-cat="biz">💼 商业创投 <span class="tab-badge" id="b-biz">5</span></button>
+            </div>
+
+            <div class="status-toggle-group" id="statusPills">
+                <button class="status-pill active" data-status="all">全部状态</button>
+                <button class="status-pill" data-status="ongoing">🟢 正在报名中 (37)</button>
+                <button class="status-pill" data-status="upcoming">🟡 即将开启/常态化 (20)</button>
             </div>
         </div>
 
-        <!-- Filter 2: Prestige Tier -->
-        <div class="filter-row">
-            <span class="filter-label">🏆 权威梯队：</span>
-            <div class="filter-buttons" id="filter-tier">
-                <button class="filter-btn active" data-filter="tier" data-val="all">全部梯队</button>
-                <button class="filter-btn" data-filter="tier" data-val="t1">👑 T1 国际顶流与奥斯卡认证 (95分+)</button>
-                <button class="filter-btn" data-filter="tier" data-val="t2">🎖️ T2 行业权威与大厂重磅创投 (85-93分)</button>
-                <button class="filter-btn" data-filter="tier" data-val="t3">⭐ T3 知名垂直品牌与特色赛 (75-84分)</button>
-            </div>
+        <!-- Row 2: 6 Dropdown Filters (Equal Width Grid) -->
+        <div class="filter-row-bottom">
+            <!-- Dropdown 1: Tier -->
+            <select class="filter-select" id="selectTier" onchange="handleDropdownChange()">
+                <option value="all">🏆 权威梯队：全部</option>
+                <option value="t1">👑 T1 国际顶流/奥斯卡 (95分+)</option>
+                <option value="t2">🎖️ T2 行业权威/大厂创投 (85-93分)</option>
+                <option value="t3">⭐ T3 垂直品牌/特色赛 (75-84分)</option>
+            </select>
+
+            <!-- Dropdown 2: Toolchain -->
+            <select class="filter-select" id="selectTool" onchange="handleDropdownChange()">
+                <option value="all">🛠️ 工具生态：全部</option>
+                <option value="kling">🟣 可灵 AI (Kling)</option>
+                <option value="jimeng">🔵 即梦 AI (Dreamina)</option>
+                <option value="pixverse">🟢 PixVerse</option>
+                <option value="runway">🟠 Runway</option>
+                <option value="luma">🔴 Luma AI</option>
+                <option value="comfyui">⚙️ 开源 (ComfyUI/Flux)</option>
+                <option value="llm_agent">🤖 大模型 / Agent / MCP</option>
+            </select>
+
+            <!-- Dropdown 3: Format -->
+            <select class="filter-select" id="selectFormat" onchange="handleDropdownChange()">
+                <option value="all">📐 作品形式：全部</option>
+                <option value="drama">📱 竖屏微短剧 (60–120s)</option>
+                <option value="short">🎥 电影短片 (1–20min)</option>
+                <option value="feature">📽️ 电影长片/剧本提案</option>
+                <option value="agent">💻 智能体 Agent / 插件</option>
+                <option value="bp">📑 商业计划书 BP / MVP</option>
+            </select>
+
+            <!-- Dropdown 4: Incentive -->
+            <select class="filter-select" id="selectIncentive" onchange="handleDropdownChange()">
+                <option value="all">💰 核心激励：全部</option>
+                <option value="cash">💰 高额现金奖 ($1万+/10万+)</option>
+                <option value="venture">🚀 股权投资/加速 (至600万)</option>
+                <option value="traffic">📈 平台流量/商业分账</option>
+                <option value="festival">🏆 电影节荣誉/展映</option>
+                <option value="compute">⚡ 算力补贴/云资源</option>
+            </select>
+
+            <!-- Dropdown 5: Region -->
+            <select class="filter-select" id="selectRegion" onchange="handleDropdownChange()">
+                <option value="all">🌍 地域范围：全部</option>
+                <option value="china">🇨🇳 国内赛事 (含港澳台)</option>
+                <option value="global">🌍 国际 / 全球海外赛事</option>
+            </select>
+
+            <!-- Dropdown 6: Comp Mode -->
+            <select class="filter-select" id="selectCompMode" onchange="handleDropdownChange()">
+                <option value="all">⏱️ 参赛赛制：全部</option>
+                <option value="online">🌐 线上常规投递</option>
+                <option value="speedrun">⚡ 36h/48h 限时极限赛</option>
+                <option value="rolling">🔄 全年常态化/创投季</option>
+            </select>
         </div>
 
-        <!-- Filter 3: Main Track -->
-        <div class="filter-row">
-            <span class="filter-label">🎬 核心赛道：</span>
-            <div class="filter-buttons" id="filter-category">
-                <button class="filter-btn active" data-filter="category" data-val="all">全部赛道</button>
-                <button class="filter-btn" data-filter="category" data-val="film">🎬 AI 影视与内容创作</button>
-                <button class="filter-btn" data-filter="category" data-val="app">🤖 AI 应用 & Agent 开发</button>
-                <button class="filter-btn" data-filter="category" data-val="biz">💼 商业创投 & Demo Day</button>
-            </div>
-        </div>
-
-        <!-- Filter 4: AI Toolchain Ecosystem (NEW!) -->
-        <div class="filter-row">
-            <span class="filter-label">🛠️ 推荐工具：</span>
-            <div class="filter-buttons" id="filter-toolchain">
-                <button class="filter-btn active" data-filter="toolchain" data-val="all">全部工具生态</button>
-                <button class="filter-btn" data-filter="toolchain" data-val="kling">🟣 可灵 AI (Kling)</button>
-                <button class="filter-btn" data-filter="toolchain" data-val="jimeng">🔵 即梦 AI (Dreamina)</button>
-                <button class="filter-btn" data-filter="toolchain" data-val="pixverse">🟢 PixVerse</button>
-                <button class="filter-btn" data-filter="toolchain" data-val="runway">🟠 Runway</button>
-                <button class="filter-btn" data-filter="toolchain" data-val="luma">🔴 Luma AI</button>
-                <button class="filter-btn" data-filter="toolchain" data-val="comfyui">⚙️ 开源生态 (ComfyUI / Flux)</button>
-                <button class="filter-btn" data-filter="toolchain" data-val="llm_agent">🤖 大模型 / Agent / MCP</button>
-            </div>
-        </div>
-
-        <!-- Filter 5: Competition Format / Mode (NEW!) -->
-        <div class="filter-row">
-            <span class="filter-label">⏱️ 参赛赛制：</span>
-            <div class="filter-buttons" id="filter-compMode">
-                <button class="filter-btn active" data-filter="compMode" data-val="all">全部赛制</button>
-                <button class="filter-btn" data-filter="compMode" data-val="online">🌐 线上常规投递</button>
-                <button class="filter-btn" data-filter="compMode" data-val="speedrun">⚡ 36h / 48h 限时极限黑客松</button>
-                <button class="filter-btn" data-filter="compMode" data-val="rolling">🔄 全年常态化 / 季度创投</button>
-            </div>
-        </div>
-
-        <!-- Filter 6: Region -->
-        <div class="filter-row">
-            <span class="filter-label">🌍 地域范围：</span>
-            <div class="filter-buttons" id="filter-region">
-                <button class="filter-btn active" data-filter="region" data-val="all">全部地域</button>
-                <button class="filter-btn" data-filter="region" data-val="china">🇨🇳 国内赛事 (含港澳台)</button>
-                <button class="filter-btn" data-filter="region" data-val="global">🌍 国际 / 全球海外赛事</button>
-            </div>
-        </div>
-
-        <!-- Filter 7: Incentive Type -->
-        <div class="filter-row">
-            <span class="filter-label">💰 核心激励：</span>
-            <div class="filter-buttons" id="filter-incentive">
-                <button class="filter-btn active" data-filter="incentive" data-val="all">全部激励</button>
-                <button class="filter-btn" data-filter="incentive" data-val="cash">💰 高额现金奖 ($1万+ / 10万+)</button>
-                <button class="filter-btn" data-filter="incentive" data-val="venture">🚀 股权投资 / 创业加速 (至600万)</button>
-                <button class="filter-btn" data-filter="incentive" data-val="traffic">📈 平台流量 / 商业分账</button>
-                <button class="filter-btn" data-filter="incentive" data-val="festival">🏆 顶级电影节荣誉 / 展映</button>
-                <button class="filter-btn" data-filter="incentive" data-val="compute">⚡ 算力补贴 / 云资源</button>
-            </div>
-        </div>
-
-        <!-- Filter 8: Format / Target Deliverables -->
-        <div class="filter-row">
-            <span class="filter-label">📐 作品形式：</span>
-            <div class="filter-buttons" id="filter-format">
-                <button class="filter-btn active" data-filter="format" data-val="all">全部形式</button>
-                <button class="filter-btn" data-filter="format" data-val="drama">📱 竖屏微短剧 (60–120s)</button>
-                <button class="filter-btn" data-filter="format" data-val="short">🎥 电影短片 (1–20min)</button>
-                <button class="filter-btn" data-filter="format" data-val="feature">📽️ 电影长片 / 剧本提案</button>
-                <button class="filter-btn" data-filter="format" data-val="agent">💻 智能体 Agent / MCP 插件</button>
-                <button class="filter-btn" data-filter="format" data-val="bp">📑 商业计划书 BP / MVP</button>
-            </div>
+        <!-- Row 3: Active Filter Chips -->
+        <div class="active-chips-bar" id="activeChipsBar">
+            <span class="chip-label">已选条件：</span>
+            <div id="chipsContainer" style="display: flex; flex-wrap: wrap; gap: 6px;"></div>
         </div>
     </div>
 
-    <!-- Toolbar: Search, Sort & View Switcher -->
-    <div class="toolbar">
-        <div class="search-wrapper">
-            <span class="search-icon">🔍</span>
-            <input type="text" class="search-input" id="searchInput" placeholder="搜索赛事名称 / 主办方 / 淘天 / 金海豚 / Vibe Coding / 关键词..." oninput="handleSearch()">
+    <!-- Results & Action Toolbar (Seamless & Transparent) -->
+    <div class="results-toolbar">
+        <div class="toolbar-left">
+            <div class="match-count-badge">共匹配到 <strong id="matchedCount">57</strong> 场赛事</div>
+            <div class="search-wrap">
+                <span class="search-icon">🔍</span>
+                <input type="text" class="search-input" id="searchInput" placeholder="搜索赛事名称 / 主办方 / 淘天 / 金海豚 / 懂车帝 / 关键词..." oninput="handleSearch()">
+            </div>
         </div>
 
-        <div class="toolbar-actions">
+        <div class="toolbar-right">
             <select class="sort-select" id="sortSelect" onchange="handleSort()">
-                <option value="prestige-desc" selected>🏆 默认：按综合含金量/行业权威度排序</option>
-                <option value="deadline-asc">⏳ 按截止时间倒计时 (临近截止优先)</option>
+                <option value="prestige-desc" selected>🏆 默认：按含金量/权威度排序</option>
+                <option value="deadline-asc">⏳ 按截止倒计时 (临近截止优先)</option>
                 <option value="prize-desc">💰 按奖金/投资金额从高到低</option>
                 <option value="ongoing-first">🟢 优先显示正在报名中</option>
             </select>
 
-            <button class="view-btn active" id="viewCardBtn" onclick="switchView('grid')">卡片视图</button>
-            <button class="view-btn" id="viewTableBtn" onclick="switchView('table')">表格视图</button>
-            <button class="reset-btn" onclick="resetAllFilters()">↺ 重置所有筛选</button>
+            <!-- 4 Distinct View Modes -->
+            <div class="view-btn-group">
+                <button class="view-btn active" id="viewCardBtn" onclick="switchView('grid')">卡片</button>
+                <button class="view-btn" id="viewOverviewBtn" onclick="switchView('overview')">概览</button>
+                <button class="view-btn" id="viewCalBtn" onclick="switchView('calendar')">日历</button>
+                <button class="view-btn" id="viewTableBtn" onclick="switchView('table')">表格</button>
+            </div>
+
+            <button class="reset-btn" onclick="resetAllFilters()">↺ 重置筛选</button>
         </div>
     </div>
 
-    <!-- Results count bar -->
-    <div class="results-summary" id="resultsSummary">
-        共匹配到 <strong>47</strong> 场符合条件的赛事 (默认按含金量排序)
+    <!-- VIEW 1: DETAILED CARDS GRID -->
+    <div class="grid-detail" id="competitionsGrid"></div>
+
+    <!-- VIEW 2: COMPACT OVERVIEW CARDS (AIBetas Style) -->
+    <div class="grid-overview" id="competitionsOverviewGrid"></div>
+
+    <!-- VIEW 3: INTERACTIVE DEADLINE CALENDAR -->
+    <div class="calendar-wrap" id="competitionsCalendarWrap">
+        <div class="calendar-header">
+            <div class="cal-month-title" id="calMonthTitle">📅 2026 年 8 月 · AI 赛事截稿日历</div>
+            <div style="display: flex; gap: 6px;">
+                <button class="cal-nav-btn" onclick="changeCalMonth(-1)">‹ 上一月</button>
+                <button class="cal-nav-btn" onclick="changeCalMonth(1)">下一月 ›</button>
+            </div>
+        </div>
+        <div class="calendar-grid" id="calendarDaysGrid"></div>
+
+        <!-- Chronological Agenda Timeline -->
+        <div class="timeline-agenda">
+            <div class="timeline-agenda-title">⏳ 当前月份临近截稿倒计时序列</div>
+            <div id="timelineAgendaList"></div>
+        </div>
     </div>
 
-    <!-- Grid View -->
-    <div class="grid" id="competitionsGrid"></div>
-
-    <!-- Table View -->
+    <!-- VIEW 4: COMPACT TABLE -->
     <div class="table-wrap" id="competitionsTableWrap">
         <table>
             <thead>
@@ -292,7 +371,7 @@
                     <th>含金量评级</th>
                     <th>赛道 / 分类</th>
                     <th>赛事名称</th>
-                    <th>截止日期 / 申报周期</th>
+                    <th>截止日期 / 倒计时</th>
                     <th>主办方 / 平台</th>
                     <th>作品规格与 AI 比例</th>
                     <th>奖金池与激励权益</th>
@@ -751,6 +830,51 @@ let rawCompetitions = [
     ]
   },
   {
+    "id": "goai-open-source-2026",
+    "name": "GOAI 2026 世界人工智能开源大赛 (总奖金 500 万)",
+    "category": "app",
+    "subCategory": "全球开源大模型正赛",
+    "categoryLabel": "AI 应用 & Agent",
+    "organizer": "杭州市开源人工智能基金会 / 浙江省人工智能学会",
+    "region": "china",
+    "regionText": "国内 / 全球",
+    "status": "🟢 正在报名中",
+    "statusType": "ongoing",
+    "deadline": "2026年08月16日 23:59 (初赛提交截止)",
+    "deadlineTag": "⏳ 截止倒计时：约 2 天 (紧急!)",
+    "deadlineDate": "2026-08-16",
+    "timelineDetails": "6 月开放全球报名 ｜ 8 月 16 日初赛提交截止 ｜ 9 月在杭州举行总决赛路演",
+    "prizes": "总奖金池 500 万元 ｜ GOAI 全场大奖独享 100 万元现金 ｜ 顶级开源基金直投",
+    "prizeBreakdown": "全场大奖 1,000,000 元现金 (1名)；单项赛道一等奖 200,000 元；开源算力代金券包",
+    "prizeScore": 1000000,
+    "prestigeScore": 93,
+    "prestigeTier": "T2 行业权威与大厂创投 (93分)",
+    "prestigeColor": "#dc2626",
+    "incentives": [
+      "cash",
+      "compute",
+      "venture"
+    ],
+    "formats": [
+      "agent"
+    ],
+    "specs": "涵盖大模型微调算法、开源 AI Agent 框架、具身智能与多模态工具链；必须在 GitHub 开源",
+    "requirements": "在 GitHub 完全开源；提交代码仓库、技术报告与可交互 Demo",
+    "aiRatio": "基于主流开源大模型 (Llama, Qwen, DeepSeek) 或完全自研开源架构",
+    "deliverables": "GitHub 开源仓库 + 架构设计技术白皮书 + 在线体验 Demo + 答辩 PPT",
+    "evalCriteria": "开源复用性与技术先进性 (45%)、架构创新度 (35%)、社区影响力 (20%)",
+    "proTips": "GOAI 是国内奖金额度最高的开源专项大赛之一；重点展示 GitHub 活跃度、完整测试用例与标准化 API 接口。",
+    "toolchains": [
+      "llm_agent",
+      "comfyui"
+    ],
+    "compMode": [
+      "online"
+    ],
+    "searchKeywords": "GOAI 世界人工智能开源大赛 500万 100万 杭州 开源",
+    "link": "https://www.aibetas.com/aigc_events/430"
+  },
+  {
     "id": "bjiff-aigc-2026",
     "name": "北京国际电影节 (BJIFF) AIGC 电影单元 & 游戏 IP 漫剧短片赛",
     "category": "film",
@@ -839,6 +963,51 @@ let rawCompetitions = [
     "compMode": [
       "speedrun"
     ]
+  },
+  {
+    "id": "douyin-100w-ai-2026",
+    "name": "抖音 2026 AI 创作大赛 (金奖 100 万现金)",
+    "category": "film",
+    "subCategory": "顶级短视频平台正赛",
+    "categoryLabel": "AI 影视与创作",
+    "organizer": "抖音官方 / 即梦 AI / 抖音创作者服务平台",
+    "region": "china",
+    "regionText": "国内",
+    "status": "🟢 正在报名中",
+    "statusType": "ongoing",
+    "deadline": "2026年08月20日 24:00 (投稿截止)",
+    "deadlineTag": "⏳ 截止倒计时：约 6 天 (紧急!)",
+    "deadlineUrgent": true,
+    "deadlineDate": "2026-08-20",
+    "timelineDetails": "6.10–8.20 全网投稿 ｜ 8 月下旬入围公示与大众互动评审 ｜ 9 月举行颁奖典礼",
+    "prizes": "金奖独享 100 万元现金 ｜ 总奖池数百万 ｜ 抖音全站开屏与千万级播放扶持 ｜ 签约官方 MCN",
+    "prizeBreakdown": "金奖 1,000,000 元现金 (1名)；银奖 300,000 元 (2名)；铜奖 100,000 元 (5名)；单项创新奖各 20,000 元",
+    "prizeScore": 1000000,
+    "prestigeScore": 92,
+    "prestigeTier": "T2 行业权威与大厂创投 (92分)",
+    "prestigeColor": "#dc2626",
+    "incentives": [
+      "cash",
+      "traffic"
+    ],
+    "formats": [
+      "short",
+      "drama"
+    ],
+    "specs": "时长 ≥ 60 秒；横屏或竖屏；涵盖 AI 科幻短片、AI 微短剧、AI 传统文化创新叙事",
+    "requirements": "时长 ≥ 60s；抖音发布带指定话题；必须原创首发",
+    "aiRatio": "AI 原生视频与声音合成；须在作品简介中注明使用的 AI 工具（推荐即梦 AI）",
+    "deliverables": "抖音带官方话题发布成片 + 提交创作者信息与生成过程工程凭证",
+    "evalCriteria": "抖音播放点赞互动数据 (40%)、高概念叙事与黄金 3 秒抓人度 (35%)、AI 画面精细度 (25%)",
+    "proTips": "距离截稿仅剩 6 天！建议快速将现有的优质科幻或短剧成片精剪为 1–2 分钟版本，配上悬念文案直接在抖音发布带话题冲榜。",
+    "toolchains": [
+      "jimeng"
+    ],
+    "compMode": [
+      "online"
+    ],
+    "searchKeywords": "抖音 抖音AI创作大赛 金奖100万 100万 即梦 字节跳动",
+    "link": "https://www.aibetas.com/aigc_events/485"
   },
   {
     "id": "jinhaitun-ai-2026",
@@ -930,6 +1099,51 @@ let rawCompetitions = [
     "compMode": [
       "online"
     ]
+  },
+  {
+    "id": "jimeng-seedance-2026",
+    "name": "故事盲盒：即梦 Seedance 2.5 白模参考创作大赛",
+    "category": "film",
+    "subCategory": "大厂旗舰视频大奖",
+    "categoryLabel": "AI 影视与创作",
+    "organizer": "字节跳动 / 即梦 AI (Dreamina) / Seedance 团队",
+    "region": "china",
+    "regionText": "国内 / 全球",
+    "status": "🟢 正在报名中",
+    "statusType": "ongoing",
+    "deadline": "2026年08月31日 23:59 (截稿)",
+    "deadlineTag": "⏳ 截止倒计时：约 17 天",
+    "deadlineUrgent": true,
+    "deadlineDate": "2026-08-31",
+    "timelineDetails": "8 月初启动 ｜ 8 月底截止 ｜ 9 月上旬公布入围 ｜ 9 月中旬颁奖",
+    "prizes": "冠军 5 万美元现金 ($50,000) ＋ 100 万即梦算力积分 ｜ 字节跳动签约创作者",
+    "prizeBreakdown": "冠军 50,000 美元 (约 36 万元人民币)；亚军 20,000 美元；季军 10,000 美元；多项最佳动作设计奖",
+    "prizeScore": 360000,
+    "prestigeScore": 91,
+    "prestigeTier": "T2 行业权威与大厂创投 (91分)",
+    "prestigeColor": "#dc2626",
+    "incentives": [
+      "cash",
+      "compute",
+      "traffic"
+    ],
+    "formats": [
+      "short"
+    ],
+    "specs": "时长 30 秒至 3 分钟；必须基于 Seedance 2.5 白模骨骼或视频参考动作驱动；1080P/4K 高清",
+    "requirements": "30s–3min；使用 Seedance 2.5 白模参考或动作驱动；全流程即梦 AI",
+    "aiRatio": "核心镜头动作与视频生成须深度使用即梦 AI (Dreamina Seedance 2.5)",
+    "deliverables": "视频成片 + 原始参考白模/视频片段 + 即梦生成任务 ID 与 Prompt 日志",
+    "evalCriteria": "动作连续性与物理拟真度 (40%)、故事创意与盲盒反转 (35%)、视觉美学 (25%)",
+    "proTips": "Seedance 2.5 的核心优势是动作精准控制与多机位连贯；利用白模骨骼或真人实拍动作作为参考视频驱动角色，能避免传统 AI 动作抽搐问题。",
+    "toolchains": [
+      "jimeng"
+    ],
+    "compMode": [
+      "online"
+    ],
+    "searchKeywords": "即梦 Seedance 白模 故事盲盒 5万美元 5万 字节跳动 动画",
+    "link": "https://www.aibetas.com/aigc_events/496"
   },
   {
     "id": "pixlight-2026",
@@ -1241,6 +1455,54 @@ let rawCompetitions = [
     "compMode": [
       "online"
     ]
+  },
+  {
+    "id": "dongchedi-car-ai-2026",
+    "name": "2026 懂车帝车影像 AI 创作大赛 (百万现金池)",
+    "category": "film",
+    "subCategory": "汽车垂直赛道",
+    "categoryLabel": "AI 影视与创作",
+    "organizer": "懂车帝 (Dongchedi) / 字节跳动商业化",
+    "region": "china",
+    "regionText": "国内",
+    "status": "🟢 正在报名中",
+    "statusType": "ongoing",
+    "deadline": "2026年09月01日 23:59 (截稿)",
+    "deadlineTag": "⏳ 截止倒计时：约 18 天",
+    "deadlineUrgent": true,
+    "deadlineDate": "2026-09-01",
+    "timelineDetails": "8 月启动 ｜ 9 月 1 日截稿 ｜ 9 月中旬大众投票与专家终审 ｜ 10 月懂车帝汽车嘉年华颁奖",
+    "prizes": "一等奖 20 万元现金 ｜ 百万现金总奖金池 ｜ 懂车帝亿级汽车垂直流量与主机厂商单直通",
+    "prizeBreakdown": "一等奖 200,000 元现金 (1名)；二等奖 50,000 元 (3名)；三等奖 20,000 元 (10名)；优秀奖若干",
+    "prizeScore": 200000,
+    "prestigeScore": 89,
+    "prestigeTier": "T2 行业权威与大厂创投 (89分)",
+    "prestigeColor": "#dc2626",
+    "incentives": [
+      "cash",
+      "traffic"
+    ],
+    "formats": [
+      "short",
+      "drama"
+    ],
+    "specs": "时长 30 秒至 3 分钟；横屏或竖屏；聚焦汽车工业美学、未来概念车、自驾公路大片或汽车微剧情",
+    "requirements": "30s–3min；聚焦汽车题材；多模态 AIGC 创制",
+    "aiRatio": "AI 汽车建模、光影渲染与动态驾驶镜头生成占比 ≥ 70%",
+    "deliverables": "视频成片 + 懂车帝带话题发布 + 创意分镜脚本与 Prompt 工作流说明",
+    "evalCriteria": "汽车光影曲面质感与工业设计还原 (40%)、视听节奏与剪辑张力 (35%)、商业广告价值 (25%)",
+    "proTips": "汽车曲面反光和轮毂旋转是 AI 常见痛点；建议使用 ControlNet 深度图锁定车身比例，搭配可灵或 Runway 的高速追车运镜提示词提升大片质感。",
+    "toolchains": [
+      "general",
+      "kling",
+      "runway",
+      "comfyui"
+    ],
+    "compMode": [
+      "online"
+    ],
+    "searchKeywords": "懂车帝 汽车 车影像 20万 100万 字节跳动",
+    "link": "https://www.aibetas.com/aigc_events/502"
   },
   {
     "id": "malanshan-ai-2026",
@@ -1651,6 +1913,101 @@ let rawCompetitions = [
     ]
   },
   {
+    "id": "dongfang-jd-ai-2026",
+    "name": "“AI 东方” 东方智媒城 · 京东 AI 影视创作大赛",
+    "category": "film",
+    "subCategory": "影视基地与大厂联合",
+    "categoryLabel": "AI 影视与创作",
+    "organizer": "东方明珠 / 东方智媒城 / 京东集团",
+    "region": "china",
+    "regionText": "国内 / 上海",
+    "status": "🟢 正在报名中",
+    "statusType": "ongoing",
+    "deadline": "2026年08月31日 23:59 (截稿)",
+    "deadlineTag": "⏳ 截止倒计时：约 17 天",
+    "deadlineDate": "2026-08-31",
+    "timelineDetails": "7 月启动 ｜ 8 月 31 日截止征集 ｜ 9 月在东方智媒城产业园举行总决赛与项目落地签约",
+    "prizes": "最高 10 万元现金奖励 ｜ 东方智媒城国家级影视孵化器免租入驻 ｜ 京东商业视频业务直通",
+    "prizeBreakdown": "一等奖 100,000 元现金；二等奖 30,000 元；入驻园区企业享受上海影视专项资金配套",
+    "prizeScore": 100000,
+    "prestigeScore": 86,
+    "prestigeTier": "T2 行业权威与大厂创投 (86分)",
+    "prestigeColor": "#dc2626",
+    "incentives": [
+      "cash",
+      "venture",
+      "traffic"
+    ],
+    "formats": [
+      "short",
+      "drama"
+    ],
+    "specs": "时长 1–10 分钟；围绕“AI 东方美学”、“数智生活”或“商业概念片”展开；4K/1080P",
+    "requirements": "时长 1–10min；围绕东方美学或商业概念；提供成片与工作流",
+    "aiRatio": "AI 全流程视听构建，强调国风美学与科技感融合",
+    "deliverables": "视频成片 + 剧本分镜 + 团队介绍 + 东方智媒城落地孵化申请表 (选填)",
+    "evalCriteria": "东方审美意境塑造 (40%)、AI 工具工业化协同 (35%)、商业落地可变现性 (25%)",
+    "proTips": "东方明珠与京东注重‘新国潮美学’与‘电商视频转化’；融入水墨、古典神话、赛博东方元素的作品最易脱颖而出。",
+    "toolchains": [
+      "general",
+      "kling",
+      "pixverse"
+    ],
+    "compMode": [
+      "online"
+    ],
+    "searchKeywords": "东方智媒城 京东 东方明珠 AI东方 10万 影视 上海",
+    "link": "https://m.opg.cn/cn/newsCenter/newsInfo/2084878646774534144.html"
+  },
+  {
+    "id": "chinastory-ai-2026",
+    "name": "第八届 “讲好中国故事” 创意传播大赛 (AI 创作专项赛)",
+    "category": "film",
+    "subCategory": "国家级国家叙事赛",
+    "categoryLabel": "AI 影视与创作",
+    "organizer": "中国互联网新闻中心 (中国网) / 中国外文局",
+    "region": "china",
+    "regionText": "国内",
+    "status": "🟢 正在报名中",
+    "statusType": "ongoing",
+    "deadline": "2026年09月15日 23:59 (截稿)",
+    "deadlineTag": "⏳ 截止倒计时：约 32 天",
+    "deadlineDate": "2026-09-15",
+    "timelineDetails": "夏季启动 ｜ 9 月 15 日截止申报 ｜ 11 月举行全国总决赛展播与外宣表彰",
+    "prizes": "各组别一等奖 1 万元现金 ｜ 国家级外宣平台全球多语种译制与海外分发 ｜ 官方获奖证书",
+    "prizeBreakdown": "各主题组别一二三等奖；中国网海外社交矩阵（Facebook/YouTube/X）千万级海外曝光",
+    "prizeScore": 50000,
+    "prestigeScore": 86,
+    "prestigeTier": "T2 行业权威与大厂创投 (86分)",
+    "prestigeColor": "#dc2626",
+    "incentives": [
+      "festival",
+      "traffic",
+      "cash"
+    ],
+    "formats": [
+      "short",
+      "drama"
+    ],
+    "specs": "时长 1–8 分钟；横屏 16:9；聚焦中国非遗、大国重器、科幻未来、传统神话故事；支持中英双语",
+    "requirements": "1–8min；聚焦中国故事与文化外宣；提供高清成片与文案",
+    "aiRatio": "鼓励全流程 AIGC 视觉生成；需具备完整的逻辑故事线",
+    "deliverables": "视频成片 + 中英文简介 + 创作灵感与 AI 工具说明表",
+    "evalCriteria": "对外传播与故事感染力 (40%)、AI 视觉东方美学 (35%)、跨文化理解度 (25%)",
+    "proTips": "中国外文局主办的赛事特别看重‘文化出海’；避免宏大叙事，从微观人物或有趣的历史细节切入，搭配高质量英文旁白最易拿高奖。",
+    "toolchains": [
+      "general",
+      "kling",
+      "pixverse",
+      "runway"
+    ],
+    "compMode": [
+      "online"
+    ],
+    "searchKeywords": "讲好中国故事 中国网 中国外文局 传播 1万 非遗",
+    "link": "https://www.aibetas.com/aigc_events/469"
+  },
+  {
     "id": "aliyun-mcp-2026",
     "name": "阿里云天池 · 通义灵码 MCP 插件开发大赛",
     "category": "app",
@@ -1785,6 +2142,53 @@ let rawCompetitions = [
     "compMode": [
       "online"
     ]
+  },
+  {
+    "id": "shanghai-student-tv-ai-2026",
+    "name": "第十九届上海大学生电视节 · 全球 AI 视频短剧大赛",
+    "category": "film",
+    "subCategory": "高校与青年权威电影节",
+    "categoryLabel": "AI 影视与创作",
+    "organizer": "华东师范大学 / 上海外国语大学 / 上海电视艺术家协会",
+    "region": "china",
+    "regionText": "国内 / 上海",
+    "status": "🟢 正在报名中",
+    "statusType": "ongoing",
+    "deadline": "2026年09月20日 23:59 (截稿)",
+    "deadlineTag": "⏳ 截止倒计时：约 37 天",
+    "deadlineDate": "2026-09-20",
+    "timelineDetails": "6 月启动 ｜ 9 月 20 日截止征片 ｜ 10 月下旬在上海举行紫丁香大奖颁奖盛典与高校巡展",
+    "prizes": "最高荣誉“紫丁香大奖” ｜ 丰厚赛事奖金 ｜ 官方推优入库上海国际电视节",
+    "prizeBreakdown": "紫丁香大奖 (3名)；AI MINI电影、AI 微短剧、AI 剧本三大赛道各设金银铜奖与专属奖金",
+    "prizeScore": 50000,
+    "prestigeScore": 85,
+    "prestigeTier": "T2 行业权威与大厂创投 (85分)",
+    "prestigeColor": "#dc2626",
+    "incentives": [
+      "festival",
+      "cash"
+    ],
+    "formats": [
+      "short",
+      "drama"
+    ],
+    "specs": "分设 AI MINI 电影、AI 微短剧（单集 1–3 分钟）、AI 剧本三大独立赛道；1080P/4K 高清",
+    "requirements": "三大赛道申报；提交视频成片与剧本大纲；青年高校与社会创作者均可参赛",
+    "aiRatio": "AI 原生视频生成、数字人表演或人机协同编剧",
+    "deliverables": "视频成片 + 剧本台本 + 创作者说明表 + AI 提示词与工具清单",
+    "evalCriteria": "剧本叙事深度与青春视角 (40%)、AI 镜头语言把控力 (35%)、艺术原创性 (25%)",
+    "proTips": "上海大学生电视节是亚太青年影像重要盛会；选题突出青年成长困境、跨文化交流或时代反思更容易斩获紫丁香大奖。",
+    "toolchains": [
+      "general",
+      "kling",
+      "jimeng",
+      "pixverse"
+    ],
+    "compMode": [
+      "online"
+    ],
+    "searchKeywords": "上海大学生电视节 大学生 紫丁香奖 微短剧 华师大 上外",
+    "link": "https://www.aibetas.com/aigc_events/478"
   },
   {
     "id": "bilibili-vibe-coding-2026",
@@ -2058,6 +2462,49 @@ let rawCompetitions = [
     ]
   },
   {
+    "id": "effie-douyin-ad-ai-2026",
+    "name": "AI 广告爆改大赛 —— 经典广告你来演！",
+    "category": "film",
+    "subCategory": "商业品牌广告二创",
+    "categoryLabel": "AI 影视与创作",
+    "organizer": "即梦 AI / 抖音商城 / 大中华区艾菲奖 (Effie Awards)",
+    "region": "china",
+    "regionText": "国内",
+    "status": "🟢 正在报名中",
+    "statusType": "ongoing",
+    "deadline": "2026年08月20日 23:59 (截稿)",
+    "deadlineTag": "⏳ 截止倒计时：约 6 天 (紧急!)",
+    "deadlineDate": "2026-08-20",
+    "timelineDetails": "8 月初启动 ｜ 8 月 20 日截止 ｜ 8 月底公布评选结果 ｜ 艾菲奖官方宣发展播",
+    "prizes": "最高奖金 2 万元现金 ｜ 艾菲奖官方创新案例收录 ｜ 抖音商城品牌商单优先派单",
+    "prizeBreakdown": "最佳爆改大奖 20,000 元现金；单项幽默/脑洞奖各 5,000 元；即梦算力大礼包",
+    "prizeScore": 25000,
+    "prestigeScore": 81,
+    "prestigeTier": "T3 知名垂直品牌与特色赛 (81分)",
+    "prestigeColor": "#d97706",
+    "incentives": [
+      "cash",
+      "traffic"
+    ],
+    "formats": [
+      "short"
+    ],
+    "specs": "15 秒至 90 秒；9:16 竖屏；爆改经典知名电视广告或名场面，融入 AI 数字人与新梗",
+    "requirements": "15s–90s 竖屏；爆改经典广告；使用即梦 AI 视频与数字人",
+    "aiRatio": "使用即梦 AI 进行经典广告角色换脸、场景重绘或全流程视频重制",
+    "deliverables": "爆改视频成片 + 抖音发布带活动标签 + 对比原版广告片段说明",
+    "evalCriteria": "爆笑玩梗与病毒传播力 (45%)、即梦 AI 换脸与运镜完成度 (35%)、品牌立意巧妙度 (20%)",
+    "proTips": "挑选大家耳熟能详的童年经典广告（如经典饮料、洗脑魔性广告）进行赛博朋克或反差人设重构，完播率极高。",
+    "toolchains": [
+      "jimeng"
+    ],
+    "compMode": [
+      "online"
+    ],
+    "searchKeywords": "AI广告爆改 艾菲奖 抖音商城 即梦 经典广告 2万",
+    "link": "https://www.aibetas.com/aigc_events/477"
+  },
+  {
     "id": "hengdian-aishort-2026",
     "name": "横店国际 AI 短剧短片产业生态大会暨展映征集",
     "category": "film",
@@ -2101,6 +2548,52 @@ let rawCompetitions = [
     "compMode": [
       "online"
     ]
+  },
+  {
+    "id": "tencent-csr-ai-2026",
+    "name": "腾讯客服 “一老一小” AI 公益视频创作大赛",
+    "category": "film",
+    "subCategory": "公益与社会责任",
+    "categoryLabel": "AI 影视与创作",
+    "organizer": "腾讯公司 / 腾讯客服团队 / 腾讯公益",
+    "region": "china",
+    "regionText": "国内",
+    "status": "🟢 正在报名中",
+    "statusType": "ongoing",
+    "deadline": "2026年09月30日 23:59 (截稿)",
+    "deadlineTag": "⏳ 截止倒计时：约 47 天",
+    "deadlineDate": "2026-09-30",
+    "timelineDetails": "8 月启动 ｜ 9 月 30 日截止 ｜ 10 月重阳节与世界关怀日前夕公布获奖作品",
+    "prizes": "特等奖 1 万元现金 ｜ 现金奖金池共 11.1 万元 ｜ 腾讯官方全矩阵展播",
+    "prizeBreakdown": "特等奖 10,000 元现金；一等奖 5,000 元；二等奖 3,000 元；腾讯客服官方颁发荣誉证书",
+    "prizeScore": 111000,
+    "prestigeScore": 80,
+    "prestigeTier": "T3 知名垂直品牌与特色赛 (80分)",
+    "prestigeColor": "#d97706",
+    "incentives": [
+      "cash",
+      "traffic"
+    ],
+    "formats": [
+      "short",
+      "drama"
+    ],
+    "specs": "时长 1–5 分钟；聚焦老年人数字生活反诈、未成年人网络安全、隔代温情等公益主题",
+    "requirements": "1–5min；聚焦关爱老人与儿童公益主题；提供成片与提示词",
+    "aiRatio": "AI 辅助生成画面或全流程 AIGC 叙事短片",
+    "deliverables": "视频成片 + 创作背景说明 + 故事大纲",
+    "evalCriteria": "公益温情与社会情感共鸣 (45%)、AI 视听叙事表现力 (35%)、普及传播性 (20%)",
+    "proTips": "真实温情比复杂特效更动人；聚焦‘教爷爷奶奶用 AI 智能体看病/防骗’等切身现实题材极易引发评委共鸣。",
+    "toolchains": [
+      "general",
+      "kling",
+      "jimeng"
+    ],
+    "compMode": [
+      "online"
+    ],
+    "searchKeywords": "腾讯 腾讯客服 一老一小 公益视频 11.1万",
+    "link": "https://www.aibetas.com/aigc_events/473"
   },
   {
     "id": "zcool-battleverse-2026",
@@ -2235,6 +2728,49 @@ let rawCompetitions = [
     "compMode": [
       "online"
     ]
+  },
+  {
+    "id": "harbin-beer-hiphop-2026",
+    "name": "2026 哈啤 AI 嘻哈大赛 (即梦 AI 跨界赛)",
+    "category": "film",
+    "subCategory": "潮流品牌跨界",
+    "categoryLabel": "AI 影视与创作",
+    "organizer": "哈尔滨啤酒 (Harbin Beer) / 即梦 AI",
+    "region": "china",
+    "regionText": "国内",
+    "status": "🟢 正在报名中",
+    "statusType": "ongoing",
+    "deadline": "2026年08月25日 23:59 (截稿)",
+    "deadlineTag": "⏳ 截止倒计时：约 11 天",
+    "deadlineDate": "2026-08-25",
+    "timelineDetails": "8 月初开放投稿 ｜ 8 月 25 日截稿 ｜ 8 月底公布优胜名单并在哈啤官方社交账号展播",
+    "prizes": "单项最高现金奖励 2.4 万元 ｜ 哈啤全年啤酒畅饮大礼包 ｜ 品牌官方商业采买",
+    "prizeBreakdown": "最佳嘻哈视效奖 24,000 元现金；最佳节奏卡点奖 10,000 元；优胜者获即梦专属算力",
+    "prizeScore": 24000,
+    "prestigeScore": 79,
+    "prestigeTier": "T3 知名垂直品牌与特色赛 (79分)",
+    "prestigeColor": "#d97706",
+    "incentives": [
+      "cash",
+      "traffic"
+    ],
+    "formats": [
+      "short"
+    ],
+    "specs": "15 秒至 60 秒；竖屏 9:16；嘻哈音乐节奏卡点、国潮街头文化与啤酒元素融合",
+    "requirements": "15s–60s 竖屏；嘻哈音乐卡点；使用即梦 AI",
+    "aiRatio": "AI 角色街头舞蹈、镜头快切与即梦 AI 风格化渲染",
+    "deliverables": "视频成片 + 抖音发布带 #哈啤AI嘻哈大赛# 话题 + 即梦生成工程 ID",
+    "evalCriteria": "卡点节奏与潮流街头质感 (45%)、即梦 AI 动态镜头冲击力 (35%)、品牌融入自然度 (20%)",
+    "proTips": "利用 Suno 或 Udio 生成强节奏 Trap / BoomBap 嘻哈配乐，搭配即梦的速度曲线与粒子视效，视觉节奏越炸越容易拿高分。",
+    "toolchains": [
+      "jimeng"
+    ],
+    "compMode": [
+      "online"
+    ],
+    "searchKeywords": "哈啤 哈尔滨啤酒 嘻哈 即梦 2.4万 潮流",
+    "link": "https://www.aibetas.com/aigc_events/475"
   },
   {
     "id": "vcg-500px-2026",
@@ -2415,35 +2951,63 @@ let rawCompetitions = [
   }
 ];
 
-// Active Filter State (8 Dimensions)
 const state = {
     category: 'all',
-    region: 'all',
     status: 'all',
     tier: 'all',
     toolchain: 'all',
-    compMode: 'all',
-    incentive: 'all',
     format: 'all',
+    incentive: 'all',
+    region: 'all',
+    compMode: 'all',
     search: '',
     sortBy: 'prestige-desc',
-    viewMode: 'grid'
+    viewMode: 'grid',
+    calYear: 2026,
+    calMonth: 8 // August 2026
 };
 
-function initFilters() {
-    document.querySelectorAll('.filter-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-            const filterType = this.getAttribute('data-filter');
-            const filterVal = this.getAttribute('data-val');
-            
-            const parentRow = this.closest('.filter-buttons');
-            parentRow.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+function initTabsAndPills() {
+    // Category Tabs
+    document.querySelectorAll('#categoryTabs .nav-tab').forEach(tab => {
+        tab.addEventListener('click', function() {
+            document.querySelectorAll('#categoryTabs .nav-tab').forEach(t => t.classList.remove('active'));
             this.classList.add('active');
-            
-            state[filterType] = filterVal;
+            state.category = this.getAttribute('data-cat');
             applyFilters();
         });
     });
+
+    // Status Pills
+    document.querySelectorAll('#statusPills .status-pill').forEach(pill => {
+        pill.addEventListener('click', function() {
+            document.querySelectorAll('#statusPills .status-pill').forEach(p => {
+                p.classList.remove('active', 'active-ongoing', 'active-upcoming');
+            });
+            const st = this.getAttribute('data-status');
+            state.status = st;
+            if (st === 'ongoing') this.classList.add('active-ongoing');
+            else if (st === 'upcoming') this.classList.add('active-upcoming');
+            else this.classList.add('active');
+            applyFilters();
+        });
+    });
+}
+
+function handleDropdownChange() {
+    state.tier = document.getElementById('selectTier').value;
+    state.toolchain = document.getElementById('selectTool').value;
+    state.format = document.getElementById('selectFormat').value;
+    state.incentive = document.getElementById('selectIncentive').value;
+    state.region = document.getElementById('selectRegion').value;
+    state.compMode = document.getElementById('selectCompMode').value;
+    
+    ['selectTier', 'selectTool', 'selectFormat', 'selectIncentive', 'selectRegion', 'selectCompMode'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.classList.toggle('has-value', el.value !== 'all');
+    });
+
+    applyFilters();
 }
 
 function handleSearch() {
@@ -2459,33 +3023,87 @@ function handleSort() {
 function switchView(mode) {
     state.viewMode = mode;
     document.getElementById('viewCardBtn').classList.toggle('active', mode === 'grid');
+    document.getElementById('viewOverviewBtn').classList.toggle('active', mode === 'overview');
+    document.getElementById('viewCalBtn').classList.toggle('active', mode === 'calendar');
     document.getElementById('viewTableBtn').classList.toggle('active', mode === 'table');
+    
     document.getElementById('competitionsGrid').style.display = mode === 'grid' ? 'grid' : 'none';
+    document.getElementById('competitionsOverviewGrid').style.display = mode === 'overview' ? 'grid' : 'none';
+    document.getElementById('competitionsCalendarWrap').style.display = mode === 'calendar' ? 'block' : 'none';
     document.getElementById('competitionsTableWrap').style.display = mode === 'table' ? 'block' : 'none';
+
+    if (mode === 'calendar') renderCalendar(window.lastFiltered || rawCompetitions);
+}
+
+function changeCalMonth(delta) {
+    state.calMonth += delta;
+    if (state.calMonth > 12) {
+        state.calMonth = 1;
+        state.calYear += 1;
+    } else if (state.calMonth < 1) {
+        state.calMonth = 12;
+        state.calYear -= 1;
+    }
+    renderCalendar(window.lastFiltered || rawCompetitions);
 }
 
 function resetAllFilters() {
     state.category = 'all';
-    state.region = 'all';
     state.status = 'all';
     state.tier = 'all';
     state.toolchain = 'all';
-    state.compMode = 'all';
-    state.incentive = 'all';
     state.format = 'all';
+    state.incentive = 'all';
+    state.region = 'all';
+    state.compMode = 'all';
     state.search = '';
     state.sortBy = 'prestige-desc';
-    
+
+    document.querySelectorAll('#categoryTabs .nav-tab').forEach(t => t.classList.toggle('active', t.getAttribute('data-cat') === 'all'));
+    document.querySelectorAll('#statusPills .status-pill').forEach(p => {
+        p.classList.remove('active-ongoing', 'active-upcoming');
+        p.classList.toggle('active', p.getAttribute('data-status') === 'all');
+    });
+
+    ['selectTier', 'selectTool', 'selectFormat', 'selectIncentive', 'selectRegion', 'selectCompMode'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.value = 'all';
+            el.classList.remove('has-value');
+        }
+    });
+
     document.getElementById('searchInput').value = '';
     document.getElementById('sortSelect').value = 'prestige-desc';
-    
-    document.querySelectorAll('.filter-buttons').forEach(row => {
-        row.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.classList.toggle('active', btn.getAttribute('data-val') === 'all');
-        });
-    });
-    
+
     applyFilters();
+}
+
+function renderActiveChips() {
+    const chipsBar = document.getElementById('activeChipsBar');
+    const container = document.getElementById('chipsContainer');
+    const chips = [];
+
+    if (state.tier !== 'all') chips.push({ label: '梯队', text: document.getElementById('selectTier').selectedOptions[0].text.split(' ')[1] || '梯队', reset: () => { document.getElementById('selectTier').value = 'all'; handleDropdownChange(); } });
+    if (state.toolchain !== 'all') chips.push({ label: '工具', text: document.getElementById('selectTool').selectedOptions[0].text.split(' ')[1] || '工具', reset: () => { document.getElementById('selectTool').value = 'all'; handleDropdownChange(); } });
+    if (state.format !== 'all') chips.push({ label: '形式', text: document.getElementById('selectFormat').selectedOptions[0].text.split(' ')[1] || '形式', reset: () => { document.getElementById('selectFormat').value = 'all'; handleDropdownChange(); } });
+    if (state.incentive !== 'all') chips.push({ label: '激励', text: document.getElementById('selectIncentive').selectedOptions[0].text.split(' ')[1] || '激励', reset: () => { document.getElementById('selectIncentive').value = 'all'; handleDropdownChange(); } });
+    if (state.region !== 'all') chips.push({ label: '地域', text: state.region === 'china' ? '国内' : '国际', reset: () => { document.getElementById('selectRegion').value = 'all'; handleDropdownChange(); } });
+    if (state.compMode !== 'all') chips.push({ label: '赛制', text: document.getElementById('selectCompMode').selectedOptions[0].text.split(' ')[1] || '赛制', reset: () => { document.getElementById('selectCompMode').value = 'all'; handleDropdownChange(); } });
+    if (state.search) chips.push({ label: '搜索', text: `"${state.search}"`, reset: () => { document.getElementById('searchInput').value = ''; handleSearch(); } });
+
+    if (chips.length > 0) {
+        chipsBar.style.display = 'flex';
+        container.innerHTML = chips.map((c, i) => `
+            <span class="chip">
+                <span>${c.label}: ${c.text}</span>
+                <span class="chip-remove" onclick="chips[${i}].reset()">✕</span>
+            </span>
+        `).join('');
+        window.chips = chips;
+    } else {
+        chipsBar.style.display = 'none';
+    }
 }
 
 function applyFilters() {
@@ -2494,7 +3112,6 @@ function applyFilters() {
         if (state.category !== 'all' && c.category !== state.category) return false;
         if (state.region !== 'all' && c.region !== state.region) return false;
         
-        // Tier Match
         if (state.tier !== 'all') {
             const score = c.prestigeScore || 80;
             if (state.tier === 't1' && score < 95) return false;
@@ -2502,7 +3119,6 @@ function applyFilters() {
             if (state.tier === 't3' && score >= 85) return false;
         }
         
-        // Toolchain Match
         if (state.toolchain !== 'all') {
             const tc = c.toolchains || [];
             const textToMatch = ((c.name || '') + ' ' + (c.organizer || '') + ' ' + (c.aiRatio || '') + ' ' + (c.specs || '') + ' ' + (c.proTips || '')).toLowerCase();
@@ -2519,7 +3135,6 @@ function applyFilters() {
             if (!matches) return false;
         }
         
-        // Comp Mode Match
         if (state.compMode !== 'all') {
             const cm = c.compMode || ['online'];
             const textToMatch = ((c.name || '') + ' ' + (c.timelineDetails || '') + ' ' + (c.deadlineTag || '') + ' ' + (c.specs || '')).toLowerCase();
@@ -2568,26 +3183,23 @@ function applyFilters() {
         filtered.sort((a, b) => (a.statusType === 'ongoing' ? -1 : 1));
     }
 
+    window.lastFiltered = filtered;
+    renderActiveChips();
     render(filtered);
+    if (state.viewMode === 'calendar') renderCalendar(filtered);
 }
 
 function render(items) {
-    let sortLabel = '按含金量排序';
-    if (state.sortBy === 'deadline-asc') sortLabel = '按截止倒计时从近到远排序';
-    else if (state.sortBy === 'prize-desc') sortLabel = '按奖金金额排序';
-    else if (state.sortBy === 'ongoing-first') sortLabel = '正在报名中优先';
-    
-    document.getElementById('resultsSummary').innerHTML = `共匹配到 <strong>${items.length}</strong> 场符合条件的赛事 (${sortLabel})`;
+    document.getElementById('matchedCount').innerText = items.length;
 
-    // Render Cards
+    // 1. Render Detailed Cards
     const grid = document.getElementById('competitionsGrid');
     if (items.length === 0) {
-        grid.innerHTML = `<div class="empty-state" style="grid-column: 1 / -1;">未找到符合当前多维筛选条件的赛事，请点击右上角「↺ 重置所有筛选」后重试。</div>`;
+        grid.innerHTML = `<div class="empty-state" style="grid-column: 1 / -1;">未找到符合当前多维筛选条件的赛事，请点击「↺ 重置筛选」后重试。</div>`;
     } else {
         grid.innerHTML = items.map(c => `
             <div class="card">
                 <div>
-                    <!-- Top Badges -->
                     <div class="card-top">
                         <div class="badges-wrap">
                             <span class="badge badge-tier" style="color: ${c.prestigeColor || '#7c3aed'}; border-color: ${c.prestigeColor || '#7c3aed'};">🏆 ${c.prestigeTier || '行业精选'}</span>
@@ -2597,10 +3209,8 @@ function render(items) {
                         <span class="badge-status status-${c.statusType}">${c.statusType === 'ongoing' ? '🟢 正在报名' : '🟡 即将开启'}</span>
                     </div>
 
-                    <!-- Title -->
                     <div class="card-title">${c.name}</div>
 
-                    <!-- Explicit Deadline Highlight Box -->
                     <div class="deadline-box ${c.deadlineUrgent ? 'urgent' : 'normal'}">
                         <div>
                             <div class="deadline-main">⏰ 截止时间：${c.deadline}</div>
@@ -2609,7 +3219,6 @@ function render(items) {
                         <span class="deadline-tag">${c.deadlineTag}</span>
                     </div>
 
-                    <!-- Core Meta List -->
                     <div class="meta-list">
                         <div class="meta-item">
                             <span class="meta-k">主办平台：</span>
@@ -2625,7 +3234,6 @@ function render(items) {
                         </div>
                     </div>
 
-                    <!-- Enriched Details -->
                     <div class="detail-block">
                         <strong>📐 作品规格与格式：</strong>
                         <div class="detail-text">${c.specs || c.requirements || '见官方细则'}</div>
@@ -2643,13 +3251,11 @@ function render(items) {
                         <div class="detail-text">${c.evalCriteria || '综合视听艺术与创意'}</div>
                     </div>
 
-                    <!-- Pro Tips -->
                     <div class="protip-box">
                         <strong>💡 备赛点拨：</strong>${c.proTips || '紧扣官方命题，打磨故事与画质。'}
                     </div>
                 </div>
 
-                <!-- Footer Action -->
                 <div class="card-footer">
                     <span style="font-size: 11.5px; color: var(--text-muted);">含金量权威分：<strong style="color: ${c.prestigeColor || '#7c3aed'};">${c.prestigeScore || 80}分</strong></span>
                     <a href="${c.link}" target="_blank" class="link-btn">直达官方报名入口 ↗</a>
@@ -2658,7 +3264,39 @@ function render(items) {
         `).join('');
     }
 
-    // Render Table
+    // 2. Render Overview Cards (AIBetas Style)
+    const overviewGrid = document.getElementById('competitionsOverviewGrid');
+    if (items.length === 0) {
+        overviewGrid.innerHTML = `<div class="empty-state" style="grid-column: 1 / -1;">未找到符合条件的赛事。</div>`;
+    } else {
+        overviewGrid.innerHTML = items.map(c => `
+            <div class="overview-card">
+                <div>
+                    <div class="overview-header">
+                        <span class="badge badge-${c.category}">${c.categoryLabel}</span>
+                        <span class="badge-status status-${c.statusType}">${c.statusType === 'ongoing' ? '🟢 正在报名' : '🟡 即将开启'}</span>
+                    </div>
+                    <div class="overview-title" title="${c.name}">${c.name}</div>
+                    
+                    <div class="overview-meta-row">
+                        <span class="overview-meta-label">主办方：</span>
+                        <span style="color: #1e293b; font-weight: 500;">${c.organizer}</span>
+                    </div>
+                    <div class="overview-meta-row">
+                        <span class="overview-meta-label">奖金额度：</span>
+                        <span class="overview-prize">${c.prizes}</span>
+                    </div>
+                </div>
+
+                <div class="overview-footer">
+                    <div class="overview-deadline">⏰ ${c.deadlineDate ? c.deadlineDate : '进行中'} <span style="color: #b45309; font-weight: 700;">(${c.deadlineTag})</span></div>
+                    <a href="${c.link}" target="_blank" class="link-btn" style="padding: 4px 10px; font-size: 11.5px;">查看报名 ↗</a>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    // 3. Render Table Rows
     const tbody = document.getElementById('competitionsTableBody');
     tbody.innerHTML = items.map(c => `
         <tr>
@@ -2693,7 +3331,82 @@ function render(items) {
 }
 
 // -------------------------------------------------------------
-// 🌟 核心突破：自动直连 Google 云端数据库实时同步
+// 🌟 核心新功能：截止时间日历界面渲染器 (AIBetas 竞赛日历标准)
+// -------------------------------------------------------------
+function renderCalendar(items) {
+    const y = state.calYear;
+    const m = state.calMonth;
+    document.getElementById('calMonthTitle').innerHTML = `📅 ${y} 年 ${m} 月 · AI 赛事截稿日历`;
+
+    const calGrid = document.getElementById('calendarDaysGrid');
+    const firstDay = new Date(y, m - 1, 1).getDay(); // 0 is Sunday
+    const daysInMonth = new Date(y, m, 0).getDate();
+    
+    // Day headers
+    let html = ['一', '二', '三', '四', '五', '六', '日'].map(d => `<div class="cal-day-header">周${d}</div>`).join('');
+    
+    // Empty cells before first day (adjust for Monday start)
+    const emptyOffset = (firstDay === 0 ? 7 : firstDay) - 1;
+    for (let i = 0; i < emptyOffset; i++) {
+        html += `<div class="cal-cell" style="opacity: 0.3;"></div>`;
+    }
+
+    // Days in current month
+    const monthStr = (m < 10 ? '0' : '') + m;
+    const monthPrefix = `${y}-${monthStr}`;
+
+    const monthEvents = [];
+
+    for (let day = 1; day <= daysInMonth; day++) {
+        const dayStr = (day < 10 ? '0' : '') + day;
+        const fullDate = `${monthPrefix}-${dayStr}`;
+        
+        // Find matching events on this date
+        const dayEvents = items.filter(c => c.deadlineDate === fullDate);
+        if (dayEvents.length > 0) {
+            dayEvents.forEach(e => monthEvents.push({ date: fullDate, comp: e }));
+        }
+
+        const isToday = (fullDate === '2026-08-14'); // Current date anchor
+
+        html += `
+            <div class="cal-cell ${dayEvents.length > 0 ? 'has-events' : ''} ${isToday ? 'is-today' : ''}">
+                <div class="cal-date-num">${day}日 ${isToday ? '<span style="color: #2563eb; font-size: 10px;">(今日)</span>' : ''}</div>
+                ${dayEvents.map(e => `
+                    <a href="${e.link}" target="_blank" class="cal-event-pill ${e.category}" title="【${e.deadline}】${e.name}">
+                        ⏰ ${e.name.length > 10 ? e.name.substring(0, 10) + '...' : e.name}
+                    </a>
+                `).join('')}
+            </div>
+        `;
+    }
+
+    calGrid.innerHTML = html;
+
+    // Render Timeline Agenda List below calendar
+    const agendaList = document.getElementById('timelineAgendaList');
+    if (monthEvents.length === 0) {
+        agendaList.innerHTML = `<div style="font-size: 13px; color: #94a3b8; padding: 12px 0;">当前所选月份暂无精确到日期的赛事截稿（可切换上/下一月查看）。</div>`;
+    } else {
+        agendaList.innerHTML = monthEvents.map(item => `
+            <div class="timeline-item">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <span style="font-weight: 700; color: #dc2626; font-size: 13px;">${item.date}</span>
+                    <span class="badge badge-${item.comp.category}">${item.comp.categoryLabel}</span>
+                    <span style="font-weight: 600; color: #0f172a; font-size: 13.5px;">${item.comp.name}</span>
+                    <span style="font-size: 12px; color: #64748b;">(${item.comp.organizer})</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <span style="color: #dc2626; font-weight: 700; font-size: 12.5px;">${item.comp.prizes}</span>
+                    <a href="${item.comp.link}" target="_blank" class="link-btn" style="padding: 3px 8px; font-size: 11.5px;">直达 ↗</a>
+                </div>
+            </div>
+        `).join('');
+    }
+}
+
+// -------------------------------------------------------------
+// 🌟 自动直连 Google 云端数据库实时同步
 // -------------------------------------------------------------
 async function syncLiveSheetData() {
     try {
@@ -2773,8 +3486,10 @@ async function syncLiveSheetData() {
             
             if (parsed.length > 0) {
                 rawCompetitions = parsed;
-                document.getElementById('header-total-count')?.innerText = parsed.length;
-                document.getElementById('syncStatus').innerHTML = '● 实时云端数据已同步 (' + parsed.length + '场)';
+                const totalEl = document.getElementById('h-total');
+                if (totalEl) totalEl.innerText = parsed.length;
+                const syncEl = document.getElementById('syncStatus');
+                if (syncEl) syncEl.innerHTML = '● 实时云端数据已同步 (' + parsed.length + '场)';
                 applyFilters();
             }
         }
@@ -2783,7 +3498,7 @@ async function syncLiveSheetData() {
     }
 }
 
-initFilters();
+initTabsAndPills();
 applyFilters();
 syncLiveSheetData();
 </script>
