@@ -23,15 +23,29 @@
             --tag-biz: #059669;
             --tag-biz-bg: #ecfdf5;
             
-            --ongoing: #16a34a;
-            --ongoing-bg: #dcfce7;
-            --upcoming: #d97706;
-            --upcoming-bg: #fef3c7;
+            --badge-urgent-bg: #fee2e2;
+            --badge-urgent-txt: #dc2626;
+            --badge-urgent-bd: #fecaca;
             
-            --deadline-red: #dc2626;
-            --deadline-red-bg: #fef2f2;
-            --deadline-amber: #d97706;
-            --deadline-amber-bg: #fffbeb;
+            --badge-medium-bg: #fef3c7;
+            --badge-medium-txt: #b45309;
+            --badge-medium-bd: #fde68a;
+            
+            --badge-normal-bg: #eff6ff;
+            --badge-normal-txt: #2563eb;
+            --badge-normal-bd: #bfdbfe;
+            
+            --badge-upcoming-bg: #f3e8ff;
+            --badge-upcoming-txt: #7c3aed;
+            --badge-upcoming-bd: #e9d5ff;
+
+            --badge-rolling-bg: #dcfce7;
+            --badge-rolling-txt: #16a34a;
+            --badge-rolling-bd: #bbf7d0;
+
+            --badge-closed-bg: #f1f5f9;
+            --badge-closed-txt: #64748b;
+            --badge-closed-bd: #cbd5e1;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; }
         body { background-color: var(--bg); color: var(--text-main); line-height: 1.6; padding: 24px; }
@@ -100,6 +114,15 @@
         .reset-btn { height: 38px; padding: 0 12px; border: 1px solid var(--border); background: #ffffff; border-radius: 8px; font-size: 12px; font-weight: 600; color: #64748b; cursor: pointer; transition: all 0.15s; box-shadow: 0 1px 2px rgba(0,0,0,0.02); }
         .reset-btn:hover { border-color: #94a3b8; color: var(--text-main); background: #f8fafc; }
 
+        /* Unified Dynamic Top-Right Countdown Badge */
+        .badge-countdown { font-size: 11.5px; font-weight: 700; padding: 3px 9px; border-radius: 6px; white-space: nowrap; }
+        .badge-countdown.urgent { background: var(--badge-urgent-bg); color: var(--badge-urgent-txt); border: 1px solid var(--badge-urgent-bd); }
+        .badge-countdown.medium { background: var(--badge-medium-bg); color: var(--badge-medium-txt); border: 1px solid var(--badge-medium-bd); }
+        .badge-countdown.normal { background: var(--badge-normal-bg); color: var(--badge-normal-txt); border: 1px solid var(--badge-normal-bd); }
+        .badge-countdown.upcoming { background: var(--badge-upcoming-bg); color: var(--badge-upcoming-txt); border: 1px solid var(--badge-upcoming-bd); }
+        .badge-countdown.rolling { background: var(--badge-rolling-bg); color: var(--badge-rolling-txt); border: 1px solid var(--badge-rolling-bd); }
+        .badge-countdown.closed { background: var(--badge-closed-bg); color: var(--badge-closed-txt); border: 1px solid var(--badge-closed-bd); }
+
         /* ============================================================ */
         /* VIEW 1: DETAILED CARDS (深度卡片视图)                         */
         /* ============================================================ */
@@ -115,18 +138,15 @@
         .badge-biz { background: var(--tag-biz-bg); color: var(--tag-biz); }
         .badge-sub { font-size: 10px; background: #f1f5f9; color: #475569; padding: 2px 6px; border-radius: 4px; }
         .badge-tier { font-size: 10.5px; font-weight: 700; padding: 2px 7px; border-radius: 4px; background: #f1f5f9; border: 1px solid #e2e8f0; }
-        .badge-status { font-size: 11px; padding: 2px 8px; border-radius: 4px; font-weight: 600; white-space: nowrap; }
-        .status-ongoing { background: var(--ongoing-bg); color: var(--ongoing); }
-        .status-upcoming { background: var(--upcoming-bg); color: var(--upcoming); }
         
         .card-title { font-size: 16px; font-weight: 700; color: var(--text-main); line-height: 1.4; margin-bottom: 10px; }
         
         .deadline-box { border-radius: 8px; padding: 10px 14px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
-        .deadline-box.urgent { background: var(--deadline-red-bg); border: 1px solid #fecaca; }
-        .deadline-box.normal { background: var(--deadline-amber-bg); border: 1px solid #fde68a; }
+        .deadline-box.urgent { background: #fef2f2; border: 1px solid #fecaca; }
+        .deadline-box.normal { background: #fffbeb; border: 1px solid #fde68a; }
         .deadline-main { font-size: 13px; font-weight: 700; }
-        .deadline-box.urgent .deadline-main { color: var(--deadline-red); }
-        .deadline-box.normal .deadline-main { color: var(--deadline-amber); }
+        .deadline-box.urgent .deadline-main { color: #dc2626; }
+        .deadline-box.normal .deadline-main { color: #d97706; }
         .deadline-tag { font-size: 11px; font-weight: 600; padding: 2px 6px; border-radius: 4px; }
         .deadline-box.urgent .deadline-tag { background: #fee2e2; color: #b91c1c; }
         .deadline-box.normal .deadline-tag { background: #fef3c7; color: #b45309; }
@@ -151,18 +171,34 @@
         .link-btn:hover { background: var(--primary-hover); }
 
         /* ============================================================ */
-        /* VIEW 2: COMPACT OVERVIEW CARDS (简洁概览卡片视图 - AIBetas 风格) */
+        /* VIEW 2: COMPACT OVERVIEW CARDS (带赛事海报视觉 + 极简文字版)   */
         /* ============================================================ */
-        .grid-overview { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 16px; display: none; }
-        .overview-card { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 16px; display: flex; flex-direction: column; justify-content: space-between; transition: all 0.15s; }
-        .overview-card:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.05); border-color: #cbd5e1; }
-        .overview-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-        .overview-title { font-size: 15px; font-weight: 700; color: #0f172a; line-height: 1.4; margin-bottom: 10px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 42px; }
-        .overview-meta-row { font-size: 12px; color: #475569; display: flex; margin-bottom: 6px; }
-        .overview-meta-label { color: #94a3b8; min-width: 58px; font-weight: 500; }
-        .overview-prize { color: #dc2626; font-weight: 700; }
-        .overview-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 12px; padding-top: 10px; border-top: 1px dashed #f1f5f9; font-size: 12px; }
-        .overview-deadline { color: #64748b; font-weight: 500; }
+        .grid-overview { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 18px; display: none; }
+        .aibetas-card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.15s, box-shadow 0.15s; box-shadow: 0 1px 3px rgba(0,0,0,0.02); }
+        .aibetas-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.06); border-color: #cbd5e1; }
+        
+        /* Poster Banner Image */
+        .aibetas-poster-wrap { position: relative; width: 100%; aspect-ratio: 16 / 7.2; background: #0f172a; overflow: hidden; }
+        .aibetas-poster-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .aibetas-poster-tag { position: absolute; top: 10px; left: 10px; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 4px; background: rgba(15, 23, 42, 0.85); color: #ffffff; backdrop-filter: blur(4px); }
+        .aibetas-poster-badge { position: absolute; top: 10px; right: 10px; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 4px; box-shadow: 0 2px 6px rgba(0,0,0,0.15); }
+        
+        .aibetas-body { padding: 16px 18px 18px 18px; display: flex; flex-direction: column; flex: 1; justify-content: space-between; }
+        .aibetas-title { font-size: 15.5px; font-weight: 700; color: #0f172a; line-height: 1.4; margin-bottom: 12px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 44px; }
+        
+        /* Concise Meta Box */
+        .aibetas-meta-box { background: #f8fafc; border-radius: 8px; padding: 10px 12px; font-size: 12px; margin-bottom: 14px; border: 1px solid #f1f5f9; }
+        .aibetas-meta-row { display: flex; margin-bottom: 5px; line-height: 1.4; }
+        .aibetas-meta-row:last-child { margin-bottom: 0; }
+        .aibetas-meta-label { color: #64748b; min-width: 58px; flex-shrink: 0; font-weight: 500; }
+        .aibetas-meta-val { color: #1e293b; font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .aibetas-prize-val { color: #dc2626; font-weight: 700; font-size: 12.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+        .aibetas-footer-actions { display: flex; gap: 8px; align-items: center; }
+        .aibetas-btn-detail { flex: 1; text-align: center; padding: 7px 0; border: 1px solid var(--border); background: #ffffff; color: #334155; border-radius: 6px; font-size: 12px; font-weight: 600; text-decoration: none; transition: all 0.15s; }
+        .aibetas-btn-detail:hover { background: #f1f5f9; border-color: #cbd5e1; }
+        .aibetas-btn-apply { flex: 1; text-align: center; padding: 7px 0; background: var(--primary); color: #ffffff; border-radius: 6px; font-size: 12px; font-weight: 600; text-decoration: none; transition: all 0.15s; box-shadow: 0 1px 2px rgba(37,99,235,0.2); }
+        .aibetas-btn-apply:hover { background: var(--primary-hover); }
 
         /* ============================================================ */
         /* VIEW 3: DEADLINE CALENDAR (截止时间日历界面)                   */
@@ -222,7 +258,7 @@
         </div>
         <div class="header-meta">
             <span class="sync-badge" id="syncStatus">● 实时云端数据已连接</span>
-            <div>收录总量：<strong style="color: var(--primary);" id="h-total">57</strong> 场</div>
+            <div>收录总量：<strong style="color: var(--primary);" id="h-total">60</strong> 场</div>
         </div>
     </header>
 
@@ -231,15 +267,15 @@
         <!-- Row 1: Category Nav Tabs & Status Pills -->
         <div class="filter-row-top">
             <div class="nav-tabs" id="categoryTabs">
-                <button class="nav-tab active" data-cat="all">全部赛道 <span class="tab-badge" id="b-all">57</span></button>
-                <button class="nav-tab" data-cat="film">🎬 AI 影视短剧 <span class="tab-badge" id="b-film">45</span></button>
+                <button class="nav-tab active" data-cat="all">全部赛道 <span class="tab-badge" id="b-all">60</span></button>
+                <button class="nav-tab" data-cat="film">🎬 AI 影视短剧 <span class="tab-badge" id="b-film">48</span></button>
                 <button class="nav-tab" data-cat="app">🤖 AI 应用 & Agent <span class="tab-badge" id="b-app">7</span></button>
                 <button class="nav-tab" data-cat="biz">💼 商业创投 <span class="tab-badge" id="b-biz">5</span></button>
             </div>
 
             <div class="status-toggle-group" id="statusPills">
-                <button class="status-pill active" data-status="all">全部状态</button>
-                <button class="status-pill" data-status="ongoing">🟢 正在报名中 (37)</button>
+                <button class="status-pill" data-status="all">全部状态</button>
+                <button class="status-pill active-ongoing" data-status="ongoing">🟢 正在报名中 (40)</button>
                 <button class="status-pill" data-status="upcoming">🟡 即将开启/常态化 (20)</button>
             </div>
         </div>
@@ -312,7 +348,7 @@
     <!-- Results & Action Toolbar (Seamless & Transparent) -->
     <div class="results-toolbar">
         <div class="toolbar-left">
-            <div class="match-count-badge">共匹配到 <strong id="matchedCount">57</strong> 场赛事</div>
+            <div class="match-count-badge">共匹配到 <strong id="matchedCount">40</strong> 场赛事</div>
             <div class="search-wrap">
                 <span class="search-icon">🔍</span>
                 <input type="text" class="search-input" id="searchInput" placeholder="搜索赛事名称 / 主办方 / 淘天 / 金海豚 / 懂车帝 / 关键词..." oninput="handleSearch()">
@@ -321,8 +357,8 @@
 
         <div class="toolbar-right">
             <select class="sort-select" id="sortSelect" onchange="handleSort()">
-                <option value="prestige-desc" selected>🏆 默认：按含金量/权威度排序</option>
-                <option value="deadline-asc">⏳ 按截止倒计时 (临近截止优先)</option>
+                <option value="deadline-asc" selected>⏳ 默认：按截止倒计时 (临近截止优先)</option>
+                <option value="prestige-desc">🏆 按综合含金量/权威度排序</option>
                 <option value="prize-desc">💰 按奖金/投资金额从高到低</option>
                 <option value="ongoing-first">🟢 优先显示正在报名中</option>
             </select>
@@ -342,7 +378,7 @@
     <!-- VIEW 1: DETAILED CARDS GRID -->
     <div class="grid-detail" id="competitionsGrid"></div>
 
-    <!-- VIEW 2: COMPACT OVERVIEW CARDS (AIBetas Style) -->
+    <!-- VIEW 2: COMPACT OVERVIEW CARDS (带海报视觉 + 极简参数) -->
     <div class="grid-overview" id="competitionsOverviewGrid"></div>
 
     <!-- VIEW 3: INTERACTIVE DEADLINE CALENDAR -->
@@ -428,7 +464,13 @@ let rawCompetitions = [
     ],
     "compMode": [
       "online"
-    ]
+    ],
+    "badgeText": "📌 即将开启",
+    "badgeType": "upcoming",
+    "posterSvg": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 180' width='100%' height='100%'>   <defs>     <linearGradient id='g_tribeca-ai-2026' x1='0%' y1='0%' x2='100%' y2='100%'>       <stop offset='0%' stop-color='%231e1b4b'/>       <stop offset='100%' stop-color='%23312e81'/>     </linearGradient>     <linearGradient id='glow_tribeca-ai-2026' x1='0%' y1='0%' x2='100%' y2='0%'>       <stop offset='0%' stop-color='%23a855f7' stop-opacity='0.8'/>       <stop offset='100%' stop-color='%23a855f7' stop-opacity='0.1'/>     </linearGradient>   </defs>   <rect width='400' height='180' fill='url(%23g_tribeca-ai-2026)'/>   <circle cx='360' cy='30' r='90' fill='%23a855f7' opacity='0.08'/>   <circle cx='30' cy='150' r='70' fill='%23a855f7' opacity='0.06'/>   <path d='M0 160 Q 200 130 400 170' stroke='url(%23glow_tribeca-ai-2026)' stroke-width='2' fill='none' opacity='0.4'/>   <text x='24' y='44' font-size='28'>🏆</text>   <text x='62' y='38' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif' font-size='11.5' font-weight='700' fill='%23a855f7' letter-spacing='1'>TRIBECA AI · 好莱坞直通</text>   <text x='24' y='90' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='17' font-weight='800' fill='%23ffffff'>翠贝卡电影节</text>   <rect x='24' y='112' width='6' height='6' rx='3' fill='%23a855f7'/>   <text x='36' y='118' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11.5' fill='%23cbd5e1' font-weight='500'>Tribeca Enterprises (联合 </text>   <rect x='24' y='136' width='352' height='28' rx='6' fill='rgba(0,0,0,0.3)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/>   <text x='34' y='154' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11' font-weight='700' fill='%23fb7185'>💰 国际顶级电影节官方入选与首映背书 ｜ 好莱坞主流制片厂与流媒体全球采购对</text> </svg>",
+    "posterUrl": "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=800&q=80",
+    "detailUrl": "https://tribecafilm.com/festival/submissions",
+    "applyUrl": "https://tribecafilm.com/festival/submissions"
   },
   {
     "id": "venice-immersive-2026",
@@ -474,7 +516,13 @@ let rawCompetitions = [
     ],
     "compMode": [
       "online"
-    ]
+    ],
+    "badgeText": "📌 即将开启",
+    "badgeType": "upcoming",
+    "posterSvg": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 180' width='100%' height='100%'>   <defs>     <linearGradient id='g_venice-immersive-2026' x1='0%' y1='0%' x2='100%' y2='100%'>       <stop offset='0%' stop-color='%233b0764'/>       <stop offset='100%' stop-color='%23581c87'/>     </linearGradient>     <linearGradient id='glow_venice-immersive-2026' x1='0%' y1='0%' x2='100%' y2='0%'>       <stop offset='0%' stop-color='%23e879f9' stop-opacity='0.8'/>       <stop offset='100%' stop-color='%23e879f9' stop-opacity='0.1'/>     </linearGradient>   </defs>   <rect width='400' height='180' fill='url(%23g_venice-immersive-2026)'/>   <circle cx='360' cy='30' r='90' fill='%23e879f9' opacity='0.08'/>   <circle cx='30' cy='150' r='70' fill='%23e879f9' opacity='0.06'/>   <path d='M0 160 Q 200 130 400 170' stroke='url(%23glow_venice-immersive-2026)' stroke-width='2' fill='none' opacity='0.4'/>   <text x='24' y='44' font-size='28'>🦁</text>   <text x='62' y='38' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif' font-size='11.5' font-weight='700' fill='%23e879f9' letter-spacing='1'>威尼斯双年展 · 国际A类电影节狮奖</text>   <text x='24' y='90' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='17' font-weight='800' fill='%23ffffff'>威尼斯国际电影节 Venice I...</text>   <rect x='24' y='112' width='6' height='6' rx='3' fill='%23e879f9'/>   <text x='36' y='118' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11.5' fill='%23cbd5e1' font-weight='500'>威尼斯双年展 (La Biennale di V</text>   <rect x='24' y='136' width='352' height='28' rx='6' fill='rgba(0,0,0,0.3)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/>   <text x='34' y='154' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11' font-weight='700' fill='%23fb7185'>💰 威尼斯双年展官方狮奖荣誉认证 ｜ Venice Production B</text> </svg>",
+    "posterUrl": "https://images.unsplash.com/photo-1514890547357-a9ee288728e0?auto=format&fit=crop&w=800&q=80",
+    "detailUrl": "https://www.labiennale.org/en/cinema/2026/venice-immersive-0",
+    "applyUrl": "https://www.labiennale.org/en/cinema/2026/venice-immersive-0"
   },
   {
     "id": "waiff-cannes-2026",
@@ -519,7 +567,13 @@ let rawCompetitions = [
     ],
     "compMode": [
       "online"
-    ]
+    ],
+    "badgeText": "📌 即将开启",
+    "badgeType": "upcoming",
+    "posterSvg": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 180' width='100%' height='100%'>   <defs>     <linearGradient id='g_waiff-cannes-2026' x1='0%' y1='0%' x2='100%' y2='100%'>       <stop offset='0%' stop-color='%231e293b'/>       <stop offset='100%' stop-color='%23334155'/>     </linearGradient>     <linearGradient id='glow_waiff-cannes-2026' x1='0%' y1='0%' x2='100%' y2='0%'>       <stop offset='0%' stop-color='%23fbbf24' stop-opacity='0.8'/>       <stop offset='100%' stop-color='%23fbbf24' stop-opacity='0.1'/>     </linearGradient>   </defs>   <rect width='400' height='180' fill='url(%23g_waiff-cannes-2026)'/>   <circle cx='360' cy='30' r='90' fill='%23fbbf24' opacity='0.08'/>   <circle cx='30' cy='150' r='70' fill='%23fbbf24' opacity='0.06'/>   <path d='M0 160 Q 200 130 400 170' stroke='url(%23glow_waiff-cannes-2026)' stroke-width='2' fill='none' opacity='0.4'/>   <text x='24' y='44' font-size='28'>🌴</text>   <text x='62' y='38' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif' font-size='11.5' font-weight='700' fill='%23fbbf24' letter-spacing='1'>戛纳 WAIFF · CANNES NEXT</text>   <text x='24' y='90' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='17' font-weight='800' fill='%23ffffff'>戛纳 WAIFF 世界 AI 电影...</text>   <rect x='24' y='112' width='6' height='6' rx='3' fill='%23fbbf24'/>   <text x='36' y='118' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11.5' fill='%23cbd5e1' font-weight='500'>WAIFF 组委会 / 戛纳电影市场 (Marc</text>   <rect x='24' y='136' width='352' height='28' rx='6' fill='rgba(0,0,0,0.3)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/>   <text x='34' y='154' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11' font-weight='700' fill='%23fb7185'>💰 戛纳海滩 JW Marriott 影厅实体大银幕展映 ｜ 入选 Cann</text> </svg>",
+    "posterUrl": "https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=800&q=80",
+    "detailUrl": "https://worldaifilmfestival.com/",
+    "applyUrl": "https://worldaifilmfestival.com/"
   },
   {
     "id": "siggraph-caf-2026",
@@ -562,7 +616,13 @@ let rawCompetitions = [
     ],
     "compMode": [
       "online"
-    ]
+    ],
+    "badgeText": "📌 即将开启",
+    "badgeType": "upcoming",
+    "posterSvg": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 180' width='100%' height='100%'>   <defs>     <linearGradient id='g_siggraph-caf-2026' x1='0%' y1='0%' x2='100%' y2='100%'>       <stop offset='0%' stop-color='%230f172a'/>       <stop offset='100%' stop-color='%231e293b'/>     </linearGradient>     <linearGradient id='glow_siggraph-caf-2026' x1='0%' y1='0%' x2='100%' y2='0%'>       <stop offset='0%' stop-color='%23f43f5e' stop-opacity='0.8'/>       <stop offset='100%' stop-color='%23f43f5e' stop-opacity='0.1'/>     </linearGradient>   </defs>   <rect width='400' height='180' fill='url(%23g_siggraph-caf-2026)'/>   <circle cx='360' cy='30' r='90' fill='%23f43f5e' opacity='0.08'/>   <circle cx='30' cy='150' r='70' fill='%23f43f5e' opacity='0.06'/>   <path d='M0 160 Q 200 130 400 170' stroke='url(%23glow_siggraph-caf-2026)' stroke-width='2' fill='none' opacity='0.4'/>   <text x='24' y='44' font-size='28'>🎖️</text>   <text x='62' y='38' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif' font-size='11.5' font-weight='700' fill='%23f43f5e' letter-spacing='1'>奥斯卡资格认证通道</text>   <text x='24' y='90' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='17' font-weight='800' fill='%23ffffff'>ACM SIGGRAPH 计算机动...</text>   <rect x='24' y='112' width='6' height='6' rx='3' fill='%23f43f5e'/>   <text x='36' y='118' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11.5' fill='%23cbd5e1' font-weight='500'>ACM SIGGRAPH 官方</text>   <rect x='24' y='136' width='352' height='28' rx='6' fill='rgba(0,0,0,0.3)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/>   <text x='34' y='154' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11' font-weight='700' fill='%23fb7185'>💰 奥斯卡最佳动画短片直通评审资格 (Academy Award Quali</text> </svg>",
+    "posterUrl": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=800&q=80",
+    "detailUrl": "https://s2026.siggraph.org/",
+    "applyUrl": "https://s2026.siggraph.org/"
   },
   {
     "id": "sxsw-ai-shorts-2026",
@@ -605,7 +665,13 @@ let rawCompetitions = [
     ],
     "compMode": [
       "online"
-    ]
+    ],
+    "badgeText": "⏳ 还剩 63 天",
+    "badgeType": "normal",
+    "posterSvg": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 180' width='100%' height='100%'>   <defs>     <linearGradient id='g_sxsw-ai-shorts-2026' x1='0%' y1='0%' x2='100%' y2='100%'>       <stop offset='0%' stop-color='%230f172a'/>       <stop offset='100%' stop-color='%231e293b'/>     </linearGradient>     <linearGradient id='glow_sxsw-ai-shorts-2026' x1='0%' y1='0%' x2='100%' y2='0%'>       <stop offset='0%' stop-color='%23f43f5e' stop-opacity='0.8'/>       <stop offset='100%' stop-color='%23f43f5e' stop-opacity='0.1'/>     </linearGradient>   </defs>   <rect width='400' height='180' fill='url(%23g_sxsw-ai-shorts-2026)'/>   <circle cx='360' cy='30' r='90' fill='%23f43f5e' opacity='0.08'/>   <circle cx='30' cy='150' r='70' fill='%23f43f5e' opacity='0.06'/>   <path d='M0 160 Q 200 130 400 170' stroke='url(%23glow_sxsw-ai-shorts-2026)' stroke-width='2' fill='none' opacity='0.4'/>   <text x='24' y='44' font-size='28'>🎖️</text>   <text x='62' y='38' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif' font-size='11.5' font-weight='700' fill='%23f43f5e' letter-spacing='1'>奥斯卡资格认证通道</text>   <text x='24' y='90' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='17' font-weight='800' fill='%23ffffff'>西南偏南</text>   <rect x='24' y='112' width='6' height='6' rx='3' fill='%23f43f5e'/>   <text x='36' y='118' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11.5' fill='%23cbd5e1' font-weight='500'>SXSW, LLC 官方</text>   <rect x='24' y='136' width='352' height='28' rx='6' fill='rgba(0,0,0,0.3)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/>   <text x='34' y='154' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11' font-weight='700' fill='%23fb7185'>💰 奥斯卡最佳短片入围资格认证 (Academy Award Qualify</text> </svg>",
+    "posterUrl": "https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format&fit=crop&w=800&q=80",
+    "detailUrl": "https://cart.sxsw.com/filmapps/new?product_code=filmapp-short",
+    "applyUrl": "https://cart.sxsw.com/filmapps/new?product_code=filmapp-short"
   },
   {
     "id": "annecy-mifa-2026",
@@ -649,7 +715,13 @@ let rawCompetitions = [
     ],
     "compMode": [
       "online"
-    ]
+    ],
+    "badgeText": "📌 即将开启",
+    "badgeType": "upcoming",
+    "posterSvg": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 180' width='100%' height='100%'>   <defs>     <linearGradient id='g_annecy-mifa-2026' x1='0%' y1='0%' x2='100%' y2='100%'>       <stop offset='0%' stop-color='%232e1065'/>       <stop offset='100%' stop-color='%234c1d95'/>     </linearGradient>     <linearGradient id='glow_annecy-mifa-2026' x1='0%' y1='0%' x2='100%' y2='0%'>       <stop offset='0%' stop-color='%23a78bfa' stop-opacity='0.8'/>       <stop offset='100%' stop-color='%23a78bfa' stop-opacity='0.1'/>     </linearGradient>   </defs>   <rect width='400' height='180' fill='url(%23g_annecy-mifa-2026)'/>   <circle cx='360' cy='30' r='90' fill='%23a78bfa' opacity='0.08'/>   <circle cx='30' cy='150' r='70' fill='%23a78bfa' opacity='0.06'/>   <path d='M0 160 Q 200 130 400 170' stroke='url(%23glow_annecy-mifa-2026)' stroke-width='2' fill='none' opacity='0.4'/>   <text x='24' y='44' font-size='28'>🎬</text>   <text x='62' y='38' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif' font-size='11.5' font-weight='700' fill='%23a78bfa' letter-spacing='1'>AI 影视与内容创作大奖赛</text>   <text x='24' y='90' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='17' font-weight='800' fill='%23ffffff'>昂西国际动画电影节</text>   <rect x='24' y='112' width='6' height='6' rx='3' fill='%23a78bfa'/>   <text x='36' y='118' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11.5' fill='%23cbd5e1' font-weight='500'>CITIA / 法国国家电影中心 (CNC) /</text>   <rect x='24' y='136' width='352' height='28' rx='6' fill='rgba(0,0,0,0.3)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/>   <text x='34' y='154' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11' font-weight='700' fill='%23fb7185'>💰 国际动画界最高荣誉“水晶奖 (Cristal Award)” ｜ Mif</text> </svg>",
+    "posterUrl": "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=800&q=80",
+    "detailUrl": "https://www.annecyfestival.com/en/the-mifa/themes/mifa-ai",
+    "applyUrl": "https://www.annecyfestival.com/en/the-mifa/themes/mifa-ai"
   },
   {
     "id": "miracleplus-2026",
@@ -682,7 +754,7 @@ let rawCompetitions = [
     "evalCriteria": "创始团队认知深度 (Unique Insights) (40%)、团队演化与敏捷迭代速度 (35%)、所选赛道长期天花板 (25%)",
     "proTips": "陆奇团队最看重‘创始人对行业痛点的非共识洞察’和‘极致的执行迭代速度’；文书中用精炼事实说话，清晰阐明单元经济模型与数据壁垒。",
     "searchKeywords": "奇绩创坛 奇绩 陆奇 MiraclePlus DemoDay 创业 创投 投资",
-    "link": "https://www.miracleplus.com/cn/",
+    "link": "https://www.miracleplus.com/apply/",
     "prestigeScore": 95,
     "prestigeTier": "T1 早期顶级创业加速",
     "prestigeColor": "#059669",
@@ -692,7 +764,13 @@ let rawCompetitions = [
     ],
     "compMode": [
       "rolling"
-    ]
+    ],
+    "badgeText": "🔄 常态化征集中",
+    "badgeType": "rolling",
+    "posterSvg": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 180' width='100%' height='100%'>   <defs>     <linearGradient id='g_miracleplus-2026' x1='0%' y1='0%' x2='100%' y2='100%'>       <stop offset='0%' stop-color='%23064e3b'/>       <stop offset='100%' stop-color='%23047857'/>     </linearGradient>     <linearGradient id='glow_miracleplus-2026' x1='0%' y1='0%' x2='100%' y2='0%'>       <stop offset='0%' stop-color='%2334d399' stop-opacity='0.8'/>       <stop offset='100%' stop-color='%2334d399' stop-opacity='0.1'/>     </linearGradient>   </defs>   <rect width='400' height='180' fill='url(%23g_miracleplus-2026)'/>   <circle cx='360' cy='30' r='90' fill='%2334d399' opacity='0.08'/>   <circle cx='30' cy='150' r='70' fill='%2334d399' opacity='0.06'/>   <path d='M0 160 Q 200 130 400 170' stroke='url(%23glow_miracleplus-2026)' stroke-width='2' fill='none' opacity='0.4'/>   <text x='24' y='44' font-size='28'>🚀</text>   <text x='62' y='38' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif' font-size='11.5' font-weight='700' fill='%2334d399' letter-spacing='1'>早期顶级创业加速 & 路演大奖</text>   <text x='24' y='90' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='17' font-weight='800' fill='%23ffffff'>奇绩创坛</text>   <rect x='24' y='112' width='6' height='6' rx='3' fill='%2334d399'/>   <text x='36' y='118' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11.5' fill='%23cbd5e1' font-weight='500'>奇绩创坛 (陆奇博士团队) / 一线顶级 VC </text>   <rect x='24' y='136' width='352' height='28' rx='6' fill='rgba(0,0,0,0.3)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/>   <text x='34' y='154' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11' font-weight='700' fill='%23fb7185'>💰 $300,000–$500,000 早期股权投资 ｜ 陆奇博士及合伙人团</text> </svg>",
+    "posterUrl": "https://images.unsplash.com/photo-1559136555-9303baea8ebd?auto=format&fit=crop&w=800&q=80",
+    "detailUrl": "https://www.miracleplus.com/cn/",
+    "applyUrl": "https://www.miracleplus.com/apply/"
   },
   {
     "id": "slush100-2026",
@@ -736,7 +814,13 @@ let rawCompetitions = [
     ],
     "compMode": [
       "online"
-    ]
+    ],
+    "badgeText": "⏳ 还剩 47 天",
+    "badgeType": "normal",
+    "posterSvg": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 180' width='100%' height='100%'>   <defs>     <linearGradient id='g_slush100-2026' x1='0%' y1='0%' x2='100%' y2='100%'>       <stop offset='0%' stop-color='%23064e3b'/>       <stop offset='100%' stop-color='%23047857'/>     </linearGradient>     <linearGradient id='glow_slush100-2026' x1='0%' y1='0%' x2='100%' y2='0%'>       <stop offset='0%' stop-color='%2334d399' stop-opacity='0.8'/>       <stop offset='100%' stop-color='%2334d399' stop-opacity='0.1'/>     </linearGradient>   </defs>   <rect width='400' height='180' fill='url(%23g_slush100-2026)'/>   <circle cx='360' cy='30' r='90' fill='%2334d399' opacity='0.08'/>   <circle cx='30' cy='150' r='70' fill='%2334d399' opacity='0.06'/>   <path d='M0 160 Q 200 130 400 170' stroke='url(%23glow_slush100-2026)' stroke-width='2' fill='none' opacity='0.4'/>   <text x='24' y='44' font-size='28'>🚀</text>   <text x='62' y='38' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif' font-size='11.5' font-weight='700' fill='%2334d399' letter-spacing='1'>早期顶级创业加速 & 路演大奖</text>   <text x='24' y='90' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='17' font-weight='800' fill='%23ffffff'>Slush 100 全球初创企业路...</text>   <rect x='24' y='112' width='6' height='6' rx='3' fill='%2334d399'/>   <text x='36' y='118' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11.5' fill='%23cbd5e1' font-weight='500'>Slush 官方 / 全球顶级 Tier-1 V</text>   <rect x='24' y='136' width='352' height='28' rx='6' fill='rgba(0,0,0,0.3)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/>   <text x='34' y='154' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11' font-weight='700' fill='%23fb7185'>💰 €500,000 欧元完全无股权稀释 (Equity-free) 现金大</text> </svg>",
+    "posterUrl": "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&w=800&q=80",
+    "detailUrl": "https://slush.org/audience/startups/slush100",
+    "applyUrl": "https://slush.org/audience/startups/slush100"
   },
   {
     "id": "google-gemini-2026",
@@ -780,7 +864,13 @@ let rawCompetitions = [
     ],
     "compMode": [
       "online"
-    ]
+    ],
+    "badgeText": "📌 即将开启",
+    "badgeType": "upcoming",
+    "posterSvg": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 180' width='100%' height='100%'>   <defs>     <linearGradient id='g_google-gemini-2026' x1='0%' y1='0%' x2='100%' y2='100%'>       <stop offset='0%' stop-color='%230f172a'/>       <stop offset='100%' stop-color='%231e3a8a'/>     </linearGradient>     <linearGradient id='glow_google-gemini-2026' x1='0%' y1='0%' x2='100%' y2='0%'>       <stop offset='0%' stop-color='%2338bdf8' stop-opacity='0.8'/>       <stop offset='100%' stop-color='%2338bdf8' stop-opacity='0.1'/>     </linearGradient>   </defs>   <rect width='400' height='180' fill='url(%23g_google-gemini-2026)'/>   <circle cx='360' cy='30' r='90' fill='%2338bdf8' opacity='0.08'/>   <circle cx='30' cy='150' r='70' fill='%2338bdf8' opacity='0.06'/>   <path d='M0 160 Q 200 130 400 170' stroke='url(%23glow_google-gemini-2026)' stroke-width='2' fill='none' opacity='0.4'/>   <text x='24' y='44' font-size='28'>💎</text>   <text x='62' y='38' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif' font-size='11.5' font-weight='700' fill='%2338bdf8' letter-spacing='1'>GOOGLE GEMINI · 百万美金全球赛</text>   <text x='24' y='90' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='17' font-weight='800' fill='%23ffffff'>Google Gemini API...</text>   <rect x='24' y='112' width='6' height='6' rx='3' fill='%2338bdf8'/>   <text x='36' y='118' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11.5' fill='%23cbd5e1' font-weight='500'>Google AI / Devpost</text>   <rect x='24' y='136' width='352' height='28' rx='6' fill='rgba(0,0,0,0.3)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/>   <text x='34' y='154' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11' font-weight='700' fill='%23fb7185'>💰 $1,000,000 美元总奖金池 (含定制 1981 电动 DeLor</text> </svg>",
+    "posterUrl": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80",
+    "detailUrl": "https://ai.google.dev/competition",
+    "applyUrl": "https://ai.google.dev/competition"
   },
   {
     "id": "kling-nextgen-2026",
@@ -827,7 +917,13 @@ let rawCompetitions = [
     ],
     "compMode": [
       "rolling"
-    ]
+    ],
+    "badgeText": "🔄 常态化征集中",
+    "badgeType": "rolling",
+    "posterSvg": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 180' width='100%' height='100%'>   <defs>     <linearGradient id='g_kling-nextgen-2026' x1='0%' y1='0%' x2='100%' y2='100%'>       <stop offset='0%' stop-color='%23022c22'/>       <stop offset='100%' stop-color='%23065f46'/>     </linearGradient>     <linearGradient id='glow_kling-nextgen-2026' x1='0%' y1='0%' x2='100%' y2='0%'>       <stop offset='0%' stop-color='%2334d399' stop-opacity='0.8'/>       <stop offset='100%' stop-color='%2334d399' stop-opacity='0.1'/>     </linearGradient>   </defs>   <rect width='400' height='180' fill='url(%23g_kling-nextgen-2026)'/>   <circle cx='360' cy='30' r='90' fill='%2334d399' opacity='0.08'/>   <circle cx='30' cy='150' r='70' fill='%2334d399' opacity='0.06'/>   <path d='M0 160 Q 200 130 400 170' stroke='url(%23glow_kling-nextgen-2026)' stroke-width='2' fill='none' opacity='0.4'/>   <text x='24' y='44' font-size='28'>✨</text>   <text x='62' y='38' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif' font-size='11.5' font-weight='700' fill='%2334d399' letter-spacing='1'>快手可灵 · 600万创投</text>   <text x='24' y='90' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='17' font-weight='800' fill='%23ffffff'>快手可灵 AI NEXTGEN 新...</text>   <rect x='24' y='112' width='6' height='6' rx='3' fill='%2334d399'/>   <text x='36' y='118' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11.5' fill='%23cbd5e1' font-weight='500'>快手科技 / 可灵 AI (Kling AI) </text>   <rect x='24' y='136' width='352' height='28' rx='6' fill='rgba(0,0,0,0.3)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/>   <text x='34' y='154' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11' font-weight='700' fill='%23fb7185'>💰 单项目最高 600 万元现金投资 ｜ 快手全平台百亿级流量扶持 ｜ 商业</text> </svg>",
+    "posterUrl": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80",
+    "detailUrl": "https://klingai.com/app",
+    "applyUrl": "https://klingai.com/app"
   },
   {
     "id": "goai-open-source-2026",
@@ -872,7 +968,13 @@ let rawCompetitions = [
       "online"
     ],
     "searchKeywords": "GOAI 世界人工智能开源大赛 500万 100万 杭州 开源",
-    "link": "https://www.aibetas.com/aigc_events/430"
+    "link": "https://www.goaihz.com/",
+    "badgeText": "⏳ 还剩 1 天",
+    "badgeType": "urgent",
+    "posterSvg": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 180' width='100%' height='100%'>   <defs>     <linearGradient id='g_goai-open-source-2026' x1='0%' y1='0%' x2='100%' y2='100%'>       <stop offset='0%' stop-color='%23042f2e'/>       <stop offset='100%' stop-color='%23115e59'/>     </linearGradient>     <linearGradient id='glow_goai-open-source-2026' x1='0%' y1='0%' x2='100%' y2='0%'>       <stop offset='0%' stop-color='%232dd4bf' stop-opacity='0.8'/>       <stop offset='100%' stop-color='%232dd4bf' stop-opacity='0.1'/>     </linearGradient>   </defs>   <rect width='400' height='180' fill='url(%23g_goai-open-source-2026)'/>   <circle cx='360' cy='30' r='90' fill='%232dd4bf' opacity='0.08'/>   <circle cx='30' cy='150' r='70' fill='%232dd4bf' opacity='0.06'/>   <path d='M0 160 Q 200 130 400 170' stroke='url(%23glow_goai-open-source-2026)' stroke-width='2' fill='none' opacity='0.4'/>   <text x='24' y='44' font-size='28'>⚡</text>   <text x='62' y='38' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif' font-size='11.5' font-weight='700' fill='%232dd4bf' letter-spacing='1'>GOAI 开源大赛 · 500万奖金池</text>   <text x='24' y='90' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='17' font-weight='800' fill='%23ffffff'>GOAI 2026 世界人工智能开...</text>   <rect x='24' y='112' width='6' height='6' rx='3' fill='%232dd4bf'/>   <text x='36' y='118' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11.5' fill='%23cbd5e1' font-weight='500'>杭州市开源人工智能基金会 / 浙江省人工智能学会</text>   <rect x='24' y='136' width='352' height='28' rx='6' fill='rgba(0,0,0,0.3)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/>   <text x='34' y='154' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11' font-weight='700' fill='%23fb7185'>💰 总奖金池 500 万元 ｜ GOAI 全场大奖独享 100 万元现金 ｜</text> </svg>",
+    "posterUrl": "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=800&q=80",
+    "detailUrl": "https://www.goaihz.com/news/official-launch",
+    "applyUrl": "https://www.goaihz.com/"
   },
   {
     "id": "bjiff-aigc-2026",
@@ -918,7 +1020,13 @@ let rawCompetitions = [
     ],
     "compMode": [
       "online"
-    ]
+    ],
+    "badgeText": "📌 即将开启",
+    "badgeType": "upcoming",
+    "posterSvg": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 180' width='100%' height='100%'>   <defs>     <linearGradient id='g_bjiff-aigc-2026' x1='0%' y1='0%' x2='100%' y2='100%'>       <stop offset='0%' stop-color='%232e1065'/>       <stop offset='100%' stop-color='%234c1d95'/>     </linearGradient>     <linearGradient id='glow_bjiff-aigc-2026' x1='0%' y1='0%' x2='100%' y2='0%'>       <stop offset='0%' stop-color='%23a78bfa' stop-opacity='0.8'/>       <stop offset='100%' stop-color='%23a78bfa' stop-opacity='0.1'/>     </linearGradient>   </defs>   <rect width='400' height='180' fill='url(%23g_bjiff-aigc-2026)'/>   <circle cx='360' cy='30' r='90' fill='%23a78bfa' opacity='0.08'/>   <circle cx='30' cy='150' r='70' fill='%23a78bfa' opacity='0.06'/>   <path d='M0 160 Q 200 130 400 170' stroke='url(%23glow_bjiff-aigc-2026)' stroke-width='2' fill='none' opacity='0.4'/>   <text x='24' y='44' font-size='28'>🎬</text>   <text x='62' y='38' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif' font-size='11.5' font-weight='700' fill='%23a78bfa' letter-spacing='1'>AI 影视与内容创作大奖赛</text>   <text x='24' y='90' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='17' font-weight='800' fill='%23ffffff'>北京国际电影节</text>   <rect x='24' y='112' width='6' height='6' rx='3' fill='%23a78bfa'/>   <text x='36' y='118' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11.5' fill='%23cbd5e1' font-weight='500'>北京国际电影节组委会 / 灵芽社区 / 百度 /</text>   <rect x='24' y='136' width='352' height='28' rx='6' fill='rgba(0,0,0,0.3)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/>   <text x='34' y='154' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11' font-weight='700' fill='%23fb7185'>💰 北影节金爵级官方荣誉认证 ｜ 京东/百度商业化流量扶持与长片创投资金对接</text> </svg>",
+    "posterUrl": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80",
+    "detailUrl": "https://www.bjiff.com/xghd/jjdlllt_18698/",
+    "applyUrl": "https://www.bjiff.com/xghd/jjdlllt_18698/"
   },
   {
     "id": "siff-aigc-2026",
@@ -962,7 +1070,13 @@ let rawCompetitions = [
     ],
     "compMode": [
       "speedrun"
-    ]
+    ],
+    "badgeText": "📌 即将开启",
+    "badgeType": "upcoming",
+    "posterSvg": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 180' width='100%' height='100%'>   <defs>     <linearGradient id='g_siff-aigc-2026' x1='0%' y1='0%' x2='100%' y2='100%'>       <stop offset='0%' stop-color='%232e1065'/>       <stop offset='100%' stop-color='%234c1d95'/>     </linearGradient>     <linearGradient id='glow_siff-aigc-2026' x1='0%' y1='0%' x2='100%' y2='0%'>       <stop offset='0%' stop-color='%23a78bfa' stop-opacity='0.8'/>       <stop offset='100%' stop-color='%23a78bfa' stop-opacity='0.1'/>     </linearGradient>   </defs>   <rect width='400' height='180' fill='url(%23g_siff-aigc-2026)'/>   <circle cx='360' cy='30' r='90' fill='%23a78bfa' opacity='0.08'/>   <circle cx='30' cy='150' r='70' fill='%23a78bfa' opacity='0.06'/>   <path d='M0 160 Q 200 130 400 170' stroke='url(%23glow_siff-aigc-2026)' stroke-width='2' fill='none' opacity='0.4'/>   <text x='24' y='44' font-size='28'>🎬</text>   <text x='62' y='38' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif' font-size='11.5' font-weight='700' fill='%23a78bfa' letter-spacing='1'>AI 影视与内容创作大奖赛</text>   <text x='24' y='90' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='17' font-weight='800' fill='%23ffffff'>上海国际电影节</text>   <rect x='24' y='112' width='6' height='6' rx='3' fill='%23a78bfa'/>   <text x='36' y='118' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11.5' fill='%23cbd5e1' font-weight='500'>上海国际电影节组委会 (SIFF) / 即梦 A</text>   <rect x='24' y='136' width='352' height='28' rx='6' fill='rgba(0,0,0,0.3)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/>   <text x='34' y='154' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11' font-weight='700' fill='%23fb7185'>💰 国际 A 类电影节官方金爵荣誉认证 ｜ 主会场大银幕公开展映 ｜ 院线创</text> </svg>",
+    "posterUrl": "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=800&q=80",
+    "detailUrl": "https://www.siff.com/aibacklot/?lang=zh",
+    "applyUrl": "https://www.siff.com/aibacklot/?lang=zh"
   },
   {
     "id": "douyin-100w-ai-2026",
@@ -1007,7 +1121,13 @@ let rawCompetitions = [
       "online"
     ],
     "searchKeywords": "抖音 抖音AI创作大赛 金奖100万 100万 即梦 字节跳动",
-    "link": "https://www.aibetas.com/aigc_events/485"
+    "link": "https://jimeng.jianying.com/ai-tool/activity-detail/2026-289-dreamina-weekly-challenge",
+    "badgeText": "⏳ 还剩 5 天",
+    "badgeType": "urgent",
+    "posterSvg": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 180' width='100%' height='100%'>   <defs>     <linearGradient id='g_douyin-100w-ai-2026' x1='0%' y1='0%' x2='100%' y2='100%'>       <stop offset='0%' stop-color='%2318181b'/>       <stop offset='100%' stop-color='%2327272a'/>     </linearGradient>     <linearGradient id='glow_douyin-100w-ai-2026' x1='0%' y1='0%' x2='100%' y2='0%'>       <stop offset='0%' stop-color='%23f43f5e' stop-opacity='0.8'/>       <stop offset='100%' stop-color='%23f43f5e' stop-opacity='0.1'/>     </linearGradient>   </defs>   <rect width='400' height='180' fill='url(%23g_douyin-100w-ai-2026)'/>   <circle cx='360' cy='30' r='90' fill='%23f43f5e' opacity='0.08'/>   <circle cx='30' cy='150' r='70' fill='%23f43f5e' opacity='0.06'/>   <path d='M0 160 Q 200 130 400 170' stroke='url(%23glow_douyin-100w-ai-2026)' stroke-width='2' fill='none' opacity='0.4'/>   <text x='24' y='44' font-size='28'>🎬</text>   <text x='62' y='38' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif' font-size='11.5' font-weight='700' fill='%23f43f5e' letter-spacing='1'>抖音微短剧 · 爆款流量</text>   <text x='24' y='90' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='17' font-weight='800' fill='%23ffffff'>抖音 2026 AI 创作大赛</text>   <rect x='24' y='112' width='6' height='6' rx='3' fill='%23f43f5e'/>   <text x='36' y='118' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11.5' fill='%23cbd5e1' font-weight='500'>抖音官方 / 即梦 AI / 抖音创作者服务平台</text>   <rect x='24' y='136' width='352' height='28' rx='6' fill='rgba(0,0,0,0.3)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/>   <text x='34' y='154' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11' font-weight='700' fill='%23fb7185'>💰 金奖独享 100 万元现金 ｜ 总奖池数百万 ｜ 抖音全站开屏与千万级播</text> </svg>",
+    "posterUrl": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80",
+    "detailUrl": "https://jimeng.jianying.com/ai-tool/activity-detail/2026-289-dreamina-weekly-challenge",
+    "applyUrl": "https://jimeng.jianying.com/ai-tool/activity-detail/2026-289-dreamina-weekly-challenge"
   },
   {
     "id": "jinhaitun-ai-2026",
@@ -1053,7 +1173,13 @@ let rawCompetitions = [
     ],
     "compMode": [
       "online"
-    ]
+    ],
+    "badgeText": "⏳ 还剩 31 天",
+    "badgeType": "normal",
+    "posterSvg": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 180' width='100%' height='100%'>   <defs>     <linearGradient id='g_jinhaitun-ai-2026' x1='0%' y1='0%' x2='100%' y2='100%'>       <stop offset='0%' stop-color='%23083344'/>       <stop offset='100%' stop-color='%23155e75'/>     </linearGradient>     <linearGradient id='glow_jinhaitun-ai-2026' x1='0%' y1='0%' x2='100%' y2='0%'>       <stop offset='0%' stop-color='%2322d3ee' stop-opacity='0.8'/>       <stop offset='100%' stop-color='%2322d3ee' stop-opacity='0.1'/>     </linearGradient>   </defs>   <rect width='400' height='180' fill='url(%23g_jinhaitun-ai-2026)'/>   <circle cx='360' cy='30' r='90' fill='%2322d3ee' opacity='0.08'/>   <circle cx='30' cy='150' r='70' fill='%2322d3ee' opacity='0.06'/>   <path d='M0 160 Q 200 130 400 170' stroke='url(%23glow_jinhaitun-ai-2026)' stroke-width='2' fill='none' opacity='0.4'/>   <text x='24' y='44' font-size='28'>🐬</text>   <text x='62' y='38' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif' font-size='11.5' font-weight='700' fill='%2322d3ee' letter-spacing='1'>厦门国际动漫节 · 国家级动漫大奖</text>   <text x='24' y='90' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='17' font-weight='800' fill='%23ffffff'>2026 厦门国际动漫节“金海豚奖...</text>   <rect x='24' y='112' width='6' height='6' rx='3' fill='%2322d3ee'/>   <text x='36' y='118' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11.5' fill='%23cbd5e1' font-weight='500'>厦门市人民政府 / 金海豚奖组委会 / wuhu</text>   <rect x='24' y='136' width='352' height='28' rx='6' fill='rgba(0,0,0,0.3)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/>   <text x='34' y='154' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11' font-weight='700' fill='%23fb7185'>💰 总奖金池 40 万元现金 ｜ 金海豚官方荣誉认证与奖杯 ｜ wuhu 动</text> </svg>",
+    "posterUrl": "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=800&q=80",
+    "detailUrl": "https://cybersousa.com.cn/index/web/zxxq.html?id=197",
+    "applyUrl": "https://cybersousa.com.cn/index/web/zxxq.html?id=197"
   },
   {
     "id": "bilibili-tapnow-2026",
@@ -1088,7 +1214,7 @@ let rawCompetitions = [
     "evalCriteria": "叙事概念独创性与情感张力 (40%)、视听工业化质感 (35%)、B 站播放互动数据 (25%)",
     "proTips": "上届百万大奖得主《牌子》导演证明：‘好故事与审美才是核心壁垒’；聚焦有哲理、有温情或硬核科幻的故事最易夺冠。",
     "searchKeywords": "TapNow B站 B站AI创作大赛 平行宇宙 牌子 百万大奖 小破站 100万 360万 动画 短片",
-    "link": "https://www.tmtpost.com/7936097.html",
+    "link": "https://app.tapnow.ai/event/26",
     "prestigeScore": 91,
     "prestigeTier": "T2 社区 360 万高额赛",
     "prestigeColor": "#dc2626",
@@ -1098,7 +1224,13 @@ let rawCompetitions = [
     ],
     "compMode": [
       "online"
-    ]
+    ],
+    "badgeText": "⏳ 还剩 66 天",
+    "badgeType": "normal",
+    "posterSvg": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 180' width='100%' height='100%'>   <defs>     <linearGradient id='g_bilibili-tapnow-2026' x1='0%' y1='0%' x2='100%' y2='100%'>       <stop offset='0%' stop-color='%232e1065'/>       <stop offset='100%' stop-color='%234c1d95'/>     </linearGradient>     <linearGradient id='glow_bilibili-tapnow-2026' x1='0%' y1='0%' x2='100%' y2='0%'>       <stop offset='0%' stop-color='%23a78bfa' stop-opacity='0.8'/>       <stop offset='100%' stop-color='%23a78bfa' stop-opacity='0.1'/>     </linearGradient>   </defs>   <rect width='400' height='180' fill='url(%23g_bilibili-tapnow-2026)'/>   <circle cx='360' cy='30' r='90' fill='%23a78bfa' opacity='0.08'/>   <circle cx='30' cy='150' r='70' fill='%23a78bfa' opacity='0.06'/>   <path d='M0 160 Q 200 130 400 170' stroke='url(%23glow_bilibili-tapnow-2026)' stroke-width='2' fill='none' opacity='0.4'/>   <text x='24' y='44' font-size='28'>🎬</text>   <text x='62' y='38' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif' font-size='11.5' font-weight='700' fill='%23a78bfa' letter-spacing='1'>AI 影视与内容创作大奖赛</text>   <text x='24' y='90' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='17' font-weight='800' fill='%23ffffff'>TapNow x B 站 AI 创...</text>   <rect x='24' y='112' width='6' height='6' rx='3' fill='%23a78bfa'/>   <text x='36' y='118' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11.5' fill='%23cbd5e1' font-weight='500'>TapNow AI 创作者平台 / 哔哩哔哩 (</text>   <rect x='24' y='136' width='352' height='28' rx='6' fill='rgba(0,0,0,0.3)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/>   <text x='34' y='154' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11' font-weight='700' fill='%23fb7185'>💰 总奖金池 360 万元人民币 ｜ 一等奖 100 万元现金 + 100 </text> </svg>",
+    "posterUrl": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80",
+    "detailUrl": "https://app.tapnow.ai/event/26",
+    "applyUrl": "https://app.tapnow.ai/event/26"
   },
   {
     "id": "jimeng-seedance-2026",
@@ -1143,7 +1275,13 @@ let rawCompetitions = [
       "online"
     ],
     "searchKeywords": "即梦 Seedance 白模 故事盲盒 5万美元 5万 字节跳动 动画",
-    "link": "https://www.aibetas.com/aigc_events/496"
+    "link": "https://jimeng.jianying.com/ai-tool/activity-detail/2026-805-dreamina-weekly-challenge",
+    "badgeText": "⏳ 还剩 16 天",
+    "badgeType": "medium",
+    "posterSvg": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 180' width='100%' height='100%'>   <defs>     <linearGradient id='g_jimeng-seedance-2026' x1='0%' y1='0%' x2='100%' y2='100%'>       <stop offset='0%' stop-color='%232e1065'/>       <stop offset='100%' stop-color='%23581c87'/>     </linearGradient>     <linearGradient id='glow_jimeng-seedance-2026' x1='0%' y1='0%' x2='100%' y2='0%'>       <stop offset='0%' stop-color='%23c084fc' stop-opacity='0.8'/>       <stop offset='100%' stop-color='%23c084fc' stop-opacity='0.1'/>     </linearGradient>   </defs>   <rect width='400' height='180' fill='url(%23g_jimeng-seedance-2026)'/>   <circle cx='360' cy='30' r='90' fill='%23c084fc' opacity='0.08'/>   <circle cx='30' cy='150' r='70' fill='%23c084fc' opacity='0.06'/>   <path d='M0 160 Q 200 130 400 170' stroke='url(%23glow_jimeng-seedance-2026)' stroke-width='2' fill='none' opacity='0.4'/>   <text x='24' y='44' font-size='28'>🎭</text>   <text x='62' y='38' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif' font-size='11.5' font-weight='700' fill='%23c084fc' letter-spacing='1'>字节即梦 · 3D动作驱动</text>   <text x='24' y='90' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='17' font-weight='800' fill='%23ffffff'>故事盲盒：即梦 Seedance ...</text>   <rect x='24' y='112' width='6' height='6' rx='3' fill='%23c084fc'/>   <text x='36' y='118' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11.5' fill='%23cbd5e1' font-weight='500'>字节跳动 / 即梦 AI (Dreamina) </text>   <rect x='24' y='136' width='352' height='28' rx='6' fill='rgba(0,0,0,0.3)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/>   <text x='34' y='154' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11' font-weight='700' fill='%23fb7185'>💰 冠军 5 万美元现金 ($50,000) ＋ 100 万即梦算力积分 ｜</text> </svg>",
+    "posterUrl": "https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=800&q=80",
+    "detailUrl": "https://jimeng.jianying.com/ai-tool/activity-detail/2026-805-dreamina-weekly-challenge",
+    "applyUrl": "https://jimeng.jianying.com/ai-tool/activity-detail/2026-805-dreamina-weekly-challenge"
   },
   {
     "id": "pixlight-2026",
@@ -1188,7 +1326,13 @@ let rawCompetitions = [
     ],
     "compMode": [
       "online"
-    ]
+    ],
+    "badgeText": "⏳ 还剩 55 天",
+    "badgeType": "normal",
+    "posterSvg": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 180' width='100%' height='100%'>   <defs>     <linearGradient id='g_pixlight-2026' x1='0%' y1='0%' x2='100%' y2='100%'>       <stop offset='0%' stop-color='%23172554'/>       <stop offset='100%' stop-color='%231e3a8a'/>     </linearGradient>     <linearGradient id='glow_pixlight-2026' x1='0%' y1='0%' x2='100%' y2='0%'>       <stop offset='0%' stop-color='%2360a5fa' stop-opacity='0.8'/>       <stop offset='100%' stop-color='%2360a5fa' stop-opacity='0.1'/>     </linearGradient>   </defs>   <rect width='400' height='180' fill='url(%23g_pixlight-2026)'/>   <circle cx='360' cy='30' r='90' fill='%2360a5fa' opacity='0.08'/>   <circle cx='30' cy='150' r='70' fill='%2360a5fa' opacity='0.06'/>   <path d='M0 160 Q 200 130 400 170' stroke='url(%23glow_pixlight-2026)' stroke-width='2' fill='none' opacity='0.4'/>   <text x='24' y='44' font-size='28'>🌟</text>   <text x='62' y='38' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif' font-size='11.5' font-weight='700' fill='%2360a5fa' letter-spacing='1'>爱诗科技 · $300,000 美元大奖</text>   <text x='24' y='90' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='17' font-weight='800' fill='%23ffffff'>PixLight 2026 全球 ...</text>   <rect x='24' y='112' width='6' height='6' rx='3' fill='%2360a5fa'/>   <text x='36' y='118' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11.5' fill='%23cbd5e1' font-weight='500'>PixVerse AI (爱诗科技) / 国际影</text>   <rect x='24' y='136' width='352' height='28' rx='6' fill='rgba(0,0,0,0.3)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/>   <text x='34' y='154' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11' font-weight='700' fill='%23fb7185'>💰 $300,000 美元总奖金池 (设 33 个奖项) ｜ 最佳长片提案获</text> </svg>",
+    "posterUrl": "https://images.unsplash.com/photo-1478760329108-5c3ed9d495a0?auto=format&fit=crop&w=800&q=80",
+    "detailUrl": "https://pixverse.ai/en/blog/pixverse-kicks-off-pixlight-global-ai-film-competition",
+    "applyUrl": "https://pixverse.ai/en/blog/pixverse-kicks-off-pixlight-global-ai-film-competition"
   },
   {
     "id": "cmg-yangshipin-2026",
@@ -1232,7 +1376,13 @@ let rawCompetitions = [
     ],
     "compMode": [
       "rolling"
-    ]
+    ],
+    "badgeText": "🔄 常态化征集中",
+    "badgeType": "rolling",
+    "posterSvg": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 180' width='100%' height='100%'>   <defs>     <linearGradient id='g_cmg-yangshipin-2026' x1='0%' y1='0%' x2='100%' y2='100%'>       <stop offset='0%' stop-color='%232e1065'/>       <stop offset='100%' stop-color='%234c1d95'/>     </linearGradient>     <linearGradient id='glow_cmg-yangshipin-2026' x1='0%' y1='0%' x2='100%' y2='0%'>       <stop offset='0%' stop-color='%23a78bfa' stop-opacity='0.8'/>       <stop offset='100%' stop-color='%23a78bfa' stop-opacity='0.1'/>     </linearGradient>   </defs>   <rect width='400' height='180' fill='url(%23g_cmg-yangshipin-2026)'/>   <circle cx='360' cy='30' r='90' fill='%23a78bfa' opacity='0.08'/>   <circle cx='30' cy='150' r='70' fill='%23a78bfa' opacity='0.06'/>   <path d='M0 160 Q 200 130 400 170' stroke='url(%23glow_cmg-yangshipin-2026)' stroke-width='2' fill='none' opacity='0.4'/>   <text x='24' y='44' font-size='28'>🎬</text>   <text x='62' y='38' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif' font-size='11.5' font-weight='700' fill='%23a78bfa' letter-spacing='1'>AI 影视与内容创作大奖赛</text>   <text x='24' y='90' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='17' font-weight='800' fill='%23ffffff'>中央广播电视总台</text>   <rect x='24' y='112' width='6' height='6' rx='3' fill='%23a78bfa'/>   <text x='36' y='118' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11.5' fill='%23cbd5e1' font-weight='500'>中央广播电视总台视听新媒体中心 (央视频) / </text>   <rect x='24' y='136' width='352' height='28' rx='6' fill='rgba(0,0,0,0.3)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/>   <text x='34' y='154' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11' font-weight='700' fill='%23fb7185'>💰 央视总台核心资源位百亿级播放曝光 ｜ CMG 官方推优荣誉 ｜ 纳入央视</text> </svg>",
+    "posterUrl": "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=800&q=80",
+    "detailUrl": "https://www.cctv.com/2026/01/07/ARTIsBaXMEGd0EK0yetiUd8Q260107.shtml",
+    "applyUrl": "https://www.cctv.com/2026/01/07/ARTIsBaXMEGd0EK0yetiUd8Q260107.shtml"
   },
   {
     "id": "cicas-caai-2026",
@@ -1276,7 +1426,13 @@ let rawCompetitions = [
     ],
     "compMode": [
       "rolling"
-    ]
+    ],
+    "badgeText": "⏳ 还剩 46 天",
+    "badgeType": "normal",
+    "posterSvg": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 180' width='100%' height='100%'>   <defs>     <linearGradient id='g_cicas-caai-2026' x1='0%' y1='0%' x2='100%' y2='100%'>       <stop offset='0%' stop-color='%23064e3b'/>       <stop offset='100%' stop-color='%23047857'/>     </linearGradient>     <linearGradient id='glow_cicas-caai-2026' x1='0%' y1='0%' x2='100%' y2='0%'>       <stop offset='0%' stop-color='%2334d399' stop-opacity='0.8'/>       <stop offset='100%' stop-color='%2334d399' stop-opacity='0.1'/>     </linearGradient>   </defs>   <rect width='400' height='180' fill='url(%23g_cicas-caai-2026)'/>   <circle cx='360' cy='30' r='90' fill='%2334d399' opacity='0.08'/>   <circle cx='30' cy='150' r='70' fill='%2334d399' opacity='0.06'/>   <path d='M0 160 Q 200 130 400 170' stroke='url(%23glow_cicas-caai-2026)' stroke-width='2' fill='none' opacity='0.4'/>   <text x='24' y='44' font-size='28'>💼</text>   <text x='62' y='38' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif' font-size='11.5' font-weight='700' fill='%2334d399' letter-spacing='1'>商业落地 & 创业创投挑战赛</text>   <text x='24' y='90' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='17' font-weight='800' fill='%23ffffff'>全国人工智能应用场景创新挑战赛</text>   <rect x='24' y='112' width='6' height='6' rx='3' fill='%2334d399'/>   <text x='36' y='118' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11.5' fill='%23cbd5e1' font-weight='500'>中国科协指导 / 中国人工智能学会 (CAAI)</text>   <rect x='24' y='136' width='352' height='28' rx='6' fill='rgba(0,0,0,0.3)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/>   <text x='34' y='154' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11' font-weight='700' fill='%23fb7185'>💰 百万级大赛现金奖金池 ｜ 纳入国家人工智能示范案例库 ｜ 地方政府产业落</text> </svg>",
+    "posterUrl": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80",
+    "detailUrl": "https://www.cicas.cn/",
+    "applyUrl": "https://www.cicas.cn/"
   },
   {
     "id": "cnmaker-ai-2026",
@@ -1320,7 +1476,13 @@ let rawCompetitions = [
     ],
     "compMode": [
       "online"
-    ]
+    ],
+    "badgeText": "⏳ 还剩 31 天",
+    "badgeType": "normal",
+    "posterSvg": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 180' width='100%' height='100%'>   <defs>     <linearGradient id='g_cnmaker-ai-2026' x1='0%' y1='0%' x2='100%' y2='100%'>       <stop offset='0%' stop-color='%23064e3b'/>       <stop offset='100%' stop-color='%23047857'/>     </linearGradient>     <linearGradient id='glow_cnmaker-ai-2026' x1='0%' y1='0%' x2='100%' y2='0%'>       <stop offset='0%' stop-color='%2334d399' stop-opacity='0.8'/>       <stop offset='100%' stop-color='%2334d399' stop-opacity='0.1'/>     </linearGradient>   </defs>   <rect width='400' height='180' fill='url(%23g_cnmaker-ai-2026)'/>   <circle cx='360' cy='30' r='90' fill='%2334d399' opacity='0.08'/>   <circle cx='30' cy='150' r='70' fill='%2334d399' opacity='0.06'/>   <path d='M0 160 Q 200 130 400 170' stroke='url(%23glow_cnmaker-ai-2026)' stroke-width='2' fill='none' opacity='0.4'/>   <text x='24' y='44' font-size='28'>💼</text>   <text x='62' y='38' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif' font-size='11.5' font-weight='700' fill='%2334d399' letter-spacing='1'>商业落地 & 创业创投挑战赛</text>   <text x='24' y='90' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='17' font-weight='800' fill='%23ffffff'>工信部“创客中国”中小企业创新创业...</text>   <rect x='24' y='112' width='6' height='6' rx='3' fill='%2334d399'/>   <text x='36' y='118' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11.5' fill='%23cbd5e1' font-weight='500'>工业和信息化部信息中心 / 各省市工信厅 / 产</text>   <rect x='24' y='136' width='352' height='28' rx='6' fill='rgba(0,0,0,0.3)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/>   <text x='34' y='154' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11' font-weight='700' fill='%23fb7185'>💰 国家级与省市级政策奖金 ｜ 直通国家级专精特新“小巨人”企业培育绿色通道</text> </svg>",
+    "posterUrl": "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80",
+    "detailUrl": "https://www.cnmaker.org.cn/",
+    "applyUrl": "https://www.cnmaker.org.cn/"
   },
   {
     "id": "goldenrooster-aigc-2026",
@@ -1355,7 +1517,7 @@ let rawCompetitions = [
     "evalCriteria": "传统电影语言与 AI 技术融合度 (40%)、视听创新性 (30%)、青年人才潜力 (30%)",
     "proTips": "金鸡百花评审团多为传统电影学界权威；视听语言必须规范（景别衔接、轴线原则、声画对位），严禁低级画质崩塌或无意义的炫技抽帧。",
     "searchKeywords": "金鸡 金鸡百花 百花奖 中国影协 通义 阿里云",
-    "link": "https://www.news.cn/ci/20260530/7d949119632648a8a94b1267ab5df4c6/c.html",
+    "link": "https://jimeng.jianying.com/ai-tool/activity-detail/2026-630-dreamina-weekly-challenge",
     "prestigeScore": 90,
     "prestigeTier": "T2 国家级电影节推优",
     "prestigeColor": "#7c3aed",
@@ -1365,7 +1527,13 @@ let rawCompetitions = [
     ],
     "compMode": [
       "online"
-    ]
+    ],
+    "badgeText": "⏳ 还剩 78 天",
+    "badgeType": "normal",
+    "posterSvg": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 180' width='100%' height='100%'>   <defs>     <linearGradient id='g_goldenrooster-aigc-2026' x1='0%' y1='0%' x2='100%' y2='100%'>       <stop offset='0%' stop-color='%232e1065'/>       <stop offset='100%' stop-color='%234c1d95'/>     </linearGradient>     <linearGradient id='glow_goldenrooster-aigc-2026' x1='0%' y1='0%' x2='100%' y2='0%'>       <stop offset='0%' stop-color='%23a78bfa' stop-opacity='0.8'/>       <stop offset='100%' stop-color='%23a78bfa' stop-opacity='0.1'/>     </linearGradient>   </defs>   <rect width='400' height='180' fill='url(%23g_goldenrooster-aigc-2026)'/>   <circle cx='360' cy='30' r='90' fill='%23a78bfa' opacity='0.08'/>   <circle cx='30' cy='150' r='70' fill='%23a78bfa' opacity='0.06'/>   <path d='M0 160 Q 200 130 400 170' stroke='url(%23glow_goldenrooster-aigc-2026)' stroke-width='2' fill='none' opacity='0.4'/>   <text x='24' y='44' font-size='28'>🎬</text>   <text x='62' y='38' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif' font-size='11.5' font-weight='700' fill='%23a78bfa' letter-spacing='1'>AI 影视与内容创作大奖赛</text>   <text x='24' y='90' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='17' font-weight='800' fill='%23ffffff'>中国金鸡百花电影节 “全年金鸡丨A...</text>   <rect x='24' y='112' width='6' height='6' rx='3' fill='%23a78bfa'/>   <text x='36' y='118' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11.5' fill='%23cbd5e1' font-weight='500'>中国电影家协会 / 厦门市人民政府 / 阿里云通</text>   <rect x='24' y='136' width='352' height='28' rx='6' fill='rgba(0,0,0,0.3)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/>   <text x='34' y='154' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11' font-weight='700' fill='%23fb7185'>💰 金鸡短片季官方推优背书 ｜ 阿里云通义万相/通义千问大额算力包 ｜ 纳入</text> </svg>",
+    "posterUrl": "https://images.unsplash.com/photo-1478760329108-5c3ed9d495a0?auto=format&fit=crop&w=800&q=80",
+    "detailUrl": "https://jimeng.jianying.com/ai-tool/activity-detail/2026-630-dreamina-weekly-challenge",
+    "applyUrl": "https://jimeng.jianying.com/ai-tool/activity-detail/2026-630-dreamina-weekly-challenge"
   },
   {
     "id": "bilibili-aigc-2026",
@@ -1410,7 +1578,13 @@ let rawCompetitions = [
     ],
     "compMode": [
       "online"
-    ]
+    ],
+    "badgeText": "📌 即将开启",
+    "badgeType": "upcoming",
+    "posterSvg": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 180' width='100%' height='100%'>   <defs>     <linearGradient id='g_bilibili-aigc-2026' x1='0%' y1='0%' x2='100%' y2='100%'>       <stop offset='0%' stop-color='%232e1065'/>       <stop offset='100%' stop-color='%234c1d95'/>     </linearGradient>     <linearGradient id='glow_bilibili-aigc-2026' x1='0%' y1='0%' x2='100%' y2='0%'>       <stop offset='0%' stop-color='%23a78bfa' stop-opacity='0.8'/>       <stop offset='100%' stop-color='%23a78bfa' stop-opacity='0.1'/>     </linearGradient>   </defs>   <rect width='400' height='180' fill='url(%23g_bilibili-aigc-2026)'/>   <circle cx='360' cy='30' r='90' fill='%23a78bfa' opacity='0.08'/>   <circle cx='30' cy='150' r='70' fill='%23a78bfa' opacity='0.06'/>   <path d='M0 160 Q 200 130 400 170' stroke='url(%23glow_bilibili-aigc-2026)' stroke-width='2' fill='none' opacity='0.4'/>   <text x='24' y='44' font-size='28'>🎬</text>   <text x='62' y='38' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif' font-size='11.5' font-weight='700' fill='%23a78bfa' letter-spacing='1'>AI 影视与内容创作大奖赛</text>   <text x='24' y='90' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='17' font-weight='800' fill='%23ffffff'>哔哩哔哩</text>   <rect x='24' y='112' width='6' height='6' rx='3' fill='%23a78bfa'/>   <text x='36' y='118' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11.5' fill='%23cbd5e1' font-weight='500'>哔哩哔哩 (Bilibili / 哔斯卡金像奖)</text>   <rect x='24' y='136' width='352' height='28' rx='6' fill='rgba(0,0,0,0.3)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/>   <text x='34' y='154' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11' font-weight='700' fill='%23fb7185'>💰 总奖金超 300 万元人民币 (单项一等奖高达 100 万元现金) ｜ </text> </svg>",
+    "posterUrl": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80",
+    "detailUrl": "https://www.bilibili.com/opus/1191141387814305792",
+    "applyUrl": "https://www.bilibili.com/opus/1191141387814305792"
   },
   {
     "id": "taobao-ai-drama-2026",
@@ -1444,7 +1618,7 @@ let rawCompetitions = [
     "evalCriteria": "剧情网感与带货转化粘性 (40%)、AI 角色真实度与表情表现 (35%)、商业定制契合度 (25%)",
     "proTips": "淘天生态偏好‘强剧情 + 软植入’的种草微短剧；前 3 秒悬疑冲突、中间无缝衔接好物亮点、结尾设反转，是冲榜 50 万大奖的核心技巧。",
     "searchKeywords": "淘天 淘天招聘 淘宝 淘宝短剧 阿里 阿里妈妈 AI导演 导演 短剧 50万 造剧场",
-    "link": "https://www.aitop100.cn/infomation/details/34168.html",
+    "link": "https://developer.taobao.com/",
     "prestigeScore": 89,
     "prestigeTier": "T2 淘天 50 万大奖赛",
     "prestigeColor": "#dc2626",
@@ -1454,7 +1628,13 @@ let rawCompetitions = [
     ],
     "compMode": [
       "online"
-    ]
+    ],
+    "badgeText": "⏳ 还剩 36 天",
+    "badgeType": "normal",
+    "posterSvg": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 180' width='100%' height='100%'>   <defs>     <linearGradient id='g_taobao-ai-drama-2026' x1='0%' y1='0%' x2='100%' y2='100%'>       <stop offset='0%' stop-color='%237c2d12'/>       <stop offset='100%' stop-color='%239a3412'/>     </linearGradient>     <linearGradient id='glow_taobao-ai-drama-2026' x1='0%' y1='0%' x2='100%' y2='0%'>       <stop offset='0%' stop-color='%23fb923c' stop-opacity='0.8'/>       <stop offset='100%' stop-color='%23fb923c' stop-opacity='0.1'/>     </linearGradient>   </defs>   <rect width='400' height='180' fill='url(%23g_taobao-ai-drama-2026)'/>   <circle cx='360' cy='30' r='90' fill='%23fb923c' opacity='0.08'/>   <circle cx='30' cy='150' r='70' fill='%23fb923c' opacity='0.06'/>   <path d='M0 160 Q 200 130 400 170' stroke='url(%23glow_taobao-ai-drama-2026)' stroke-width='2' fill='none' opacity='0.4'/>   <text x='24' y='44' font-size='28'>🛍️</text>   <text x='62' y='38' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif' font-size='11.5' font-weight='700' fill='%23fb923c' letter-spacing='1'>淘天集团 · 50万AI导演招募</text>   <text x='24' y='90' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='17' font-weight='800' fill='%23ffffff'>淘天集团 · 淘宝短剧 2026 ...</text>   <rect x='24' y='112' width='6' height='6' rx='3' fill='%23fb923c'/>   <text x='36' y='118' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11.5' fill='%23cbd5e1' font-weight='500'>淘天集团 / 淘天招聘 / 淘宝短剧团队 / 阿</text>   <rect x='24' y='136' width='352' height='28' rx='6' fill='rgba(0,0,0,0.3)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/>   <text x='34' y='154' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11' font-weight='700' fill='%23fb7185'>💰 战队 PK 榜 TOP1 独享 50 万元现金 ｜ 平台亿级带货流量分发</text> </svg>",
+    "posterUrl": "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=800&q=80",
+    "detailUrl": "https://developer.taobao.com/",
+    "applyUrl": "https://developer.taobao.com/"
   },
   {
     "id": "dongchedi-car-ai-2026",
@@ -1502,7 +1682,13 @@ let rawCompetitions = [
       "online"
     ],
     "searchKeywords": "懂车帝 汽车 车影像 20万 100万 字节跳动",
-    "link": "https://www.aibetas.com/aigc_events/502"
+    "link": "https://www.xinpianchang.com/notes/58163",
+    "badgeText": "⏳ 还剩 17 天",
+    "badgeType": "medium",
+    "posterSvg": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 180' width='100%' height='100%'>   <defs>     <linearGradient id='g_dongchedi-car-ai-2026' x1='0%' y1='0%' x2='100%' y2='100%'>       <stop offset='0%' stop-color='%230f172a'/>       <stop offset='100%' stop-color='%231e293b'/>     </linearGradient>     <linearGradient id='glow_dongchedi-car-ai-2026' x1='0%' y1='0%' x2='100%' y2='0%'>       <stop offset='0%' stop-color='%2338bdf8' stop-opacity='0.8'/>       <stop offset='100%' stop-color='%2338bdf8' stop-opacity='0.1'/>     </linearGradient>   </defs>   <rect width='400' height='180' fill='url(%23g_dongchedi-car-ai-2026)'/>   <circle cx='360' cy='30' r='90' fill='%2338bdf8' opacity='0.08'/>   <circle cx='30' cy='150' r='70' fill='%2338bdf8' opacity='0.06'/>   <path d='M0 160 Q 200 130 400 170' stroke='url(%23glow_dongchedi-car-ai-2026)' stroke-width='2' fill='none' opacity='0.4'/>   <text x='24' y='44' font-size='28'>🏎️</text>   <text x='62' y='38' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif' font-size='11.5' font-weight='700' fill='%2338bdf8' letter-spacing='1'>汽车影像 · 百万现金池</text>   <text x='24' y='90' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='17' font-weight='800' fill='%23ffffff'>2026 懂车帝车影像 AI 创作...</text>   <rect x='24' y='112' width='6' height='6' rx='3' fill='%2338bdf8'/>   <text x='36' y='118' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11.5' fill='%23cbd5e1' font-weight='500'>懂车帝 (Dongchedi) / 字节跳动商业</text>   <rect x='24' y='136' width='352' height='28' rx='6' fill='rgba(0,0,0,0.3)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/>   <text x='34' y='154' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11' font-weight='700' fill='%23fb7185'>💰 一等奖 20 万元现金 ｜ 百万现金总奖金池 ｜ 懂车帝亿级汽车垂直流量</text> </svg>",
+    "posterUrl": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800&q=80",
+    "detailUrl": "https://www.xinpianchang.com/notes/58163",
+    "applyUrl": "https://www.xinpianchang.com/notes/58163"
   },
   {
     "id": "malanshan-ai-2026",
@@ -1548,7 +1734,13 @@ let rawCompetitions = [
     ],
     "compMode": [
       "online"
-    ]
+    ],
+    "badgeText": "⏳ 还剩 31 天",
+    "badgeType": "normal",
+    "posterSvg": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 180' width='100%' height='100%'>   <defs>     <linearGradient id='g_malanshan-ai-2026' x1='0%' y1='0%' x2='100%' y2='100%'>       <stop offset='0%' stop-color='%232e1065'/>       <stop offset='100%' stop-color='%234c1d95'/>     </linearGradient>     <linearGradient id='glow_malanshan-ai-2026' x1='0%' y1='0%' x2='100%' y2='0%'>       <stop offset='0%' stop-color='%23a78bfa' stop-opacity='0.8'/>       <stop offset='100%' stop-color='%23a78bfa' stop-opacity='0.1'/>     </linearGradient>   </defs>   <rect width='400' height='180' fill='url(%23g_malanshan-ai-2026)'/>   <circle cx='360' cy='30' r='90' fill='%23a78bfa' opacity='0.08'/>   <circle cx='30' cy='150' r='70' fill='%23a78bfa' opacity='0.06'/>   <path d='M0 160 Q 200 130 400 170' stroke='url(%23glow_malanshan-ai-2026)' stroke-width='2' fill='none' opacity='0.4'/>   <text x='24' y='44' font-size='28'>🎬</text>   <text x='62' y='38' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif' font-size='11.5' font-weight='700' fill='%23a78bfa' letter-spacing='1'>AI 影视与内容创作大奖赛</text>   <text x='24' y='90' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='17' font-weight='800' fill='%23ffffff'>2026 视听中国·马栏山杯 AI...</text>   <rect x='24' y='112' width='6' height='6' rx='3' fill='%23a78bfa'/>   <text x='36' y='118' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11.5' fill='%23cbd5e1' font-weight='500'>国家广电总局指导 / 湖南省广播电视局 / 马栏</text>   <rect x='24' y='136' width='352' height='28' rx='6' fill='rgba(0,0,0,0.3)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/>   <text x='34' y='154' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11' font-weight='700' fill='%23fb7185'>💰 总奖金池 80 万元现金 ｜ 马栏山全链条产业孵化配套 ｜ 芒果 TV </text> </svg>",
+    "posterUrl": "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=800&q=80",
+    "detailUrl": "https://gbdsj.hunan.gov.cn/gbdsj/xxgk/tzgg/202606/t20260611_33999282.html",
+    "applyUrl": "https://gbdsj.hunan.gov.cn/gbdsj/xxgk/tzgg/202606/t20260611_33999282.html"
   },
   {
     "id": "tencent-ishort-2026",
@@ -1592,7 +1784,13 @@ let rawCompetitions = [
     ],
     "compMode": [
       "rolling"
-    ]
+    ],
+    "badgeText": "🔄 常态化征集中",
+    "badgeType": "rolling",
+    "posterSvg": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 180' width='100%' height='100%'>   <defs>     <linearGradient id='g_tencent-ishort-2026' x1='0%' y1='0%' x2='100%' y2='100%'>       <stop offset='0%' stop-color='%232e1065'/>       <stop offset='100%' stop-color='%234c1d95'/>     </linearGradient>     <linearGradient id='glow_tencent-ishort-2026' x1='0%' y1='0%' x2='100%' y2='0%'>       <stop offset='0%' stop-color='%23a78bfa' stop-opacity='0.8'/>       <stop offset='100%' stop-color='%23a78bfa' stop-opacity='0.1'/>     </linearGradient>   </defs>   <rect width='400' height='180' fill='url(%23g_tencent-ishort-2026)'/>   <circle cx='360' cy='30' r='90' fill='%23a78bfa' opacity='0.08'/>   <circle cx='30' cy='150' r='70' fill='%23a78bfa' opacity='0.06'/>   <path d='M0 160 Q 200 130 400 170' stroke='url(%23glow_tencent-ishort-2026)' stroke-width='2' fill='none' opacity='0.4'/>   <text x='24' y='44' font-size='28'>🎬</text>   <text x='62' y='38' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif' font-size='11.5' font-weight='700' fill='%23a78bfa' letter-spacing='1'>AI 影视与内容创作大奖赛</text>   <text x='24' y='90' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='17' font-weight='800' fill='%23ffffff'>腾讯视频 AI 创作大赛 · i短...</text>   <rect x='24' y='112' width='6' height='6' rx='3' fill='%23a78bfa'/>   <text x='36' y='118' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11.5' fill='%23cbd5e1' font-weight='500'>腾讯在线视频 (腾讯视频 / 腾讯微视 / 腾讯</text>   <rect x='24' y='136' width='352' height='28' rx='6' fill='rgba(0,0,0,0.3)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/>   <text x='34' y='154' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11' font-weight='700' fill='%23fb7185'>💰 120 万元总奖池 (单项最高 40 万元) ｜ 首次将 AI 短剧纳入</text> </svg>",
+    "posterUrl": "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=800&q=80",
+    "detailUrl": "https://m.36kr.com/p/3532989603060615",
+    "applyUrl": "https://m.36kr.com/p/3532989603060615"
   },
   {
     "id": "cnsa-zhuiguang-2026",
@@ -1636,7 +1834,13 @@ let rawCompetitions = [
     ],
     "compMode": [
       "online"
-    ]
+    ],
+    "badgeText": "📌 即将开启",
+    "badgeType": "upcoming",
+    "posterSvg": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 180' width='100%' height='100%'>   <defs>     <linearGradient id='g_cnsa-zhuiguang-2026' x1='0%' y1='0%' x2='100%' y2='100%'>       <stop offset='0%' stop-color='%232e1065'/>       <stop offset='100%' stop-color='%234c1d95'/>     </linearGradient>     <linearGradient id='glow_cnsa-zhuiguang-2026' x1='0%' y1='0%' x2='100%' y2='0%'>       <stop offset='0%' stop-color='%23a78bfa' stop-opacity='0.8'/>       <stop offset='100%' stop-color='%23a78bfa' stop-opacity='0.1'/>     </linearGradient>   </defs>   <rect width='400' height='180' fill='url(%23g_cnsa-zhuiguang-2026)'/>   <circle cx='360' cy='30' r='90' fill='%23a78bfa' opacity='0.08'/>   <circle cx='30' cy='150' r='70' fill='%23a78bfa' opacity='0.06'/>   <path d='M0 160 Q 200 130 400 170' stroke='url(%23glow_cnsa-zhuiguang-2026)' stroke-width='2' fill='none' opacity='0.4'/>   <text x='24' y='44' font-size='28'>🎬</text>   <text x='62' y='38' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif' font-size='11.5' font-weight='700' fill='%23a78bfa' letter-spacing='1'>AI 影视与内容创作大奖赛</text>   <text x='24' y='90' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='17' font-weight='800' fill='%23ffffff'>中国网络视听大会 “追光计划” 微...</text>   <rect x='24' y='112' width='6' height='6' rx='3' fill='%23a78bfa'/>   <text x='36' y='118' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11.5' fill='%23cbd5e1' font-weight='500'>国家广电总局网络视听司指导 / 中国网络视听节目</text>   <rect x='24' y='136' width='352' height='28' rx='6' fill='rgba(0,0,0,0.3)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/>   <text x='34' y='154' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11' font-weight='700' fill='%23fb7185'>💰 纳入北京大视听“追光计划”重点片单 ｜ 爱腾优芒、快手抖音开屏与首屏联合</text> </svg>",
+    "posterUrl": "https://images.unsplash.com/photo-1508807526345-15e9b5f4eaff?auto=format&fit=crop&w=800&q=80",
+    "detailUrl": "https://www.chinanews.com.cn/cul/2026/04-16/10605226.shtml",
+    "applyUrl": "https://www.chinanews.com.cn/cul/2026/04-16/10605226.shtml"
   },
   {
     "id": "hangzhou-aigc-wuhu-2026",
@@ -1683,7 +1887,13 @@ let rawCompetitions = [
     ],
     "compMode": [
       "speedrun"
-    ]
+    ],
+    "badgeText": "⏳ 还剩 26 天",
+    "badgeType": "medium",
+    "posterSvg": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 180' width='100%' height='100%'>   <defs>     <linearGradient id='g_hangzhou-aigc-wuhu-2026' x1='0%' y1='0%' x2='100%' y2='100%'>       <stop offset='0%' stop-color='%232e1065'/>       <stop offset='100%' stop-color='%234c1d95'/>     </linearGradient>     <linearGradient id='glow_hangzhou-aigc-wuhu-2026' x1='0%' y1='0%' x2='100%' y2='0%'>       <stop offset='0%' stop-color='%23a78bfa' stop-opacity='0.8'/>       <stop offset='100%' stop-color='%23a78bfa' stop-opacity='0.1'/>     </linearGradient>   </defs>   <rect width='400' height='180' fill='url(%23g_hangzhou-aigc-wuhu-2026)'/>   <circle cx='360' cy='30' r='90' fill='%23a78bfa' opacity='0.08'/>   <circle cx='30' cy='150' r='70' fill='%23a78bfa' opacity='0.06'/>   <path d='M0 160 Q 200 130 400 170' stroke='url(%23glow_hangzhou-aigc-wuhu-2026)' stroke-width='2' fill='none' opacity='0.4'/>   <text x='24' y='44' font-size='28'>🎬</text>   <text x='62' y='38' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif' font-size='11.5' font-weight='700' fill='%23a78bfa' letter-spacing='1'>AI 影视与内容创作大奖赛</text>   <text x='24' y='90' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='17' font-weight='800' fill='%23ffffff'>杭州全球 AI 影像/动画大赛</text>   <rect x='24' y='112' width='6' height='6' rx='3' fill='%23a78bfa'/>   <text x='36' y='118' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11.5' fill='%23cbd5e1' font-weight='500'>杭州艺创小镇 / 中国动漫博物馆 / 观猹 / </text>   <rect x='24' y='136' width='352' height='28' rx='6' fill='rgba(0,0,0,0.3)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/>   <text x='34' y='154' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11' font-weight='700' fill='%23fb7185'>💰 100 万元现金总奖池 ｜ 6000 万免费算力积分直接领 ｜ 环之江生</text> </svg>",
+    "posterUrl": "https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=800&q=80",
+    "detailUrl": "https://watcha.cn/",
+    "applyUrl": "https://watcha.cn/"
   },
   {
     "id": "jimeng-douyin-2026",
@@ -1729,7 +1939,13 @@ let rawCompetitions = [
     ],
     "compMode": [
       "online"
-    ]
+    ],
+    "badgeText": "🔄 常态化征集中",
+    "badgeType": "rolling",
+    "posterSvg": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 180' width='100%' height='100%'>   <defs>     <linearGradient id='g_jimeng-douyin-2026' x1='0%' y1='0%' x2='100%' y2='100%'>       <stop offset='0%' stop-color='%232e1065'/>       <stop offset='100%' stop-color='%23581c87'/>     </linearGradient>     <linearGradient id='glow_jimeng-douyin-2026' x1='0%' y1='0%' x2='100%' y2='0%'>       <stop offset='0%' stop-color='%23c084fc' stop-opacity='0.8'/>       <stop offset='100%' stop-color='%23c084fc' stop-opacity='0.1'/>     </linearGradient>   </defs>   <rect width='400' height='180' fill='url(%23g_jimeng-douyin-2026)'/>   <circle cx='360' cy='30' r='90' fill='%23c084fc' opacity='0.08'/>   <circle cx='30' cy='150' r='70' fill='%23c084fc' opacity='0.06'/>   <path d='M0 160 Q 200 130 400 170' stroke='url(%23glow_jimeng-douyin-2026)' stroke-width='2' fill='none' opacity='0.4'/>   <text x='24' y='44' font-size='28'>🎭</text>   <text x='62' y='38' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif' font-size='11.5' font-weight='700' fill='%23c084fc' letter-spacing='1'>字节即梦 · 3D动作驱动</text>   <text x='24' y='90' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='17' font-weight='800' fill='%23ffffff'>即梦 AI 未来影像计划 & 抖音...</text>   <rect x='24' y='112' width='6' height='6' rx='3' fill='%23c084fc'/>   <text x='36' y='118' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11.5' fill='%23cbd5e1' font-weight='500'>字节跳动 / 即梦 AI (Dreamina) </text>   <rect x='24' y='136' width='352' height='28' rx='6' fill='rgba(0,0,0,0.3)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/>   <text x='34' y='154' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11' font-weight='700' fill='%23fb7185'>💰 抖音百亿级流量精准分发 ｜ 字节跳动微短剧联合出品与商业分账 ｜ 大额现</text> </svg>",
+    "posterUrl": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80",
+    "detailUrl": "https://jimeng.jianying.com/visionary",
+    "applyUrl": "https://jimeng.jianying.com/visionary"
   },
   {
     "id": "iqiyi-peterpau-2026",
@@ -1775,7 +1991,13 @@ let rawCompetitions = [
     ],
     "compMode": [
       "rolling"
-    ]
+    ],
+    "badgeText": "🔄 常态化征集中",
+    "badgeType": "rolling",
+    "posterSvg": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 180' width='100%' height='100%'>   <defs>     <linearGradient id='g_iqiyi-peterpau-2026' x1='0%' y1='0%' x2='100%' y2='100%'>       <stop offset='0%' stop-color='%232e1065'/>       <stop offset='100%' stop-color='%234c1d95'/>     </linearGradient>     <linearGradient id='glow_iqiyi-peterpau-2026' x1='0%' y1='0%' x2='100%' y2='0%'>       <stop offset='0%' stop-color='%23a78bfa' stop-opacity='0.8'/>       <stop offset='100%' stop-color='%23a78bfa' stop-opacity='0.1'/>     </linearGradient>   </defs>   <rect width='400' height='180' fill='url(%23g_iqiyi-peterpau-2026)'/>   <circle cx='360' cy='30' r='90' fill='%23a78bfa' opacity='0.08'/>   <circle cx='30' cy='150' r='70' fill='%23a78bfa' opacity='0.06'/>   <path d='M0 160 Q 200 130 400 170' stroke='url(%23glow_iqiyi-peterpau-2026)' stroke-width='2' fill='none' opacity='0.4'/>   <text x='24' y='44' font-size='28'>🎬</text>   <text x='62' y='38' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif' font-size='11.5' font-weight='700' fill='%23a78bfa' letter-spacing='1'>AI 影视与内容创作大奖赛</text>   <text x='24' y='90' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='17' font-weight='800' fill='%23ffffff'>爱奇艺 “与 AI 共生” 短片大...</text>   <rect x='24' y='112' width='6' height='6' rx='3' fill='%23a78bfa'/>   <text x='36' y='118' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11.5' fill='%23cbd5e1' font-weight='500'>爱奇艺 (iQIYI) / 纳逗 Pro 创意中</text>   <rect x='24' y='136' width='352' height='28' rx='6' fill='rgba(0,0,0,0.3)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/>   <text x='34' y='154' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11' font-weight='700' fill='%23fb7185'>💰 直通“鲍德熹·爱奇艺 AI 剧场”全网独家首播 ｜ 爱奇艺平台百万级宣发</text> </svg>",
+    "posterUrl": "https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=800&q=80",
+    "detailUrl": "https://pages.iqiyi.com/p/scpr/63x0aw97.html",
+    "applyUrl": "https://pages.iqiyi.com/p/scpr/63x0aw97.html"
   },
   {
     "id": "caai-global-startup-2026",
@@ -1820,7 +2042,13 @@ let rawCompetitions = [
     ],
     "compMode": [
       "online"
-    ]
+    ],
+    "badgeText": "⏳ 还剩 16 天",
+    "badgeType": "medium",
+    "posterSvg": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 180' width='100%' height='100%'>   <defs>     <linearGradient id='g_caai-global-startup-2026' x1='0%' y1='0%' x2='100%' y2='100%'>       <stop offset='0%' stop-color='%23064e3b'/>       <stop offset='100%' stop-color='%23047857'/>     </linearGradient>     <linearGradient id='glow_caai-global-startup-2026' x1='0%' y1='0%' x2='100%' y2='0%'>       <stop offset='0%' stop-color='%2334d399' stop-opacity='0.8'/>       <stop offset='100%' stop-color='%2334d399' stop-opacity='0.1'/>     </linearGradient>   </defs>   <rect width='400' height='180' fill='url(%23g_caai-global-startup-2026)'/>   <circle cx='360' cy='30' r='90' fill='%2334d399' opacity='0.08'/>   <circle cx='30' cy='150' r='70' fill='%2334d399' opacity='0.06'/>   <path d='M0 160 Q 200 130 400 170' stroke='url(%23glow_caai-global-startup-2026)' stroke-width='2' fill='none' opacity='0.4'/>   <text x='24' y='44' font-size='28'>💼</text>   <text x='62' y='38' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif' font-size='11.5' font-weight='700' fill='%2334d399' letter-spacing='1'>商业落地 & 创业创投挑战赛</text>   <text x='24' y='90' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='17' font-weight='800' fill='%23ffffff'>2026 全球人工智能创新创业大赛</text>   <rect x='24' y='112' width='6' height='6' rx='3' fill='%2334d399'/>   <text x='36' y='118' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11.5' fill='%23cbd5e1' font-weight='500'>中国人工智能学会 (CAAI) / 地方政府产业</text>   <rect x='24' y='136' width='352' height='28' rx='6' fill='rgba(0,0,0,0.3)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/>   <text x='34' y='154' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11' font-weight='700' fill='%23fb7185'>💰 总奖金池超百万元 ｜ 专项产业落地直投基金 ｜ 免费算力补贴与产业场景开</text> </svg>",
+    "posterUrl": "https://images.unsplash.com/photo-1559136555-9303baea8ebd?auto=format&fit=crop&w=800&q=80",
+    "detailUrl": "https://www.caai.cn/site/content/8473.html",
+    "applyUrl": "https://www.caai.cn/site/content/8473.html"
   },
   {
     "id": "aws-ai-agent-2026",
@@ -1865,7 +2093,13 @@ let rawCompetitions = [
     ],
     "compMode": [
       "online"
-    ]
+    ],
+    "badgeText": "⏳ 还剩 52 天",
+    "badgeType": "normal",
+    "posterSvg": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 180' width='100%' height='100%'>   <defs>     <linearGradient id='g_aws-ai-agent-2026' x1='0%' y1='0%' x2='100%' y2='100%'>       <stop offset='0%' stop-color='%230c4a6e'/>       <stop offset='100%' stop-color='%230369a1'/>     </linearGradient>     <linearGradient id='glow_aws-ai-agent-2026' x1='0%' y1='0%' x2='100%' y2='0%'>       <stop offset='0%' stop-color='%2338bdf8' stop-opacity='0.8'/>       <stop offset='100%' stop-color='%2338bdf8' stop-opacity='0.1'/>     </linearGradient>   </defs>   <rect width='400' height='180' fill='url(%23g_aws-ai-agent-2026)'/>   <circle cx='360' cy='30' r='90' fill='%2338bdf8' opacity='0.08'/>   <circle cx='30' cy='150' r='70' fill='%2338bdf8' opacity='0.06'/>   <path d='M0 160 Q 200 130 400 170' stroke='url(%23glow_aws-ai-agent-2026)' stroke-width='2' fill='none' opacity='0.4'/>   <text x='24' y='44' font-size='28'>🤖</text>   <text x='62' y='38' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif' font-size='11.5' font-weight='700' fill='%2338bdf8' letter-spacing='1'>AI 应用 & AGENT 开发者黑客松</text>   <text x='24' y='90' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='17' font-weight='800' fill='%23ffffff'>AWS AI Agent Glob...</text>   <rect x='24' y='112' width='6' height='6' rx='3' fill='%2338bdf8'/>   <text x='36' y='118' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11.5' fill='%23cbd5e1' font-weight='500'>Amazon Web Services (AWS</text>   <rect x='24' y='136' width='352' height='28' rx='6' fill='rgba(0,0,0,0.3)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/>   <text x='34' y='154' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11' font-weight='700' fill='%23fb7185'>💰 $45,000+ 美元现金奖 ｜ 最高 $10,000 AWS 云算力额</text> </svg>",
+    "posterUrl": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80",
+    "detailUrl": "https://info.devpost.com/blog/aws-ai-agent-global-hackathon",
+    "applyUrl": "https://info.devpost.com/blog/aws-ai-agent-global-hackathon"
   },
   {
     "id": "hailang-ai-hackathon-2026",
@@ -1900,7 +2134,7 @@ let rawCompetitions = [
     "evalCriteria": "高概念视听感染力与浪潮隐喻 (40%)、48h 极限创作效率 (30%)、视听工业化质感 (30%)",
     "proTips": "阿那亚海浪电影周偏好文艺探索与超现实主义视效；紧扣‘海浪’、‘第二层浪’的哲学隐喻与情绪流动极易打动电影界评委。",
     "searchKeywords": "海浪电影周 海浪 AI电影黑客松 阿那亚 第二层浪 48小时",
-    "link": "https://www.aitop100.cn/infomation/details/34462.html",
+    "link": "https://www.hailangfilmfestival.com/",
     "prestigeScore": 86,
     "prestigeTier": "T2 海浪电影节阿那亚黑客松",
     "prestigeColor": "#7c3aed",
@@ -1910,7 +2144,13 @@ let rawCompetitions = [
     ],
     "compMode": [
       "speedrun"
-    ]
+    ],
+    "badgeText": "⏳ 还剩 12 天",
+    "badgeType": "medium",
+    "posterSvg": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 180' width='100%' height='100%'>   <defs>     <linearGradient id='g_hailang-ai-hackathon-2026' x1='0%' y1='0%' x2='100%' y2='100%'>       <stop offset='0%' stop-color='%230c4a6e'/>       <stop offset='100%' stop-color='%230369a1'/>     </linearGradient>     <linearGradient id='glow_hailang-ai-hackathon-2026' x1='0%' y1='0%' x2='100%' y2='0%'>       <stop offset='0%' stop-color='%2338bdf8' stop-opacity='0.8'/>       <stop offset='100%' stop-color='%2338bdf8' stop-opacity='0.1'/>     </linearGradient>   </defs>   <rect width='400' height='180' fill='url(%23g_hailang-ai-hackathon-2026)'/>   <circle cx='360' cy='30' r='90' fill='%2338bdf8' opacity='0.08'/>   <circle cx='30' cy='150' r='70' fill='%2338bdf8' opacity='0.06'/>   <path d='M0 160 Q 200 130 400 170' stroke='url(%23glow_hailang-ai-hackathon-2026)' stroke-width='2' fill='none' opacity='0.4'/>   <text x='24' y='44' font-size='28'>🌊</text>   <text x='62' y='38' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif' font-size='11.5' font-weight='700' fill='%2338bdf8' letter-spacing='1'>海浪电影周 · 48H阿那亚极限创作</text>   <text x='24' y='90' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='17' font-weight='800' fill='%23ffffff'>2026 第二届海浪 AI 电影黑...</text>   <rect x='24' y='112' width='6' height='6' rx='3' fill='%2338bdf8'/>   <text x='36' y='118' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11.5' fill='%23cbd5e1' font-weight='500'>海浪电影周组委会 / 阿那亚 / AMD / 阿</text>   <rect x='24' y='136' width='352' height='28' rx='6' fill='rgba(0,0,0,0.3)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/>   <text x='34' y='154' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11' font-weight='700' fill='%23fb7185'>💰 高额赛事现金大奖 ｜ 海浪电影周青年展映入围背书 ｜ AMD 高端 AI</text> </svg>",
+    "posterUrl": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80",
+    "detailUrl": "https://www.hailangfilmfestival.com/",
+    "applyUrl": "https://www.hailangfilmfestival.com/"
   },
   {
     "id": "dongfang-jd-ai-2026",
@@ -1957,7 +2197,13 @@ let rawCompetitions = [
       "online"
     ],
     "searchKeywords": "东方智媒城 京东 东方明珠 AI东方 10万 影视 上海",
-    "link": "https://m.opg.cn/cn/newsCenter/newsInfo/2084878646774534144.html"
+    "link": "https://m.opg.cn/cn/newsCenter/newsInfo/2084878646774534144.html",
+    "badgeText": "⏳ 还剩 16 天",
+    "badgeType": "medium",
+    "posterSvg": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 180' width='100%' height='100%'>   <defs>     <linearGradient id='g_dongfang-jd-ai-2026' x1='0%' y1='0%' x2='100%' y2='100%'>       <stop offset='0%' stop-color='%232e1065'/>       <stop offset='100%' stop-color='%234c1d95'/>     </linearGradient>     <linearGradient id='glow_dongfang-jd-ai-2026' x1='0%' y1='0%' x2='100%' y2='0%'>       <stop offset='0%' stop-color='%23a78bfa' stop-opacity='0.8'/>       <stop offset='100%' stop-color='%23a78bfa' stop-opacity='0.1'/>     </linearGradient>   </defs>   <rect width='400' height='180' fill='url(%23g_dongfang-jd-ai-2026)'/>   <circle cx='360' cy='30' r='90' fill='%23a78bfa' opacity='0.08'/>   <circle cx='30' cy='150' r='70' fill='%23a78bfa' opacity='0.06'/>   <path d='M0 160 Q 200 130 400 170' stroke='url(%23glow_dongfang-jd-ai-2026)' stroke-width='2' fill='none' opacity='0.4'/>   <text x='24' y='44' font-size='28'>🎬</text>   <text x='62' y='38' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif' font-size='11.5' font-weight='700' fill='%23a78bfa' letter-spacing='1'>AI 影视与内容创作大奖赛</text>   <text x='24' y='90' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='17' font-weight='800' fill='%23ffffff'>“AI 东方” 东方智媒城 · 京...</text>   <rect x='24' y='112' width='6' height='6' rx='3' fill='%23a78bfa'/>   <text x='36' y='118' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11.5' fill='%23cbd5e1' font-weight='500'>东方明珠 / 东方智媒城 / 京东集团</text>   <rect x='24' y='136' width='352' height='28' rx='6' fill='rgba(0,0,0,0.3)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/>   <text x='34' y='154' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11' font-weight='700' fill='%23fb7185'>💰 最高 10 万元现金奖励 ｜ 东方智媒城国家级影视孵化器免租入驻 ｜ 京</text> </svg>",
+    "posterUrl": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80",
+    "detailUrl": "https://m.opg.cn/cn/newsCenter/newsInfo/2084878646774534144.html",
+    "applyUrl": "https://m.opg.cn/cn/newsCenter/newsInfo/2084878646774534144.html"
   },
   {
     "id": "chinastory-ai-2026",
@@ -2005,7 +2251,13 @@ let rawCompetitions = [
       "online"
     ],
     "searchKeywords": "讲好中国故事 中国网 中国外文局 传播 1万 非遗",
-    "link": "https://www.aibetas.com/aigc_events/469"
+    "link": "http://zggs.china.com.cn/",
+    "badgeText": "⏳ 还剩 31 天",
+    "badgeType": "normal",
+    "posterSvg": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 180' width='100%' height='100%'>   <defs>     <linearGradient id='g_chinastory-ai-2026' x1='0%' y1='0%' x2='100%' y2='100%'>       <stop offset='0%' stop-color='%232e1065'/>       <stop offset='100%' stop-color='%234c1d95'/>     </linearGradient>     <linearGradient id='glow_chinastory-ai-2026' x1='0%' y1='0%' x2='100%' y2='0%'>       <stop offset='0%' stop-color='%23a78bfa' stop-opacity='0.8'/>       <stop offset='100%' stop-color='%23a78bfa' stop-opacity='0.1'/>     </linearGradient>   </defs>   <rect width='400' height='180' fill='url(%23g_chinastory-ai-2026)'/>   <circle cx='360' cy='30' r='90' fill='%23a78bfa' opacity='0.08'/>   <circle cx='30' cy='150' r='70' fill='%23a78bfa' opacity='0.06'/>   <path d='M0 160 Q 200 130 400 170' stroke='url(%23glow_chinastory-ai-2026)' stroke-width='2' fill='none' opacity='0.4'/>   <text x='24' y='44' font-size='28'>🎬</text>   <text x='62' y='38' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif' font-size='11.5' font-weight='700' fill='%23a78bfa' letter-spacing='1'>AI 影视与内容创作大奖赛</text>   <text x='24' y='90' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='17' font-weight='800' fill='%23ffffff'>第八届 “讲好中国故事” 创意传播...</text>   <rect x='24' y='112' width='6' height='6' rx='3' fill='%23a78bfa'/>   <text x='36' y='118' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11.5' fill='%23cbd5e1' font-weight='500'>中国互联网新闻中心 (中国网) / 中国外文局</text>   <rect x='24' y='136' width='352' height='28' rx='6' fill='rgba(0,0,0,0.3)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/>   <text x='34' y='154' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11' font-weight='700' fill='%23fb7185'>💰 各组别一等奖 1 万元现金 ｜ 国家级外宣平台全球多语种译制与海外分发 </text> </svg>",
+    "posterUrl": "https://images.unsplash.com/photo-1508807526345-15e9b5f4eaff?auto=format&fit=crop&w=800&q=80",
+    "detailUrl": "http://zggs.china.com.cn/",
+    "applyUrl": "http://zggs.china.com.cn/"
   },
   {
     "id": "aliyun-mcp-2026",
@@ -2049,7 +2301,13 @@ let rawCompetitions = [
     ],
     "compMode": [
       "online"
-    ]
+    ],
+    "badgeText": "⏳ 还剩 46 天",
+    "badgeType": "normal",
+    "posterSvg": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 180' width='100%' height='100%'>   <defs>     <linearGradient id='g_aliyun-mcp-2026' x1='0%' y1='0%' x2='100%' y2='100%'>       <stop offset='0%' stop-color='%230c4a6e'/>       <stop offset='100%' stop-color='%230369a1'/>     </linearGradient>     <linearGradient id='glow_aliyun-mcp-2026' x1='0%' y1='0%' x2='100%' y2='0%'>       <stop offset='0%' stop-color='%2338bdf8' stop-opacity='0.8'/>       <stop offset='100%' stop-color='%2338bdf8' stop-opacity='0.1'/>     </linearGradient>   </defs>   <rect width='400' height='180' fill='url(%23g_aliyun-mcp-2026)'/>   <circle cx='360' cy='30' r='90' fill='%2338bdf8' opacity='0.08'/>   <circle cx='30' cy='150' r='70' fill='%2338bdf8' opacity='0.06'/>   <path d='M0 160 Q 200 130 400 170' stroke='url(%23glow_aliyun-mcp-2026)' stroke-width='2' fill='none' opacity='0.4'/>   <text x='24' y='44' font-size='28'>🤖</text>   <text x='62' y='38' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif' font-size='11.5' font-weight='700' fill='%2338bdf8' letter-spacing='1'>AI 应用 & AGENT 开发者黑客松</text>   <text x='24' y='90' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='17' font-weight='800' fill='%23ffffff'>阿里云天池 · 通义灵码 MCP ...</text>   <rect x='24' y='112' width='6' height='6' rx='3' fill='%2338bdf8'/>   <text x='36' y='118' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11.5' fill='%23cbd5e1' font-weight='500'>阿里云 / 蚂蚁集团 / 阿里云天池平台</text>   <rect x='24' y='136' width='352' height='28' rx='6' fill='rgba(0,0,0,0.3)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/>   <text x='34' y='154' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11' font-weight='700' fill='%23fb7185'>💰 10 万 - 50 万元人民币现金奖 ｜ 阿里云百炼大额算力额度补贴 ｜</text> </svg>",
+    "posterUrl": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80",
+    "detailUrl": "https://tianchi.aliyun.com/competition/entrance/532442",
+    "applyUrl": "https://tianchi.aliyun.com/competition/entrance/532442"
   },
   {
     "id": "runway-aiff-2026",
@@ -2095,7 +2353,13 @@ let rawCompetitions = [
     "compMode": [
       "speedrun",
       "online"
-    ]
+    ],
+    "badgeText": "📌 即将开启",
+    "badgeType": "upcoming",
+    "posterSvg": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 180' width='100%' height='100%'>   <defs>     <linearGradient id='g_runway-aiff-2026' x1='0%' y1='0%' x2='100%' y2='100%'>       <stop offset='0%' stop-color='%232e1065'/>       <stop offset='100%' stop-color='%234c1d95'/>     </linearGradient>     <linearGradient id='glow_runway-aiff-2026' x1='0%' y1='0%' x2='100%' y2='0%'>       <stop offset='0%' stop-color='%23a78bfa' stop-opacity='0.8'/>       <stop offset='100%' stop-color='%23a78bfa' stop-opacity='0.1'/>     </linearGradient>   </defs>   <rect width='400' height='180' fill='url(%23g_runway-aiff-2026)'/>   <circle cx='360' cy='30' r='90' fill='%23a78bfa' opacity='0.08'/>   <circle cx='30' cy='150' r='70' fill='%23a78bfa' opacity='0.06'/>   <path d='M0 160 Q 200 130 400 170' stroke='url(%23glow_runway-aiff-2026)' stroke-width='2' fill='none' opacity='0.4'/>   <text x='24' y='44' font-size='28'>🎬</text>   <text x='62' y='38' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif' font-size='11.5' font-weight='700' fill='%23a78bfa' letter-spacing='1'>AI 影视与内容创作大奖赛</text>   <text x='24' y='90' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='17' font-weight='800' fill='%23ffffff'>Runway AI Film Fe...</text>   <rect x='24' y='112' width='6' height='6' rx='3' fill='%23a78bfa'/>   <text x='36' y='118' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11.5' fill='%23cbd5e1' font-weight='500'>Runway AI / 纽约林肯中心 / IMA</text>   <rect x='24' y='136' width='352' height='28' rx='6' fill='rgba(0,0,0,0.3)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/>   <text x='34' y='154' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11' font-weight='700' fill='%23fb7185'>💰 $60,000+ 美金现金奖金池 ｜ 1,000,000+ Runway</text> </svg>",
+    "posterUrl": "https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=800&q=80",
+    "detailUrl": "https://runway.com/studios",
+    "applyUrl": "https://runway.com/studios"
   },
   {
     "id": "hkaff-goldframe-2026",
@@ -2141,7 +2405,13 @@ let rawCompetitions = [
     ],
     "compMode": [
       "online"
-    ]
+    ],
+    "badgeText": "📌 即将开启",
+    "badgeType": "upcoming",
+    "posterSvg": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 180' width='100%' height='100%'>   <defs>     <linearGradient id='g_hkaff-goldframe-2026' x1='0%' y1='0%' x2='100%' y2='100%'>       <stop offset='0%' stop-color='%232e1065'/>       <stop offset='100%' stop-color='%234c1d95'/>     </linearGradient>     <linearGradient id='glow_hkaff-goldframe-2026' x1='0%' y1='0%' x2='100%' y2='0%'>       <stop offset='0%' stop-color='%23a78bfa' stop-opacity='0.8'/>       <stop offset='100%' stop-color='%23a78bfa' stop-opacity='0.1'/>     </linearGradient>   </defs>   <rect width='400' height='180' fill='url(%23g_hkaff-goldframe-2026)'/>   <circle cx='360' cy='30' r='90' fill='%23a78bfa' opacity='0.08'/>   <circle cx='30' cy='150' r='70' fill='%23a78bfa' opacity='0.06'/>   <path d='M0 160 Q 200 130 400 170' stroke='url(%23glow_hkaff-goldframe-2026)' stroke-width='2' fill='none' opacity='0.4'/>   <text x='24' y='44' font-size='28'>🎬</text>   <text x='62' y='38' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif' font-size='11.5' font-weight='700' fill='%23a78bfa' letter-spacing='1'>AI 影视与内容创作大奖赛</text>   <text x='24' y='90' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='17' font-weight='800' fill='%23ffffff'>香港国际 AI 电影节</text>   <rect x='24' y='112' width='6' height='6' rx='3' fill='%23a78bfa'/>   <text x='36' y='118' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11.5' fill='%23cbd5e1' font-weight='500'>香港国际文化创意博览会组委会 / 紫荆文化集团</text>   <rect x='24' y='136' width='352' height='28' rx='6' fill='rgba(0,0,0,0.3)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/>   <text x='34' y='154' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11' font-weight='700' fill='%23fb7185'>💰 “金帧奖”行业荣誉 ｜ 大湾区影视投资基金直通对接 ｜ 面向全球海外流媒</text> </svg>",
+    "posterUrl": "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=800&q=80",
+    "detailUrl": "https://www.arthkexpo.com/cn/ex2/hkaff/",
+    "applyUrl": "https://www.arthkexpo.com/cn/ex2/hkaff/"
   },
   {
     "id": "shanghai-student-tv-ai-2026",
@@ -2188,7 +2458,13 @@ let rawCompetitions = [
       "online"
     ],
     "searchKeywords": "上海大学生电视节 大学生 紫丁香奖 微短剧 华师大 上外",
-    "link": "https://www.aibetas.com/aigc_events/478"
+    "link": "https://sdtv.ecnu.edu.cn/",
+    "badgeText": "⏳ 还剩 36 天",
+    "badgeType": "normal",
+    "posterSvg": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 180' width='100%' height='100%'>   <defs>     <linearGradient id='g_shanghai-student-tv-ai-2026' x1='0%' y1='0%' x2='100%' y2='100%'>       <stop offset='0%' stop-color='%232e1065'/>       <stop offset='100%' stop-color='%234c1d95'/>     </linearGradient>     <linearGradient id='glow_shanghai-student-tv-ai-2026' x1='0%' y1='0%' x2='100%' y2='0%'>       <stop offset='0%' stop-color='%23a78bfa' stop-opacity='0.8'/>       <stop offset='100%' stop-color='%23a78bfa' stop-opacity='0.1'/>     </linearGradient>   </defs>   <rect width='400' height='180' fill='url(%23g_shanghai-student-tv-ai-2026)'/>   <circle cx='360' cy='30' r='90' fill='%23a78bfa' opacity='0.08'/>   <circle cx='30' cy='150' r='70' fill='%23a78bfa' opacity='0.06'/>   <path d='M0 160 Q 200 130 400 170' stroke='url(%23glow_shanghai-student-tv-ai-2026)' stroke-width='2' fill='none' opacity='0.4'/>   <text x='24' y='44' font-size='28'>🎬</text>   <text x='62' y='38' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif' font-size='11.5' font-weight='700' fill='%23a78bfa' letter-spacing='1'>AI 影视与内容创作大奖赛</text>   <text x='24' y='90' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='17' font-weight='800' fill='%23ffffff'>第十九届上海大学生电视节 · 全球...</text>   <rect x='24' y='112' width='6' height='6' rx='3' fill='%23a78bfa'/>   <text x='36' y='118' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11.5' fill='%23cbd5e1' font-weight='500'>华东师范大学 / 上海外国语大学 / 上海电视艺</text>   <rect x='24' y='136' width='352' height='28' rx='6' fill='rgba(0,0,0,0.3)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/>   <text x='34' y='154' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11' font-weight='700' fill='%23fb7185'>💰 最高荣誉“紫丁香大奖” ｜ 丰厚赛事奖金 ｜ 官方推优入库上海国际电视节</text> </svg>",
+    "posterUrl": "https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=800&q=80",
+    "detailUrl": "https://sdtv.ecnu.edu.cn/",
+    "applyUrl": "https://sdtv.ecnu.edu.cn/"
   },
   {
     "id": "bilibili-vibe-coding-2026",
@@ -2225,7 +2501,7 @@ let rawCompetitions = [
     "evalCriteria": "观众投币与弹幕真实口碑 (40%)、真实生活痛点解决度 (35%)、产品原型交互完成度 (25%)",
     "proTips": "B 站这场比赛把‘技术特权掀翻了’，不拼算法拼脑洞！做针对游戏、自媒体工作流、二次元痛点的小插件或 Agent 极易引发弹幕共鸣；视频本身就是产品说明书。",
     "searchKeywords": "vibe coding vibecoding B站 小破站 build in bilibili 黑客松 编程 大佬 智能体 Agent",
-    "link": "https://www.qbitai.com/2026/06/431287.html",
+    "link": "https://www.bilibili.com/opus/1210076034617049096",
     "prestigeScore": 84,
     "prestigeTier": "T3 B 站全民创造公开赛",
     "prestigeColor": "#0284c7",
@@ -2235,7 +2511,13 @@ let rawCompetitions = [
     ],
     "compMode": [
       "online"
-    ]
+    ],
+    "badgeText": "⏳ 还剩 46 天",
+    "badgeType": "normal",
+    "posterSvg": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 180' width='100%' height='100%'>   <defs>     <linearGradient id='g_bilibili-vibe-coding-2026' x1='0%' y1='0%' x2='100%' y2='100%'>       <stop offset='0%' stop-color='%230c4a6e'/>       <stop offset='100%' stop-color='%230369a1'/>     </linearGradient>     <linearGradient id='glow_bilibili-vibe-coding-2026' x1='0%' y1='0%' x2='100%' y2='0%'>       <stop offset='0%' stop-color='%2338bdf8' stop-opacity='0.8'/>       <stop offset='100%' stop-color='%2338bdf8' stop-opacity='0.1'/>     </linearGradient>   </defs>   <rect width='400' height='180' fill='url(%23g_bilibili-vibe-coding-2026)'/>   <circle cx='360' cy='30' r='90' fill='%2338bdf8' opacity='0.08'/>   <circle cx='30' cy='150' r='70' fill='%2338bdf8' opacity='0.06'/>   <path d='M0 160 Q 200 130 400 170' stroke='url(%23glow_bilibili-vibe-coding-2026)' stroke-width='2' fill='none' opacity='0.4'/>   <text x='24' y='44' font-size='28'>🤖</text>   <text x='62' y='38' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif' font-size='11.5' font-weight='700' fill='%2338bdf8' letter-spacing='1'>AI 应用 & AGENT 开发者黑客松</text>   <text x='24' y='90' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='17' font-weight='800' fill='%23ffffff'>B 站 Vibe Coding 创...</text>   <rect x='24' y='112' width='6' height='6' rx='3' fill='%2338bdf8'/>   <text x='36' y='118' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11.5' fill='%23cbd5e1' font-weight='500'>哔哩哔哩 (Bilibili / 技术社区团队)</text>   <rect x='24' y='136' width='352' height='28' rx='6' fill='rgba(0,0,0,0.3)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/>   <text x='34' y='154' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11' font-weight='700' fill='%23fb7185'>💰 百万级现金激励与大额模型 Token 补贴 ｜ B 站全站首页置顶曝光 </text> </svg>",
+    "posterUrl": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80",
+    "detailUrl": "https://www.bilibili.com/opus/1210076034617049096",
+    "applyUrl": "https://www.bilibili.com/opus/1210076034617049096"
   },
   {
     "id": "ai-explorer-100w-2026",
@@ -2270,7 +2552,7 @@ let rawCompetitions = [
     "evalCriteria": "品牌商业转化力 (45%)、视觉高级感与光影 (35%)、交付时效与稳定性 (20%)",
     "proTips": "商业商单赛最忌自嗨；紧扣品牌的核心卖点（痛点场景、产品特写、情绪共鸣），画面保持干净高级无伪影。",
     "searchKeywords": "AI探索者计划 全球AI影像大赛 100万商单 商单 探索者 商业",
-    "link": "https://www.aitop100.cn/",
+    "link": "https://www.zcool.com.cn/event/main.do",
     "prestigeScore": 83,
     "prestigeTier": "T3 100 万商业商单采买",
     "prestigeColor": "#d97706",
@@ -2280,7 +2562,13 @@ let rawCompetitions = [
     ],
     "compMode": [
       "online"
-    ]
+    ],
+    "badgeText": "⏳ 还剩 41 天",
+    "badgeType": "normal",
+    "posterSvg": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 180' width='100%' height='100%'>   <defs>     <linearGradient id='g_ai-explorer-100w-2026' x1='0%' y1='0%' x2='100%' y2='100%'>       <stop offset='0%' stop-color='%232e1065'/>       <stop offset='100%' stop-color='%234c1d95'/>     </linearGradient>     <linearGradient id='glow_ai-explorer-100w-2026' x1='0%' y1='0%' x2='100%' y2='0%'>       <stop offset='0%' stop-color='%23a78bfa' stop-opacity='0.8'/>       <stop offset='100%' stop-color='%23a78bfa' stop-opacity='0.1'/>     </linearGradient>   </defs>   <rect width='400' height='180' fill='url(%23g_ai-explorer-100w-2026)'/>   <circle cx='360' cy='30' r='90' fill='%23a78bfa' opacity='0.08'/>   <circle cx='30' cy='150' r='70' fill='%23a78bfa' opacity='0.06'/>   <path d='M0 160 Q 200 130 400 170' stroke='url(%23glow_ai-explorer-100w-2026)' stroke-width='2' fill='none' opacity='0.4'/>   <text x='24' y='44' font-size='28'>🎬</text>   <text x='62' y='38' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif' font-size='11.5' font-weight='700' fill='%23a78bfa' letter-spacing='1'>AI 影视与内容创作大奖赛</text>   <text x='24' y='90' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='17' font-weight='800' fill='%23ffffff'>AI 探索者计划 · 全球 AI ...</text>   <rect x='24' y='112' width='6' height='6' rx='3' fill='%23a78bfa'/>   <text x='36' y='118' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11.5' fill='%23cbd5e1' font-weight='500'>AI 探索者计划组委会 / 品牌商业化联盟</text>   <rect x='24' y='136' width='352' height='28' rx='6' fill='rgba(0,0,0,0.3)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/>   <text x='34' y='154' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11' font-weight='700' fill='%23fb7185'>💰 100 万元商单采买与分成奖池 ｜ 品牌签约商业导演席位 ｜ 全网商业分</text> </svg>",
+    "posterUrl": "https://images.unsplash.com/photo-1579546929518-9e396f3cc809?auto=format&fit=crop&w=800&q=80",
+    "detailUrl": "https://www.zcool.com.cn/event/main.do",
+    "applyUrl": "https://www.zcool.com.cn/event/main.do"
   },
   {
     "id": "loreal-tianchi-agent-2026",
@@ -2325,7 +2613,13 @@ let rawCompetitions = [
     ],
     "compMode": [
       "online"
-    ]
+    ],
+    "badgeText": "⏳ 还剩 66 天",
+    "badgeType": "normal",
+    "posterSvg": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 180' width='100%' height='100%'>   <defs>     <linearGradient id='g_loreal-tianchi-agent-2026' x1='0%' y1='0%' x2='100%' y2='100%'>       <stop offset='0%' stop-color='%230c4a6e'/>       <stop offset='100%' stop-color='%230369a1'/>     </linearGradient>     <linearGradient id='glow_loreal-tianchi-agent-2026' x1='0%' y1='0%' x2='100%' y2='0%'>       <stop offset='0%' stop-color='%2338bdf8' stop-opacity='0.8'/>       <stop offset='100%' stop-color='%2338bdf8' stop-opacity='0.1'/>     </linearGradient>   </defs>   <rect width='400' height='180' fill='url(%23g_loreal-tianchi-agent-2026)'/>   <circle cx='360' cy='30' r='90' fill='%2338bdf8' opacity='0.08'/>   <circle cx='30' cy='150' r='70' fill='%2338bdf8' opacity='0.06'/>   <path d='M0 160 Q 200 130 400 170' stroke='url(%23glow_loreal-tianchi-agent-2026)' stroke-width='2' fill='none' opacity='0.4'/>   <text x='24' y='44' font-size='28'>🤖</text>   <text x='62' y='38' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif' font-size='11.5' font-weight='700' fill='%2338bdf8' letter-spacing='1'>AI 应用 & AGENT 开发者黑客松</text>   <text x='24' y='90' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='17' font-weight='800' fill='%23ffffff'>欧莱雅第二届美妆科技黑客松</text>   <rect x='24' y='112' width='6' height='6' rx='3' fill='%2338bdf8'/>   <text x='36' y='118' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11.5' fill='%23cbd5e1' font-weight='500'>欧莱雅集团 (L'Oréal) / 阿里云天池平</text>   <rect x='24' y='136' width='352' height='28' rx='6' fill='rgba(0,0,0,0.3)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/>   <text x='34' y='154' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11' font-weight='700' fill='%23fb7185'>💰 数十万元现金大奖 ｜ 欧莱雅全球创新孵化直通 ｜ 阿里云天池官方技术认证</text> </svg>",
+    "posterUrl": "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=800&q=80",
+    "detailUrl": "https://tianchi.aliyun.com/competition/entrance/532496",
+    "applyUrl": "https://tianchi.aliyun.com/competition/entrance/532496"
   },
   {
     "id": "hiiff-lenovo-2026",
@@ -2369,7 +2663,13 @@ let rawCompetitions = [
     ],
     "compMode": [
       "online"
-    ]
+    ],
+    "badgeText": "📌 即将开启",
+    "badgeType": "upcoming",
+    "posterSvg": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 180' width='100%' height='100%'>   <defs>     <linearGradient id='g_hiiff-lenovo-2026' x1='0%' y1='0%' x2='100%' y2='100%'>       <stop offset='0%' stop-color='%232e1065'/>       <stop offset='100%' stop-color='%234c1d95'/>     </linearGradient>     <linearGradient id='glow_hiiff-lenovo-2026' x1='0%' y1='0%' x2='100%' y2='0%'>       <stop offset='0%' stop-color='%23a78bfa' stop-opacity='0.8'/>       <stop offset='100%' stop-color='%23a78bfa' stop-opacity='0.1'/>     </linearGradient>   </defs>   <rect width='400' height='180' fill='url(%23g_hiiff-lenovo-2026)'/>   <circle cx='360' cy='30' r='90' fill='%23a78bfa' opacity='0.08'/>   <circle cx='30' cy='150' r='70' fill='%23a78bfa' opacity='0.06'/>   <path d='M0 160 Q 200 130 400 170' stroke='url(%23glow_hiiff-lenovo-2026)' stroke-width='2' fill='none' opacity='0.4'/>   <text x='24' y='44' font-size='28'>🎬</text>   <text x='62' y='38' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif' font-size='11.5' font-weight='700' fill='%23a78bfa' letter-spacing='1'>AI 影视与内容创作大奖赛</text>   <text x='24' y='90' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='17' font-weight='800' fill='%23ffffff'>海南岛国际电影节·联想 AI 电影季</text>   <rect x='24' y='112' width='6' height='6' rx='3' fill='%23a78bfa'/>   <text x='36' y='118' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11.5' fill='%23cbd5e1' font-weight='500'>海南岛国际电影节组委会 / 联想集团 / 今日美</text>   <rect x='24' y='136' width='352' height='28' rx='6' fill='rgba(0,0,0,0.3)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/>   <text x='34' y='154' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11' font-weight='700' fill='%23fb7185'>💰 高额现金奖金池 ｜ 联想顶级 AI 高性能工作站硬件设备 ｜ 金椰奖主单</text> </svg>",
+    "posterUrl": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80",
+    "detailUrl": "https://www.stdaily.com/web/gdxw/2025-09/11/content_399138.html",
+    "applyUrl": "https://www.stdaily.com/web/gdxw/2025-09/11/content_399138.html"
   },
   {
     "id": "cuc-vis-aigc-2026",
@@ -2405,7 +2705,7 @@ let rawCompetitions = [
     "evalCriteria": "信息可视化与叙事逻辑 (40%)、AIGC 视觉审美 (35%)、新闻传播与学术价值 (25%)",
     "proTips": "结合热点新闻、宏观经济或传统文化做‘数据驱动的 AIGC 可视化短片’是该赛事的独特加分项。",
     "searchKeywords": "中国传媒大学 中传 可视化 新闻技术 AIGC创作大赛",
-    "link": "https://www.aibetas.com/aigc_events/586",
+    "link": "https://www.capt.cn/xhdt/3118.html",
     "prestigeScore": 82,
     "prestigeTier": "T3 中传学会六大赛道认证",
     "prestigeColor": "#7c3aed",
@@ -2415,7 +2715,13 @@ let rawCompetitions = [
     ],
     "compMode": [
       "online"
-    ]
+    ],
+    "badgeText": "⏳ 还剩 57 天",
+    "badgeType": "normal",
+    "posterSvg": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 180' width='100%' height='100%'>   <defs>     <linearGradient id='g_cuc-vis-aigc-2026' x1='0%' y1='0%' x2='100%' y2='100%'>       <stop offset='0%' stop-color='%232e1065'/>       <stop offset='100%' stop-color='%234c1d95'/>     </linearGradient>     <linearGradient id='glow_cuc-vis-aigc-2026' x1='0%' y1='0%' x2='100%' y2='0%'>       <stop offset='0%' stop-color='%23a78bfa' stop-opacity='0.8'/>       <stop offset='100%' stop-color='%23a78bfa' stop-opacity='0.1'/>     </linearGradient>   </defs>   <rect width='400' height='180' fill='url(%23g_cuc-vis-aigc-2026)'/>   <circle cx='360' cy='30' r='90' fill='%23a78bfa' opacity='0.08'/>   <circle cx='30' cy='150' r='70' fill='%23a78bfa' opacity='0.06'/>   <path d='M0 160 Q 200 130 400 170' stroke='url(%23glow_cuc-vis-aigc-2026)' stroke-width='2' fill='none' opacity='0.4'/>   <text x='24' y='44' font-size='28'>🎬</text>   <text x='62' y='38' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif' font-size='11.5' font-weight='700' fill='%23a78bfa' letter-spacing='1'>AI 影视与内容创作大奖赛</text>   <text x='24' y='90' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='17' font-weight='800' fill='%23ffffff'>首届</text>   <rect x='24' y='112' width='6' height='6' rx='3' fill='%23a78bfa'/>   <text x='36' y='118' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11.5' fill='%23cbd5e1' font-weight='500'>中国传媒大学 / 中国新闻技术工作者联合会</text>   <rect x='24' y='136' width='352' height='28' rx='6' fill='rgba(0,0,0,0.3)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/>   <text x='34' y='154' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11' font-weight='700' fill='%23fb7185'>💰 国家级行业学会认证荣誉 ｜ 优秀作品全国主流媒体全网联播 ｜ 丰厚赛事奖</text> </svg>",
+    "posterUrl": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800&q=80",
+    "detailUrl": "https://www.capt.cn/xhdt/3118.html",
+    "applyUrl": "https://www.capt.cn/xhdt/3118.html"
   },
   {
     "id": "pingshan-aigc-2026",
@@ -2449,7 +2755,7 @@ let rawCompetitions = [
     "evalCriteria": "创意脑洞与网感节奏 (40%)、AIGC 技术运用熟练度 (35%)、文旅/商业转化价值 (25%)",
     "proTips": "结合深圳年轻科技之城、创新创业、文旅探索题材的作品具有天然优势；校园团队可着重突出品类玩梗与新奇脑洞。",
     "searchKeywords": "深圳 坪山 微短剧+ AIGC 大湾区 创投",
-    "link": "https://www.aitop100.cn/infomation/details/34082.html",
+    "link": "https://www.szpsq.gov.cn/xxgk/",
     "prestigeScore": 81,
     "prestigeTier": "T3 深圳大湾区产业孵化赛",
     "prestigeColor": "#d97706",
@@ -2459,7 +2765,13 @@ let rawCompetitions = [
     ],
     "compMode": [
       "online"
-    ]
+    ],
+    "badgeText": "⏳ 还剩 46 天",
+    "badgeType": "normal",
+    "posterSvg": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 180' width='100%' height='100%'>   <defs>     <linearGradient id='g_pingshan-aigc-2026' x1='0%' y1='0%' x2='100%' y2='100%'>       <stop offset='0%' stop-color='%232e1065'/>       <stop offset='100%' stop-color='%234c1d95'/>     </linearGradient>     <linearGradient id='glow_pingshan-aigc-2026' x1='0%' y1='0%' x2='100%' y2='0%'>       <stop offset='0%' stop-color='%23a78bfa' stop-opacity='0.8'/>       <stop offset='100%' stop-color='%23a78bfa' stop-opacity='0.1'/>     </linearGradient>   </defs>   <rect width='400' height='180' fill='url(%23g_pingshan-aigc-2026)'/>   <circle cx='360' cy='30' r='90' fill='%23a78bfa' opacity='0.08'/>   <circle cx='30' cy='150' r='70' fill='%23a78bfa' opacity='0.06'/>   <path d='M0 160 Q 200 130 400 170' stroke='url(%23glow_pingshan-aigc-2026)' stroke-width='2' fill='none' opacity='0.4'/>   <text x='24' y='44' font-size='28'>🎬</text>   <text x='62' y='38' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif' font-size='11.5' font-weight='700' fill='%23a78bfa' letter-spacing='1'>AI 影视与内容创作大奖赛</text>   <text x='24' y='90' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='17' font-weight='800' fill='%23ffffff'>首届深圳</text>   <rect x='24' y='112' width='6' height='6' rx='3' fill='%23a78bfa'/>   <text x='36' y='118' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11.5' fill='%23cbd5e1' font-weight='500'>深圳市人力资源与社会保障局 / 深圳市坪山区文化</text>   <rect x='24' y='136' width='352' height='28' rx='6' fill='rgba(0,0,0,0.3)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/>   <text x='34' y='154' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11' font-weight='700' fill='%23fb7185'>💰 高额赛事现金奖励 ｜ 深圳大湾区全链条微短剧产业孵化 ｜ 创业扶持与人才</text> </svg>",
+    "posterUrl": "https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=800&q=80",
+    "detailUrl": "https://www.szpsq.gov.cn/xxgk/",
+    "applyUrl": "https://www.szpsq.gov.cn/xxgk/"
   },
   {
     "id": "effie-douyin-ad-ai-2026",
@@ -2502,7 +2814,13 @@ let rawCompetitions = [
       "online"
     ],
     "searchKeywords": "AI广告爆改 艾菲奖 抖音商城 即梦 经典广告 2万",
-    "link": "https://www.aibetas.com/aigc_events/477"
+    "link": "https://jimeng.jianying.com/ai-tool/activity-detail/2026-710-dreamina-weekly-challenge",
+    "badgeText": "⏳ 还剩 5 天",
+    "badgeType": "urgent",
+    "posterSvg": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 180' width='100%' height='100%'>   <defs>     <linearGradient id='g_effie-douyin-ad-ai-2026' x1='0%' y1='0%' x2='100%' y2='100%'>       <stop offset='0%' stop-color='%232e1065'/>       <stop offset='100%' stop-color='%234c1d95'/>     </linearGradient>     <linearGradient id='glow_effie-douyin-ad-ai-2026' x1='0%' y1='0%' x2='100%' y2='0%'>       <stop offset='0%' stop-color='%23a78bfa' stop-opacity='0.8'/>       <stop offset='100%' stop-color='%23a78bfa' stop-opacity='0.1'/>     </linearGradient>   </defs>   <rect width='400' height='180' fill='url(%23g_effie-douyin-ad-ai-2026)'/>   <circle cx='360' cy='30' r='90' fill='%23a78bfa' opacity='0.08'/>   <circle cx='30' cy='150' r='70' fill='%23a78bfa' opacity='0.06'/>   <path d='M0 160 Q 200 130 400 170' stroke='url(%23glow_effie-douyin-ad-ai-2026)' stroke-width='2' fill='none' opacity='0.4'/>   <text x='24' y='44' font-size='28'>🎬</text>   <text x='62' y='38' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif' font-size='11.5' font-weight='700' fill='%23a78bfa' letter-spacing='1'>AI 影视与内容创作大奖赛</text>   <text x='24' y='90' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='17' font-weight='800' fill='%23ffffff'>AI 广告爆改大赛 —— 经典广告...</text>   <rect x='24' y='112' width='6' height='6' rx='3' fill='%23a78bfa'/>   <text x='36' y='118' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11.5' fill='%23cbd5e1' font-weight='500'>即梦 AI / 抖音商城 / 大中华区艾菲奖 (</text>   <rect x='24' y='136' width='352' height='28' rx='6' fill='rgba(0,0,0,0.3)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/>   <text x='34' y='154' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11' font-weight='700' fill='%23fb7185'>💰 最高奖金 2 万元现金 ｜ 艾菲奖官方创新案例收录 ｜ 抖音商城品牌商单</text> </svg>",
+    "posterUrl": "https://images.unsplash.com/photo-1579546929518-9e396f3cc809?auto=format&fit=crop&w=800&q=80",
+    "detailUrl": "https://jimeng.jianying.com/ai-tool/activity-detail/2026-710-dreamina-weekly-challenge",
+    "applyUrl": "https://jimeng.jianying.com/ai-tool/activity-detail/2026-710-dreamina-weekly-challenge"
   },
   {
     "id": "hengdian-aishort-2026",
@@ -2537,7 +2855,7 @@ let rawCompetitions = [
     "evalCriteria": "商业变现 ROI 潜力 (40%)、短剧反转节奏与下沉市场吸引力 (30%)、工业化出片效率 (20%)、画质精细度 (10%)",
     "proTips": "横店产业界极度务实，最看重‘单集成本是否低于 1000 元’以及‘制作周期能否压缩在 10 天内’；展示自动化工作流和出海英文配音能力是加分王牌。",
     "searchKeywords": "横店 横店影视城 微短剧 短剧 短片 出海 投流",
-    "link": "https://www.aitop100.cn/infomation/details/33943.html",
+    "link": "https://www.hengdianworld.com/",
     "prestigeScore": 80,
     "prestigeTier": "T3 横店短剧投流出海大会",
     "prestigeColor": "#d97706",
@@ -2547,7 +2865,13 @@ let rawCompetitions = [
     ],
     "compMode": [
       "online"
-    ]
+    ],
+    "badgeText": "⏳ 还剩 76 天",
+    "badgeType": "normal",
+    "posterSvg": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 180' width='100%' height='100%'>   <defs>     <linearGradient id='g_hengdian-aishort-2026' x1='0%' y1='0%' x2='100%' y2='100%'>       <stop offset='0%' stop-color='%232e1065'/>       <stop offset='100%' stop-color='%234c1d95'/>     </linearGradient>     <linearGradient id='glow_hengdian-aishort-2026' x1='0%' y1='0%' x2='100%' y2='0%'>       <stop offset='0%' stop-color='%23a78bfa' stop-opacity='0.8'/>       <stop offset='100%' stop-color='%23a78bfa' stop-opacity='0.1'/>     </linearGradient>   </defs>   <rect width='400' height='180' fill='url(%23g_hengdian-aishort-2026)'/>   <circle cx='360' cy='30' r='90' fill='%23a78bfa' opacity='0.08'/>   <circle cx='30' cy='150' r='70' fill='%23a78bfa' opacity='0.06'/>   <path d='M0 160 Q 200 130 400 170' stroke='url(%23glow_hengdian-aishort-2026)' stroke-width='2' fill='none' opacity='0.4'/>   <text x='24' y='44' font-size='28'>🎬</text>   <text x='62' y='38' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif' font-size='11.5' font-weight='700' fill='%23a78bfa' letter-spacing='1'>AI 影视与内容创作大奖赛</text>   <text x='24' y='90' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='17' font-weight='800' fill='%23ffffff'>横店国际 AI 短剧短片产业生态大...</text>   <rect x='24' y='112' width='6' height='6' rx='3' fill='%23a78bfa'/>   <text x='36' y='118' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11.5' fill='%23cbd5e1' font-weight='500'>横店影视城 / AI TOP100 / 华荣短剧</text>   <rect x='24' y='136' width='352' height='28' rx='6' fill='rgba(0,0,0,0.3)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/>   <text x='34' y='154' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11' font-weight='700' fill='%23fb7185'>💰 线下直面 4,000+ 影视制作方与投资人 ｜ 对接横店“短剧出海”专项</text> </svg>",
+    "posterUrl": "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=800&q=80",
+    "detailUrl": "https://www.hengdianworld.com/",
+    "applyUrl": "https://www.hengdianworld.com/"
   },
   {
     "id": "tencent-csr-ai-2026",
@@ -2593,7 +2917,13 @@ let rawCompetitions = [
       "online"
     ],
     "searchKeywords": "腾讯 腾讯客服 一老一小 公益视频 11.1万",
-    "link": "https://www.aibetas.com/aigc_events/473"
+    "link": "https://kf.qq.com/",
+    "badgeText": "⏳ 还剩 46 天",
+    "badgeType": "normal",
+    "posterSvg": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 180' width='100%' height='100%'>   <defs>     <linearGradient id='g_tencent-csr-ai-2026' x1='0%' y1='0%' x2='100%' y2='100%'>       <stop offset='0%' stop-color='%232e1065'/>       <stop offset='100%' stop-color='%234c1d95'/>     </linearGradient>     <linearGradient id='glow_tencent-csr-ai-2026' x1='0%' y1='0%' x2='100%' y2='0%'>       <stop offset='0%' stop-color='%23a78bfa' stop-opacity='0.8'/>       <stop offset='100%' stop-color='%23a78bfa' stop-opacity='0.1'/>     </linearGradient>   </defs>   <rect width='400' height='180' fill='url(%23g_tencent-csr-ai-2026)'/>   <circle cx='360' cy='30' r='90' fill='%23a78bfa' opacity='0.08'/>   <circle cx='30' cy='150' r='70' fill='%23a78bfa' opacity='0.06'/>   <path d='M0 160 Q 200 130 400 170' stroke='url(%23glow_tencent-csr-ai-2026)' stroke-width='2' fill='none' opacity='0.4'/>   <text x='24' y='44' font-size='28'>🎬</text>   <text x='62' y='38' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif' font-size='11.5' font-weight='700' fill='%23a78bfa' letter-spacing='1'>AI 影视与内容创作大奖赛</text>   <text x='24' y='90' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='17' font-weight='800' fill='%23ffffff'>腾讯客服 “一老一小” AI 公益...</text>   <rect x='24' y='112' width='6' height='6' rx='3' fill='%23a78bfa'/>   <text x='36' y='118' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11.5' fill='%23cbd5e1' font-weight='500'>腾讯公司 / 腾讯客服团队 / 腾讯公益</text>   <rect x='24' y='136' width='352' height='28' rx='6' fill='rgba(0,0,0,0.3)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/>   <text x='34' y='154' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11' font-weight='700' fill='%23fb7185'>💰 特等奖 1 万元现金 ｜ 现金奖金池共 11.1 万元 ｜ 腾讯官方全矩</text> </svg>",
+    "posterUrl": "https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?auto=format&fit=crop&w=800&q=80",
+    "detailUrl": "https://gongyi.qq.com/",
+    "applyUrl": "https://kf.qq.com/"
   },
   {
     "id": "zcool-battleverse-2026",
@@ -2638,7 +2968,13 @@ let rawCompetitions = [
     ],
     "compMode": [
       "online"
-    ]
+    ],
+    "badgeText": "⏳ 还剩 15 天",
+    "badgeType": "medium",
+    "posterSvg": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 180' width='100%' height='100%'>   <defs>     <linearGradient id='g_zcool-battleverse-2026' x1='0%' y1='0%' x2='100%' y2='100%'>       <stop offset='0%' stop-color='%232e1065'/>       <stop offset='100%' stop-color='%234c1d95'/>     </linearGradient>     <linearGradient id='glow_zcool-battleverse-2026' x1='0%' y1='0%' x2='100%' y2='0%'>       <stop offset='0%' stop-color='%23a78bfa' stop-opacity='0.8'/>       <stop offset='100%' stop-color='%23a78bfa' stop-opacity='0.1'/>     </linearGradient>   </defs>   <rect width='400' height='180' fill='url(%23g_zcool-battleverse-2026)'/>   <circle cx='360' cy='30' r='90' fill='%23a78bfa' opacity='0.08'/>   <circle cx='30' cy='150' r='70' fill='%23a78bfa' opacity='0.06'/>   <path d='M0 160 Q 200 130 400 170' stroke='url(%23glow_zcool-battleverse-2026)' stroke-width='2' fill='none' opacity='0.4'/>   <text x='24' y='44' font-size='28'>🎬</text>   <text x='62' y='38' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif' font-size='11.5' font-weight='700' fill='%23a78bfa' letter-spacing='1'>AI 影视与内容创作大奖赛</text>   <text x='24' y='90' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='17' font-weight='800' fill='%23ffffff'>站酷</text>   <rect x='24' y='112' width='6' height='6' rx='3' fill='%23a78bfa'/>   <text x='36' y='118' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11.5' fill='%23cbd5e1' font-weight='500'>站酷网 (ZCOOL) / 岚图汽车 / 中国移</text>   <rect x='24' y='136' width='352' height='28' rx='6' fill='rgba(0,0,0,0.3)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/>   <text x='34' y='154' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11' font-weight='700' fill='%23fb7185'>💰 单期 40 万元现金总奖池 (单项一等奖高达 6 万元) ｜ 品牌商单长</text> </svg>",
+    "posterUrl": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80",
+    "detailUrl": "https://www.zcool.com.cn/event/main.do?pagesize=10&p=2",
+    "applyUrl": "https://www.zcool.com.cn/event/main.do?pagesize=10&p=2"
   },
   {
     "id": "luma-clio-2026",
@@ -2682,7 +3018,13 @@ let rawCompetitions = [
     ],
     "compMode": [
       "online"
-    ]
+    ],
+    "badgeText": "⏳ 还剩 71 天",
+    "badgeType": "normal",
+    "posterSvg": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 180' width='100%' height='100%'>   <defs>     <linearGradient id='g_luma-clio-2026' x1='0%' y1='0%' x2='100%' y2='100%'>       <stop offset='0%' stop-color='%232e1065'/>       <stop offset='100%' stop-color='%234c1d95'/>     </linearGradient>     <linearGradient id='glow_luma-clio-2026' x1='0%' y1='0%' x2='100%' y2='0%'>       <stop offset='0%' stop-color='%23a78bfa' stop-opacity='0.8'/>       <stop offset='100%' stop-color='%23a78bfa' stop-opacity='0.1'/>     </linearGradient>   </defs>   <rect width='400' height='180' fill='url(%23g_luma-clio-2026)'/>   <circle cx='360' cy='30' r='90' fill='%23a78bfa' opacity='0.08'/>   <circle cx='30' cy='150' r='70' fill='%23a78bfa' opacity='0.06'/>   <path d='M0 160 Q 200 130 400 170' stroke='url(%23glow_luma-clio-2026)' stroke-width='2' fill='none' opacity='0.4'/>   <text x='24' y='44' font-size='28'>🎬</text>   <text x='62' y='38' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif' font-size='11.5' font-weight='700' fill='%23a78bfa' letter-spacing='1'>AI 影视与内容创作大奖赛</text>   <text x='24' y='90' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='17' font-weight='800' fill='%23ffffff'>Luma AI x Clio Aw...</text>   <rect x='24' y='112' width='6' height='6' rx='3' fill='%23a78bfa'/>   <text x='36' y='118' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11.5' fill='%23cbd5e1' font-weight='500'>Luma AI / Clio Awards (国</text>   <rect x='24' y='136' width='352' height='28' rx='6' fill='rgba(0,0,0,0.3)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/>   <text x='34' y='154' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11' font-weight='700' fill='%23fb7185'>💰 6 个月 Luma Dream Machine Unlimited 无限</text> </svg>",
+    "posterUrl": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=800&q=80",
+    "detailUrl": "https://lumalabs.ai/",
+    "applyUrl": "https://lumalabs.ai/"
   },
   {
     "id": "civitai-odyssey-2026",
@@ -2727,7 +3069,13 @@ let rawCompetitions = [
     ],
     "compMode": [
       "online"
-    ]
+    ],
+    "badgeText": "⏳ 还剩 87 天",
+    "badgeType": "normal",
+    "posterSvg": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 180' width='100%' height='100%'>   <defs>     <linearGradient id='g_civitai-odyssey-2026' x1='0%' y1='0%' x2='100%' y2='100%'>       <stop offset='0%' stop-color='%232e1065'/>       <stop offset='100%' stop-color='%234c1d95'/>     </linearGradient>     <linearGradient id='glow_civitai-odyssey-2026' x1='0%' y1='0%' x2='100%' y2='0%'>       <stop offset='0%' stop-color='%23a78bfa' stop-opacity='0.8'/>       <stop offset='100%' stop-color='%23a78bfa' stop-opacity='0.1'/>     </linearGradient>   </defs>   <rect width='400' height='180' fill='url(%23g_civitai-odyssey-2026)'/>   <circle cx='360' cy='30' r='90' fill='%23a78bfa' opacity='0.08'/>   <circle cx='30' cy='150' r='70' fill='%23a78bfa' opacity='0.06'/>   <path d='M0 160 Q 200 130 400 170' stroke='url(%23glow_civitai-odyssey-2026)' stroke-width='2' fill='none' opacity='0.4'/>   <text x='24' y='44' font-size='28'>🎬</text>   <text x='62' y='38' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif' font-size='11.5' font-weight='700' fill='%23a78bfa' letter-spacing='1'>AI 影视与内容创作大奖赛</text>   <text x='24' y='90' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='17' font-weight='800' fill='%23ffffff'>Civitai Project O...</text>   <rect x='24' y='112' width='6' height='6' rx='3' fill='%23a78bfa'/>   <text x='36' y='118' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11.5' fill='%23cbd5e1' font-weight='500'>Civitai / ElevenLabs / T</text>   <rect x='24' y='136' width='352' height='28' rx='6' fill='rgba(0,0,0,0.3)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/>   <text x='34' y='154' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11' font-weight='700' fill='%23fb7185'>💰 超 $100,000 美元总奖金池与算力赞助 ｜ 专业 GPU 硬件与模</text> </svg>",
+    "posterUrl": "https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=800&q=80",
+    "detailUrl": "https://civitai.com/events",
+    "applyUrl": "https://civitai.com/events"
   },
   {
     "id": "harbin-beer-hiphop-2026",
@@ -2770,7 +3118,13 @@ let rawCompetitions = [
       "online"
     ],
     "searchKeywords": "哈啤 哈尔滨啤酒 嘻哈 即梦 2.4万 潮流",
-    "link": "https://www.aibetas.com/aigc_events/475"
+    "link": "https://jimeng.jianying.com/ai-tool/activity-detail/2026-720-dreamina-weekly-challenge",
+    "badgeText": "⏳ 还剩 10 天",
+    "badgeType": "medium",
+    "posterSvg": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 180' width='100%' height='100%'>   <defs>     <linearGradient id='g_harbin-beer-hiphop-2026' x1='0%' y1='0%' x2='100%' y2='100%'>       <stop offset='0%' stop-color='%232e1065'/>       <stop offset='100%' stop-color='%23581c87'/>     </linearGradient>     <linearGradient id='glow_harbin-beer-hiphop-2026' x1='0%' y1='0%' x2='100%' y2='0%'>       <stop offset='0%' stop-color='%23c084fc' stop-opacity='0.8'/>       <stop offset='100%' stop-color='%23c084fc' stop-opacity='0.1'/>     </linearGradient>   </defs>   <rect width='400' height='180' fill='url(%23g_harbin-beer-hiphop-2026)'/>   <circle cx='360' cy='30' r='90' fill='%23c084fc' opacity='0.08'/>   <circle cx='30' cy='150' r='70' fill='%23c084fc' opacity='0.06'/>   <path d='M0 160 Q 200 130 400 170' stroke='url(%23glow_harbin-beer-hiphop-2026)' stroke-width='2' fill='none' opacity='0.4'/>   <text x='24' y='44' font-size='28'>🎭</text>   <text x='62' y='38' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif' font-size='11.5' font-weight='700' fill='%23c084fc' letter-spacing='1'>字节即梦 · 3D动作驱动</text>   <text x='24' y='90' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='17' font-weight='800' fill='%23ffffff'>2026 哈啤 AI 嘻哈大赛</text>   <rect x='24' y='112' width='6' height='6' rx='3' fill='%23c084fc'/>   <text x='36' y='118' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11.5' fill='%23cbd5e1' font-weight='500'>哈尔滨啤酒 (Harbin Beer) / 即梦</text>   <rect x='24' y='136' width='352' height='28' rx='6' fill='rgba(0,0,0,0.3)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/>   <text x='34' y='154' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11' font-weight='700' fill='%23fb7185'>💰 单项最高现金奖励 2.4 万元 ｜ 哈啤全年啤酒畅饮大礼包 ｜ 品牌官方</text> </svg>",
+    "posterUrl": "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=800&q=80",
+    "detailUrl": "https://jimeng.jianying.com/ai-tool/activity-detail/2026-720-dreamina-weekly-challenge",
+    "applyUrl": "https://jimeng.jianying.com/ai-tool/activity-detail/2026-720-dreamina-weekly-challenge"
   },
   {
     "id": "vcg-500px-2026",
@@ -2814,7 +3168,13 @@ let rawCompetitions = [
     ],
     "compMode": [
       "online"
-    ]
+    ],
+    "badgeText": "⏳ 还剩 61 天",
+    "badgeType": "normal",
+    "posterSvg": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 180' width='100%' height='100%'>   <defs>     <linearGradient id='g_vcg-500px-2026' x1='0%' y1='0%' x2='100%' y2='100%'>       <stop offset='0%' stop-color='%232e1065'/>       <stop offset='100%' stop-color='%234c1d95'/>     </linearGradient>     <linearGradient id='glow_vcg-500px-2026' x1='0%' y1='0%' x2='100%' y2='0%'>       <stop offset='0%' stop-color='%23a78bfa' stop-opacity='0.8'/>       <stop offset='100%' stop-color='%23a78bfa' stop-opacity='0.1'/>     </linearGradient>   </defs>   <rect width='400' height='180' fill='url(%23g_vcg-500px-2026)'/>   <circle cx='360' cy='30' r='90' fill='%23a78bfa' opacity='0.08'/>   <circle cx='30' cy='150' r='70' fill='%23a78bfa' opacity='0.06'/>   <path d='M0 160 Q 200 130 400 170' stroke='url(%23glow_vcg-500px-2026)' stroke-width='2' fill='none' opacity='0.4'/>   <text x='24' y='44' font-size='28'>🎬</text>   <text x='62' y='38' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif' font-size='11.5' font-weight='700' fill='%23a78bfa' letter-spacing='1'>AI 影视与内容创作大奖赛</text>   <text x='24' y='90' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='17' font-weight='800' fill='%23ffffff'>视觉中国 500px AIGC 影...</text>   <rect x='24' y='112' width='6' height='6' rx='3' fill='%23a78bfa'/>   <text x='36' y='118' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11.5' fill='%23cbd5e1' font-weight='500'>视觉中国 (VCG) / 500px 摄影社区 </text>   <rect x='24' y='136' width='352' height='28' rx='6' fill='rgba(0,0,0,0.3)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/>   <text x='34' y='154' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11' font-weight='700' fill='%23fb7185'>💰 大赛创作激励金 ｜ 签约成为视觉中国正版商用 AI 供稿人 ｜ 享受全球</text> </svg>",
+    "posterUrl": "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&w=800&q=80",
+    "detailUrl": "https://500px.com.cn/contest/2026sjyneml",
+    "applyUrl": "https://500px.com.cn/contest/2026sjyneml"
   },
   {
     "id": "cuc-ciic-2026",
@@ -2858,7 +3218,13 @@ let rawCompetitions = [
     ],
     "compMode": [
       "online"
-    ]
+    ],
+    "badgeText": "📌 即将开启",
+    "badgeType": "upcoming",
+    "posterSvg": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 180' width='100%' height='100%'>   <defs>     <linearGradient id='g_cuc-ciic-2026' x1='0%' y1='0%' x2='100%' y2='100%'>       <stop offset='0%' stop-color='%232e1065'/>       <stop offset='100%' stop-color='%234c1d95'/>     </linearGradient>     <linearGradient id='glow_cuc-ciic-2026' x1='0%' y1='0%' x2='100%' y2='0%'>       <stop offset='0%' stop-color='%23a78bfa' stop-opacity='0.8'/>       <stop offset='100%' stop-color='%23a78bfa' stop-opacity='0.1'/>     </linearGradient>   </defs>   <rect width='400' height='180' fill='url(%23g_cuc-ciic-2026)'/>   <circle cx='360' cy='30' r='90' fill='%23a78bfa' opacity='0.08'/>   <circle cx='30' cy='150' r='70' fill='%23a78bfa' opacity='0.06'/>   <path d='M0 160 Q 200 130 400 170' stroke='url(%23glow_cuc-ciic-2026)' stroke-width='2' fill='none' opacity='0.4'/>   <text x='24' y='44' font-size='28'>🎬</text>   <text x='62' y='38' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif' font-size='11.5' font-weight='700' fill='%23a78bfa' letter-spacing='1'>AI 影视与内容创作大奖赛</text>   <text x='24' y='90' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='17' font-weight='800' fill='%23ffffff'>中国传媒大学 · 中国创新影像大赛</text>   <rect x='24' y='112' width='6' height='6' rx='3' fill='%23a78bfa'/>   <text x='36' y='118' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11.5' fill='%23cbd5e1' font-weight='500'>中国电影电视技术学会 / 中国传媒大学 / 北京</text>   <rect x='24' y='136' width='352' height='28' rx='6' fill='rgba(0,0,0,0.3)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/>   <text x='34' y='154' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11' font-weight='700' fill='%23fb7185'>💰 国家级学会荣誉证书 ｜ 高校师生国家级学术成果认证 ｜ 头部视听机构产学</text> </svg>",
+    "posterUrl": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800&q=80",
+    "detailUrl": "https://www.csmpte.com/zt/ciic2025/index.shtml",
+    "applyUrl": "https://www.csmpte.com/zt/ciic2025/index.shtml"
   },
   {
     "id": "hf-mcp-2026",
@@ -2902,7 +3268,13 @@ let rawCompetitions = [
     ],
     "compMode": [
       "online"
-    ]
+    ],
+    "badgeText": "📌 即将开启",
+    "badgeType": "upcoming",
+    "posterSvg": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 180' width='100%' height='100%'>   <defs>     <linearGradient id='g_hf-mcp-2026' x1='0%' y1='0%' x2='100%' y2='100%'>       <stop offset='0%' stop-color='%230c4a6e'/>       <stop offset='100%' stop-color='%230369a1'/>     </linearGradient>     <linearGradient id='glow_hf-mcp-2026' x1='0%' y1='0%' x2='100%' y2='0%'>       <stop offset='0%' stop-color='%2338bdf8' stop-opacity='0.8'/>       <stop offset='100%' stop-color='%2338bdf8' stop-opacity='0.1'/>     </linearGradient>   </defs>   <rect width='400' height='180' fill='url(%23g_hf-mcp-2026)'/>   <circle cx='360' cy='30' r='90' fill='%2338bdf8' opacity='0.08'/>   <circle cx='30' cy='150' r='70' fill='%2338bdf8' opacity='0.06'/>   <path d='M0 160 Q 200 130 400 170' stroke='url(%23glow_hf-mcp-2026)' stroke-width='2' fill='none' opacity='0.4'/>   <text x='24' y='44' font-size='28'>🤖</text>   <text x='62' y='38' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif' font-size='11.5' font-weight='700' fill='%2338bdf8' letter-spacing='1'>AI 应用 & AGENT 开发者黑客松</text>   <text x='24' y='90' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='17' font-weight='800' fill='%23ffffff'>Hugging Face Agen...</text>   <rect x='24' y='112' width='6' height='6' rx='3' fill='%2338bdf8'/>   <text x='36' y='118' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11.5' fill='%23cbd5e1' font-weight='500'>Hugging Face / Anthropic</text>   <rect x='24' y='136' width='352' height='28' rx='6' fill='rgba(0,0,0,0.3)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/>   <text x='34' y='154' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11' font-weight='700' fill='%23fb7185'>💰 $11,000+ 现金奖池 ｜ 赞助商模型 API 算力卡包 ｜ Hug</text> </svg>",
+    "posterUrl": "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=800&q=80",
+    "detailUrl": "https://huggingface.co/Agents-MCP-Hackathon",
+    "applyUrl": "https://huggingface.co/Agents-MCP-Hackathon"
   },
   {
     "id": "capcut-create-2026",
@@ -2947,13 +3319,171 @@ let rawCompetitions = [
     ],
     "compMode": [
       "online"
-    ]
+    ],
+    "badgeText": "📌 即将开启",
+    "badgeType": "upcoming",
+    "posterSvg": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 180' width='100%' height='100%'>   <defs>     <linearGradient id='g_capcut-create-2026' x1='0%' y1='0%' x2='100%' y2='100%'>       <stop offset='0%' stop-color='%232e1065'/>       <stop offset='100%' stop-color='%234c1d95'/>     </linearGradient>     <linearGradient id='glow_capcut-create-2026' x1='0%' y1='0%' x2='100%' y2='0%'>       <stop offset='0%' stop-color='%23a78bfa' stop-opacity='0.8'/>       <stop offset='100%' stop-color='%23a78bfa' stop-opacity='0.1'/>     </linearGradient>   </defs>   <rect width='400' height='180' fill='url(%23g_capcut-create-2026)'/>   <circle cx='360' cy='30' r='90' fill='%23a78bfa' opacity='0.08'/>   <circle cx='30' cy='150' r='70' fill='%23a78bfa' opacity='0.06'/>   <path d='M0 160 Q 200 130 400 170' stroke='url(%23glow_capcut-create-2026)' stroke-width='2' fill='none' opacity='0.4'/>   <text x='24' y='44' font-size='28'>🎬</text>   <text x='62' y='38' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif' font-size='11.5' font-weight='700' fill='%23a78bfa' letter-spacing='1'>AI 影视与内容创作大奖赛</text>   <text x='24' y='90' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='17' font-weight='800' fill='%23ffffff'>CapCut CRE[AI]TE ...</text>   <rect x='24' y='112' width='6' height='6' rx='3' fill='%23a78bfa'/>   <text x='36' y='118' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11.5' fill='%23cbd5e1' font-weight='500'>CapCut (剪映国际版) 官方</text>   <rect x='24' y='136' width='352' height='28' rx='6' fill='rgba(0,0,0,0.3)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/>   <text x='34' y='154' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11' font-weight='700' fill='%23fb7185'>💰 $200,000 美元总奖金池 ｜ TikTok 与 CapCut 全球</text> </svg>",
+    "posterUrl": "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=800&q=80",
+    "detailUrl": "https://scouts.yutori.com/42b03485-f3e8-4c9e-826a-303831c60402",
+    "applyUrl": "https://scouts.yutori.com/42b03485-f3e8-4c9e-826a-303831c60402"
+  },
+  {
+    "id": "libtv-gaode-aliyun-2026",
+    "name": "高德 x LibTV x 阿里云 ｜「走，我们扫街」AI 视频大赛",
+    "category": "film",
+    "subCategory": "商业出行与大模型生态",
+    "categoryLabel": "AI 影视与创作",
+    "organizer": "高德地图 / LibTV (哩布哩布) / 阿里云",
+    "region": "china",
+    "regionText": "国内",
+    "status": "🟢 正在报名中",
+    "statusType": "ongoing",
+    "deadline": "2026年08月31日 23:59 (当期截稿)",
+    "deadlineTag": "⏳ 截止倒计时：约 16 天",
+    "deadlineDate": "2026-08-31",
+    "timelineDetails": "8 月中旬启动 ｜ 8 月 31 日当期投稿截止 ｜ 9 月上旬公布获奖名单并在高德及 LibTV 首页展播",
+    "prizes": "总奖金 15 万元现金 ｜ 高德地图百亿级出行流量曝光 ｜ 阿里云与 LibTV 算力礼包",
+    "prizeBreakdown": "一等奖 50,000 元现金 (1名)；二等奖 20,000 元 (3名)；三等奖 5,000 元 (8名)；LibTV 专属创作积分",
+    "prizeScore": 150000,
+    "prestigeScore": 88,
+    "prestigeTier": "T2 行业权威与大厂创投",
+    "prestigeColor": "#dc2626",
+    "incentives": [
+      "cash",
+      "traffic",
+      "compute"
+    ],
+    "formats": [
+      "short"
+    ],
+    "specs": "15 秒至 2 分钟；横屏或竖屏；围绕城市探索、扫街日记、市井烟火或未来城市出行展开；1080P/4K 高清",
+    "requirements": "15s–2min；围绕高德城市扫街主题；深度使用 LibTV 或开源 ComfyUI",
+    "aiRatio": "AI 视频生成、场景重绘与多模态风格化渲染比例 ≥ 70%",
+    "deliverables": "视频成片 + 在 LibTV 活动专区提交工程记录 + 社交平台带话题发布",
+    "evalCriteria": "城市街头烟火气与叙事感 (40%)、AI 运镜稳定性与光影质感 (35%)、商业创意融入度 (25%)",
+    "proTips": "结合高德地标、街景真实照片进行图生视频或使用 LibTV 3D 导演台规划运镜，能大幅提升画面真实度与电影感。",
+    "toolchains": [
+      "comfyui",
+      "kling"
+    ],
+    "compMode": [
+      "online"
+    ],
+    "searchKeywords": "高德 LibTV 哩布哩布 阿里云 扫街 15万 视频",
+    "detailUrl": "https://www.liblib.tv/activity/53",
+    "applyUrl": "https://www.liblib.tv/activity/53",
+    "link": "https://www.liblib.tv/activity/53",
+    "posterUrl": "https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=800&q=80",
+    "badgeText": "⏳ 还剩 16 天",
+    "badgeType": "medium",
+    "posterSvg": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 180' width='100%' height='100%'>   <defs>     <linearGradient id='g_libtv-gaode-aliyun-2026' x1='0%' y1='0%' x2='100%' y2='100%'>       <stop offset='0%' stop-color='%232e1065'/>       <stop offset='100%' stop-color='%234c1d95'/>     </linearGradient>     <linearGradient id='glow_libtv-gaode-aliyun-2026' x1='0%' y1='0%' x2='100%' y2='0%'>       <stop offset='0%' stop-color='%23a78bfa' stop-opacity='0.8'/>       <stop offset='100%' stop-color='%23a78bfa' stop-opacity='0.1'/>     </linearGradient>   </defs>   <rect width='400' height='180' fill='url(%23g_libtv-gaode-aliyun-2026)'/>   <circle cx='360' cy='30' r='90' fill='%23a78bfa' opacity='0.08'/>   <circle cx='30' cy='150' r='70' fill='%23a78bfa' opacity='0.06'/>   <path d='M0 160 Q 200 130 400 170' stroke='url(%23glow_libtv-gaode-aliyun-2026)' stroke-width='2' fill='none' opacity='0.4'/>   <text x='24' y='44' font-size='28'>🎬</text>   <text x='62' y='38' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif' font-size='11.5' font-weight='700' fill='%23a78bfa' letter-spacing='1'>AI 影视与内容创作大奖赛</text>   <text x='24' y='90' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='17' font-weight='800' fill='%23ffffff'>高德 x LibTV x 阿里云 ...</text>   <rect x='24' y='112' width='6' height='6' rx='3' fill='%23a78bfa'/>   <text x='36' y='118' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11.5' fill='%23cbd5e1' font-weight='500'>高德地图 / LibTV (哩布哩布) / 阿里</text>   <rect x='24' y='136' width='352' height='28' rx='6' fill='rgba(0,0,0,0.3)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/>   <text x='34' y='154' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11' font-weight='700' fill='%23fb7185'>💰 总奖金 15 万元现金 ｜ 高德地图百亿级出行流量曝光 ｜ 阿里云与 L</text> </svg>"
+  },
+  {
+    "id": "tapnow-creative-os-s1",
+    "name": "TapNow Creative OS 用例创作挑战赛 (S1 赛季)",
+    "category": "film",
+    "subCategory": "AI 创意工作流挑战",
+    "categoryLabel": "AI 影视与创作",
+    "organizer": "TapNow AI 官方",
+    "region": "global",
+    "regionText": "全球",
+    "status": "🟢 正在报名中",
+    "statusType": "ongoing",
+    "deadline": "2026年08月31日 23:59 (当赛季截稿)",
+    "deadlineTag": "⏳ 截止倒计时：约 16 天",
+    "deadlineDate": "2026-08-31",
+    "timelineDetails": "8 月全月开放 ｜ S1 赛季聚焦创意工作流与 AI 叙事短片 ｜ 每月末评审下发奖金与算力",
+    "prizes": "1,000,000+ Tapies 平台高阶算力积分 ｜ 官方精选工作流收益分成 ｜ 社区全球置顶推优",
+    "prizeBreakdown": "赛季金奖 300,000 Tapies 积分 + 现金奖励；入选官方精选画布享受后续调用持续收益分账",
+    "prizeScore": 50000,
+    "prestigeScore": 82,
+    "prestigeTier": "T3 知名垂直品牌与特色赛",
+    "prestigeColor": "#d97706",
+    "incentives": [
+      "compute",
+      "traffic",
+      "cash"
+    ],
+    "formats": [
+      "short",
+      "agent"
+    ],
+    "specs": "公开的 TapNow Canvas 工作流画布 + 15 秒至 3 分钟成片 Demo；展示端到端 AI 创制链路",
+    "requirements": "在 TapNow 平台公开画布；提交成片与工作流用例说明",
+    "aiRatio": "全流程 TapNow Creative OS 节点编排与多模型混合生成",
+    "deliverables": "公开 TapNow Canvas 链接 + 演示视频成片 + 提示词与节点使用指南",
+    "evalCriteria": "工作流复用性与创新度 (45%)、成片视觉美学 (35%)、教程文档清晰度 (20%)",
+    "proTips": "设计具备高复用价值的特定风格工作流（如赛博国风、二次元动效、超逼真写实光影）最容易获得官方重磅推荐与长期分成。",
+    "toolchains": [
+      "general"
+    ],
+    "compMode": [
+      "online"
+    ],
+    "searchKeywords": "TapNow CreativeOS 用例 挑战赛 积分 算力 工作流",
+    "detailUrl": "https://app.tapnow.ai/event/51",
+    "applyUrl": "https://app.tapnow.ai/event/51",
+    "link": "https://app.tapnow.ai/event/51",
+    "posterUrl": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=800&q=80",
+    "badgeText": "⏳ 还剩 16 天",
+    "badgeType": "medium",
+    "posterSvg": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 180' width='100%' height='100%'>   <defs>     <linearGradient id='g_tapnow-creative-os-s1' x1='0%' y1='0%' x2='100%' y2='100%'>       <stop offset='0%' stop-color='%232e1065'/>       <stop offset='100%' stop-color='%234c1d95'/>     </linearGradient>     <linearGradient id='glow_tapnow-creative-os-s1' x1='0%' y1='0%' x2='100%' y2='0%'>       <stop offset='0%' stop-color='%23a78bfa' stop-opacity='0.8'/>       <stop offset='100%' stop-color='%23a78bfa' stop-opacity='0.1'/>     </linearGradient>   </defs>   <rect width='400' height='180' fill='url(%23g_tapnow-creative-os-s1)'/>   <circle cx='360' cy='30' r='90' fill='%23a78bfa' opacity='0.08'/>   <circle cx='30' cy='150' r='70' fill='%23a78bfa' opacity='0.06'/>   <path d='M0 160 Q 200 130 400 170' stroke='url(%23glow_tapnow-creative-os-s1)' stroke-width='2' fill='none' opacity='0.4'/>   <text x='24' y='44' font-size='28'>🎬</text>   <text x='62' y='38' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif' font-size='11.5' font-weight='700' fill='%23a78bfa' letter-spacing='1'>AI 影视与内容创作大奖赛</text>   <text x='24' y='90' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='17' font-weight='800' fill='%23ffffff'>TapNow Creative O...</text>   <rect x='24' y='112' width='6' height='6' rx='3' fill='%23a78bfa'/>   <text x='36' y='118' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11.5' fill='%23cbd5e1' font-weight='500'>TapNow AI 官方</text>   <rect x='24' y='136' width='352' height='28' rx='6' fill='rgba(0,0,0,0.3)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/>   <text x='34' y='154' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11' font-weight='700' fill='%23fb7185'>💰 1,000,000+ Tapies 平台高阶算力积分 ｜ 官方精选工作流</text> </svg>"
+  },
+  {
+    "id": "metamorph-tapnow-2026",
+    "name": "MetaMorph x TapNow 全球季节性 AI 电影季 (2026-2027)",
+    "category": "film",
+    "subCategory": "国际青年电影奖",
+    "categoryLabel": "AI 影视与创作",
+    "organizer": "MetaMorph 电影节 / TapNow AI / FilmFreeway",
+    "region": "global",
+    "regionText": "国际 / 全球",
+    "status": "🟢 正在报名中",
+    "statusType": "ongoing",
+    "deadline": "2026年10月15日 (秋季赛季截止)",
+    "deadlineTag": "⏳ 秋季赛季倒计时：约 61 天",
+    "deadlineDate": "2026-10-15",
+    "timelineDetails": "秋季赛季 8.01–10.15 ｜ 冬季赛季 10.16–12.30 ｜ 春季与夏季轮动 ｜ 2027 年举行年度总颁奖典礼",
+    "prizes": "单赛季 £500 英镑现金 ＋ 30,000 Tapies 算力 ｜ 直通 2027 MetaMorph AI Award 伦敦总决赛",
+    "prizeBreakdown": "每季度冠军 £500 现金 + 20,000 积分；亚军 10,000 积分；八强入围直通 2027 伦敦红毯大奖角逐",
+    "prizeScore": 60000,
+    "prestigeScore": 86,
+    "prestigeTier": "T2 行业权威与大厂创投",
+    "prestigeColor": "#dc2626",
+    "incentives": [
+      "cash",
+      "compute",
+      "festival"
+    ],
+    "formats": [
+      "short"
+    ],
+    "specs": "1–10 分钟短片；1080P/4K 高清；必须在 TapNow 平台公开生成画布以供评委核验创作流程",
+    "requirements": "成片 1–10min；至少 50% 画面使用 TapNow 生成；在 TapNow 公开制作画布",
+    "aiRatio": "至少 50% 核心视听资产由生成式 AI 工作流构建，画布设为 Public",
+    "deliverables": "视频成片 + FilmFreeway 申报或 TapNow 专属活动页提交 + 公开画布链接",
+    "evalCriteria": "叙事艺术感染力 (40%)、视听技术完成度 (35%)、工作流透明度 (25%)",
+    "proTips": "免费申报（Free Entry）！这是通往英国及欧洲 AI 电影圈最轻量友好的渠道；重点打磨英文字幕与声音质感。",
+    "toolchains": [
+      "general"
+    ],
+    "compMode": [
+      "online"
+    ],
+    "searchKeywords": "MetaMorph TapNow FilmFreeway 英国 电影季 伦敦",
+    "detailUrl": "https://filmfreeway.com/MetaMorphxTapNow",
+    "applyUrl": "https://app.tapnow.ai/event/50",
+    "link": "https://app.tapnow.ai/event/50",
+    "posterUrl": "https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=800&q=80",
+    "badgeText": "⏳ 还剩 61 天",
+    "badgeType": "normal",
+    "posterSvg": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 180' width='100%' height='100%'>   <defs>     <linearGradient id='g_metamorph-tapnow-2026' x1='0%' y1='0%' x2='100%' y2='100%'>       <stop offset='0%' stop-color='%232e1065'/>       <stop offset='100%' stop-color='%234c1d95'/>     </linearGradient>     <linearGradient id='glow_metamorph-tapnow-2026' x1='0%' y1='0%' x2='100%' y2='0%'>       <stop offset='0%' stop-color='%23a78bfa' stop-opacity='0.8'/>       <stop offset='100%' stop-color='%23a78bfa' stop-opacity='0.1'/>     </linearGradient>   </defs>   <rect width='400' height='180' fill='url(%23g_metamorph-tapnow-2026)'/>   <circle cx='360' cy='30' r='90' fill='%23a78bfa' opacity='0.08'/>   <circle cx='30' cy='150' r='70' fill='%23a78bfa' opacity='0.06'/>   <path d='M0 160 Q 200 130 400 170' stroke='url(%23glow_metamorph-tapnow-2026)' stroke-width='2' fill='none' opacity='0.4'/>   <text x='24' y='44' font-size='28'>🎬</text>   <text x='62' y='38' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif' font-size='11.5' font-weight='700' fill='%23a78bfa' letter-spacing='1'>AI 影视与内容创作大奖赛</text>   <text x='24' y='90' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='17' font-weight='800' fill='%23ffffff'>MetaMorph x TapNo...</text>   <rect x='24' y='112' width='6' height='6' rx='3' fill='%23a78bfa'/>   <text x='36' y='118' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11.5' fill='%23cbd5e1' font-weight='500'>MetaMorph 电影节 / TapNow A</text>   <rect x='24' y='136' width='352' height='28' rx='6' fill='rgba(0,0,0,0.3)' stroke='rgba(255,255,255,0.1)' stroke-width='1'/>   <text x='34' y='154' font-family='-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif' font-size='11' font-weight='700' fill='%23fb7185'>💰 单赛季 £500 英镑现金 ＋ 30,000 Tapies 算力 ｜ 直</text> </svg>"
   }
 ];
 
 const state = {
     category: 'all',
-    status: 'all',
+    status: 'ongoing', // DEFAULT: 正在报名中
     tier: 'all',
     toolchain: 'all',
     format: 'all',
@@ -2961,11 +3491,40 @@ const state = {
     region: 'all',
     compMode: 'all',
     search: '',
-    sortBy: 'prestige-desc',
+    sortBy: 'deadline-asc', // DEFAULT: 截止倒计时升序
     viewMode: 'grid',
     calYear: 2026,
     calMonth: 8 // August 2026
 };
+
+// Helper: Calculate exact live countdown tag based on deadlineDate
+function computeCountdownBadge(c) {
+    if (!c.deadlineDate) {
+        return { text: '🔄 常态化征集中', type: 'rolling' };
+    }
+    const today = new Date('2026-08-15');
+    const target = new Date(c.deadlineDate);
+    const diffTime = target - today;
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    
+    if (diffDays < 0) {
+        return { text: '已截止', type: 'closed' };
+    } else if (diffDays === 0) {
+        return { text: '⚠️ 今日截止', type: 'urgent' };
+    } else if (diffDays <= 7) {
+        return { text: `⏳ 还剩 ${diffDays} 天`, type: 'urgent' };
+    } else if (diffDays <= 30) {
+        return { text: `⏳ 还剩 ${diffDays} 天`, type: 'medium' };
+    } else if (diffDays <= 90) {
+        return { text: `⏳ 还剩 ${diffDays} 天`, type: 'normal' };
+    } else {
+        if (c.statusType === 'upcoming') {
+            return { text: '📌 即将开启', type: 'upcoming' };
+        } else {
+            return { text: '🔄 常态化征集中', type: 'rolling' };
+        }
+    }
+}
 
 function initTabsAndPills() {
     // Category Tabs
@@ -3049,7 +3608,7 @@ function changeCalMonth(delta) {
 
 function resetAllFilters() {
     state.category = 'all';
-    state.status = 'all';
+    state.status = 'ongoing';
     state.tier = 'all';
     state.toolchain = 'all';
     state.format = 'all';
@@ -3057,12 +3616,12 @@ function resetAllFilters() {
     state.region = 'all';
     state.compMode = 'all';
     state.search = '';
-    state.sortBy = 'prestige-desc';
+    state.sortBy = 'deadline-asc';
 
     document.querySelectorAll('#categoryTabs .nav-tab').forEach(t => t.classList.toggle('active', t.getAttribute('data-cat') === 'all'));
     document.querySelectorAll('#statusPills .status-pill').forEach(p => {
-        p.classList.remove('active-ongoing', 'active-upcoming');
-        p.classList.toggle('active', p.getAttribute('data-status') === 'all');
+        p.classList.remove('active', 'active-upcoming');
+        p.classList.toggle('active-ongoing', p.getAttribute('data-status') === 'ongoing');
     });
 
     ['selectTier', 'selectTool', 'selectFormat', 'selectIncentive', 'selectRegion', 'selectCompMode'].forEach(id => {
@@ -3074,7 +3633,7 @@ function resetAllFilters() {
     });
 
     document.getElementById('searchInput').value = '';
-    document.getElementById('sortSelect').value = 'prestige-desc';
+    document.getElementById('sortSelect').value = 'deadline-asc';
 
     applyFilters();
 }
@@ -3197,7 +3756,9 @@ function render(items) {
     if (items.length === 0) {
         grid.innerHTML = `<div class="empty-state" style="grid-column: 1 / -1;">未找到符合当前多维筛选条件的赛事，请点击「↺ 重置筛选」后重试。</div>`;
     } else {
-        grid.innerHTML = items.map(c => `
+        grid.innerHTML = items.map(c => {
+            const badge = computeCountdownBadge(c);
+            return `
             <div class="card">
                 <div>
                     <div class="card-top">
@@ -3206,7 +3767,7 @@ function render(items) {
                             <span class="badge badge-${c.category}">${c.categoryLabel}</span>
                             <span class="badge-sub">${c.regionText}</span>
                         </div>
-                        <span class="badge-status status-${c.statusType}">${c.statusType === 'ongoing' ? '🟢 正在报名' : '🟡 即将开启'}</span>
+                        <span class="badge-countdown ${badge.type}">${badge.text}</span>
                     </div>
 
                     <div class="card-title">${c.name}</div>
@@ -3261,39 +3822,58 @@ function render(items) {
                     <a href="${c.link}" target="_blank" class="link-btn">直达官方报名入口 ↗</a>
                 </div>
             </div>
-        `).join('');
+            `;
+        }).join('');
     }
 
-    // 2. Render Overview Cards (AIBetas Style)
+    // 2. Render Overview Cards (带官方赛事海报视觉 + 极简参数)
     const overviewGrid = document.getElementById('competitionsOverviewGrid');
     if (items.length === 0) {
         overviewGrid.innerHTML = `<div class="empty-state" style="grid-column: 1 / -1;">未找到符合条件的赛事。</div>`;
     } else {
-        overviewGrid.innerHTML = items.map(c => `
-            <div class="overview-card">
-                <div>
-                    <div class="overview-header">
-                        <span class="badge badge-${c.category}">${c.categoryLabel}</span>
-                        <span class="badge-status status-${c.statusType}">${c.statusType === 'ongoing' ? '🟢 正在报名' : '🟡 即将开启'}</span>
-                    </div>
-                    <div class="overview-title" title="${c.name}">${c.name}</div>
-                    
-                    <div class="overview-meta-row">
-                        <span class="overview-meta-label">主办方：</span>
-                        <span style="color: #1e293b; font-weight: 500;">${c.organizer}</span>
-                    </div>
-                    <div class="overview-meta-row">
-                        <span class="overview-meta-label">奖金额度：</span>
-                        <span class="overview-prize">${c.prizes}</span>
-                    </div>
+        overviewGrid.innerHTML = items.map(c => {
+            const badge = computeCountdownBadge(c);
+            const posterSrc = c.posterSvg || '';
+            return `
+            <div class="aibetas-card">
+                <!-- Top Poster Banner with Floating Badges -->
+                <div class="aibetas-poster-wrap">
+                    <img class="aibetas-poster-img" src="${c.posterUrl || c.posterSvg}" alt="${c.name}" referrerpolicy="no-referrer" onerror="this.onerror=null; this.src='${c.posterSvg}';">
+                    <span class="aibetas-poster-tag">${c.categoryLabel}</span>
+                    <span class="badge-countdown aibetas-poster-badge ${badge.type}">${badge.text}</span>
                 </div>
 
-                <div class="overview-footer">
-                    <div class="overview-deadline">⏰ ${c.deadlineDate ? c.deadlineDate : '进行中'} <span style="color: #b45309; font-weight: 700;">(${c.deadlineTag})</span></div>
-                    <a href="${c.link}" target="_blank" class="link-btn" style="padding: 4px 10px; font-size: 11.5px;">查看报名 ↗</a>
+                <!-- Clean Card Body -->
+                <div class="aibetas-body">
+                    <div>
+                        <div class="aibetas-title" title="${c.name}">${c.name}</div>
+                        
+                        <!-- Ultra-Concise Meta Box -->
+                        <div class="aibetas-meta-box">
+                            <div class="aibetas-meta-row">
+                                <span class="aibetas-meta-label">主办方：</span>
+                                <span class="aibetas-meta-val" title="${c.organizer}">${c.organizer}</span>
+                            </div>
+                            <div class="aibetas-meta-row">
+                                <span class="aibetas-meta-label">奖金池：</span>
+                                <span class="aibetas-prize-val" title="${c.prizes}">${c.prizes}</span>
+                            </div>
+                            <div class="aibetas-meta-row">
+                                <span class="aibetas-meta-label">截止日：</span>
+                                <span class="aibetas-meta-val" style="color: #475569;">${c.deadlineDate ? c.deadlineDate : c.deadline} (${badge.text})</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="aibetas-footer-actions">
+                        <a href="${c.detailUrl || c.link}" target="_blank" class="aibetas-btn-detail">查看详情</a>
+                        <a href="${c.applyUrl || c.link}" target="_blank" class="aibetas-btn-apply">立即报名 ↗</a>
+                    </div>
                 </div>
             </div>
-        `).join('');
+            `;
+        }).join('');
     }
 
     // 3. Render Table Rows
@@ -3331,7 +3911,7 @@ function render(items) {
 }
 
 // -------------------------------------------------------------
-// 🌟 核心新功能：截止时间日历界面渲染器 (AIBetas 竞赛日历标准)
+// 🌟 截止时间日历界面渲染器 (AIBetas 竞赛日历标准)
 // -------------------------------------------------------------
 function renderCalendar(items) {
     const y = state.calYear;
@@ -3339,19 +3919,16 @@ function renderCalendar(items) {
     document.getElementById('calMonthTitle').innerHTML = `📅 ${y} 年 ${m} 月 · AI 赛事截稿日历`;
 
     const calGrid = document.getElementById('calendarDaysGrid');
-    const firstDay = new Date(y, m - 1, 1).getDay(); // 0 is Sunday
+    const firstDay = new Date(y, m - 1, 1).getDay();
     const daysInMonth = new Date(y, m, 0).getDate();
     
-    // Day headers
     let html = ['一', '二', '三', '四', '五', '六', '日'].map(d => `<div class="cal-day-header">周${d}</div>`).join('');
     
-    // Empty cells before first day (adjust for Monday start)
     const emptyOffset = (firstDay === 0 ? 7 : firstDay) - 1;
     for (let i = 0; i < emptyOffset; i++) {
         html += `<div class="cal-cell" style="opacity: 0.3;"></div>`;
     }
 
-    // Days in current month
     const monthStr = (m < 10 ? '0' : '') + m;
     const monthPrefix = `${y}-${monthStr}`;
 
@@ -3361,13 +3938,12 @@ function renderCalendar(items) {
         const dayStr = (day < 10 ? '0' : '') + day;
         const fullDate = `${monthPrefix}-${dayStr}`;
         
-        // Find matching events on this date
         const dayEvents = items.filter(c => c.deadlineDate === fullDate);
         if (dayEvents.length > 0) {
             dayEvents.forEach(e => monthEvents.push({ date: fullDate, comp: e }));
         }
 
-        const isToday = (fullDate === '2026-08-14'); // Current date anchor
+        const isToday = (fullDate === '2026-08-15');
 
         html += `
             <div class="cal-cell ${dayEvents.length > 0 ? 'has-events' : ''} ${isToday ? 'is-today' : ''}">
@@ -3383,7 +3959,6 @@ function renderCalendar(items) {
 
     calGrid.innerHTML = html;
 
-    // Render Timeline Agenda List below calendar
     const agendaList = document.getElementById('timelineAgendaList');
     if (monthEvents.length === 0) {
         agendaList.innerHTML = `<div style="font-size: 13px; color: #94a3b8; padding: 12px 0;">当前所选月份暂无精确到日期的赛事截稿（可切换上/下一月查看）。</div>`;
@@ -3450,6 +4025,14 @@ async function syncLiveSheetData() {
                 
                 const isOngoing = deadline.includes('进行中') || deadline.includes('正在报名') || deadline.includes('2026') || deadline.includes('倒计时');
                 
+                let deadlineDate = '2026-12-31';
+                const dateMatch = deadline.match(/2026[年.-](\d{1,2})[月.-](\d{1,2})/);
+                if (dateMatch) {
+                    const m = dateMatch[1].padStart(2, '0');
+                    const d = dateMatch[2].padStart(2, '0');
+                    deadlineDate = `2026-${m}-${d}`;
+                }
+                
                 parsed.push({
                     id: 'sheet-item-' + idx,
                     name: name,
@@ -3464,6 +4047,7 @@ async function syncLiveSheetData() {
                     deadline: deadline || '详见官方公告',
                     deadlineTag: deadline.includes('倒计时') ? deadline.substring(deadline.indexOf('(')+1, deadline.indexOf(')')) : '📌 持续更新',
                     deadlineUrgent: deadline.includes('倒计时'),
+                    deadlineDate: deadlineDate,
                     timelineDetails: timeline || '滚动推进中',
                     prizes: prizes || '详见官方细则',
                     prizeBreakdown: prizes,
